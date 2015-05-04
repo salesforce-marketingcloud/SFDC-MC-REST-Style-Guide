@@ -1,50 +1,55 @@
 # Fuel API Standards
 
-## Versioning in the API
+# Versioning in the API
 
 The application protocol interface ("API") is versioned. Implementations MUST use an indicator in the uniform resource locator ("URL"). This indicator applies to the entire API as a whole. Resources MUST NOT be individually versioned.
 
 	GET /{version}/{service}/{+resource}
     GET /v2/contacts/contact/42
 
-### Version numbering schema
+See also [version location](jusification/versionlocation.md)
+
+## Version numbering schema
 
 Versions in URL MUST start with the letter "v" and are followed by the version number, which is a whole number. The version number is not tired to product releases.
 
     version = "v" 1*DIGIT
 
-## HTTP methods
+# HTTP methods
 
 The API uses the hyper text transfer protocol ("HTTP") and resources accept various HTTP methods on them.
 
-### DELETE
+## DELETE
 
 The identified resource MUST be deleted.
 
-### GET
+## GET
 
 The identified resource MUST be retrieved and MUST NOT produce any side-effects.
 
-### POST
+## POST
 A service MAY optionally support POST. A service supporting POST may support one or both of Sync and Async.
 
-#### Sync 
+### Sync 
 The resource contained in the request MUST be created.
 
 The server MUST respond with a 201 status and the created resource. The server SHOULD include the created identifier for the resource.
 
-#### Async 
+### Async 
 The server MUST respond with a 202 status and the created async task resource. An identifier in the task resource MUST be available for querying the eventually result. The service for the task resource identifier is available by linkage in the result.
 
-### PUT
+## PUT
 Creates or replaces a resource. A server SHOULD respond with a 200 when updating an existing resource or a 202 when creating a resource.
 
-### PATCH
+## PATCH
 Updates an existing resource in parts. Patch payload is defined elsewhere FIXME/TODO 
 
-## HTTP status codes
+## OPTIONS
+Servers MUST only be for ALLOW header and the purpose of cross-origin resource communication. Servers MUST NOT provide other information beyond allowed operations and cross-orgin resource headers.
 
-### Implicit
+# HTTP status codes
+
+## Implicit
 
 The API uses the hyper text transfer protocol ("HTTP") and provides various implicit status codes.
 
@@ -68,7 +73,7 @@ The API uses the hyper text transfer protocol ("HTTP") and provides various impl
 * 503 Service Unavailable
 * 504 Gateway Timeout
 
-### Explicit
+## Explicit
 
 * 200 OK
 * 201 Created
@@ -81,12 +86,36 @@ The API uses the hyper text transfer protocol ("HTTP") and provides various impl
 	* Authenticated but lack permission to resource/operation
 * 404 Not Found
 
-### Non-used
+## Non-used
 Explicitly forbidden 
 * 3xx
 
-### Codes usage with HTTP methods
+## Codes usage with HTTP methods
 * 201 MUST only be used with PUT & POST
 * 202 MUST only be used with Async requests
 * 200 MUST NOT be used with POST
+
+# Headers
+A specific set of headers are supported. A server MUST NOT respect any header outside of the defined list.
+
+## Cross origin resource sharing
+Support for CORS provides these headers
+* request: Origin
+* response: Access-Control-Allow-Origin
+* response: Access-Control- FIXME/TODO other ones
+
+## Localization
+No localization headers are accepted or returned.
+
+## Impersonation
+FIXME/TODO oauth scope tokens?
+
+
+# Response Body
+* Dates SHOULD include timezone
+	* Server MAY lack timezone for **recurring** events 
+
+# Request Body
+* Dates SHOULD include timezone
+	* Dates MAY lack timezone for **recurring** events 
 
