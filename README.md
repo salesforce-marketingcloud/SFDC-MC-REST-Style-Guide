@@ -105,7 +105,7 @@ Support for CORS provides these headers
 * response: Access-Control- FIXME/TODO other ones
 
 ## Localization
-No localization headers are accepted or returned.
+No localization headers are accepted or returned. [Localization justification](justification/localization.md)
 
 ## Impersonation
 FIXME/TODO oauth scope tokens?
