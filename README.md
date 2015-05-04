@@ -25,21 +25,22 @@ The identified resource MUST be deleted.
 
 The identified resource MUST be retrieved and MUST NOT produce any side-effects.
 
-### PATCH
-
 ### POST
+A service MAY optionally support POST. A service supporting POST may support one or both of Sync and Async.
 
+#### Sync 
 The resource contained in the request MUST be created.
 
 The server MUST respond with a 201 status and the created resource. The server SHOULD include the created identifier for the resource.
 
-Async usecases should return the created async task that contains an identifier to query the result of the async operation in the future.
+#### Async 
+The server MUST respond with a 202 status and the created async task resource. An identifier in the task resource MUST be available for querying the eventually result. The service for the task resource identifier is available by linkage in the result.
 
 ### PUT
+Creates or replaces a resource. A server SHOULD respond with a 200 when updating an existing resource or a 202 when creating a resource.
 
-* POST - MUST ONLY Creates things
-* PUT - ?? Updates entire things
-* PATCH - ?? Instructions about Updates to parts of, or entire, things
+### PATCH
+Updates an existing resource in parts. Patch payload is defined elsewhere FIXME/TODO 
 
 ## HTTP status codes
 
@@ -57,6 +58,7 @@ The API uses the hyper text transfer protocol ("HTTP") and provides various impl
 * 412 Precondition Failed
 * 413 Request Entity Too Large
 * 414 Request URI Too Long
+    * See also [async as header(asyncAsHeader)]
 * 415 Unsupported Media Type
 	* Unsupported Content-Type header
 * 416 Requested Range Not Satisfiable
@@ -80,17 +82,11 @@ The API uses the hyper text transfer protocol ("HTTP") and provides various impl
 * 404 Not Found
 
 ### Non-used
-
+Explicitly forbidden 
 * 3xx
 
 ### Codes usage with HTTP methods
+* 201 MUST only be used with PUT & POST
+* 202 MUST only be used with Async requests
+* 200 MUST NOT be used with POST
 
-* 201
-* 202
-* 200  
-
-## Glossary
-
-### Resource
-
-The "R" in URL. i.e. Any part of the URL is considered a resource identifier for the purposes of this document. Whether the resource references a complete collection, only partially identifies a collection, or a specific item is in-material. 
