@@ -5,13 +5,15 @@
 The application protocol interface ("API") is versioned. Implementations MUST use an indicator in the uniform resource locator ("URL"). This indicator applies to the entire API as a whole. Resources MUST NOT be individually versioned.
 
 	GET /{version}/{service}/{+resource}
-    GET /v2/contacts/contact/42
+    GET /v2/data/contacts/42
 
 See also [version location](jusification/versionlocation.md)
 
 ## Version numbering schema
 
-Versions in URL MUST start with the letter "v" and are followed by the version number, which is a whole number. The version number is not tired to product releases.
+Versions in URL MUST start with the letter "v" and are followed by the version
+number, which is a whole number. The version number is not tired to product
+releases.
 
     version = "v" 1*DIGIT
 
@@ -25,27 +27,33 @@ The identified resource MUST be deleted.
 
 ## GET
 
-The identified resource MUST be retrieved and MUST NOT produce any side-effects.
+The identified resource MUST be retrieved and MUST be idempotent. i.e. MUST NOT produce any side-effects.
 
 ## POST
-A service MAY optionally support POST. A service supporting POST may support one or both of Sync and Async.
+A service MAY optionally support POST. A service supporting POST MAY support one or both of Sync and Async.
 
 ### Sync 
 The resource contained in the request MUST be created.
 
-The server MUST respond with a 201 status and the created resource. The server SHOULD include the created identifier for the resource.
+The server MUST respond with a 201 status and the created resource. The server
+MUST include the created identifier for the resource.
 
 ### Async 
-The server MUST respond with a 202 status and the created async task resource. An identifier in the task resource MUST be available for querying the eventually result. The service for the task resource identifier is available by linkage in the result.
+The server MUST respond with a 202 status and the created async task resource.
+An identifier in the task resource MUST be available for querying the
+eventually result. A single async query service will be available.
 
 ## PUT
-Creates or replaces a resource. A server SHOULD respond with a 200 when updating an existing resource or a 202 when creating a resource.
+Creates or replaces a resource. A server SHOULD respond with a 200 when
+updating an existing resource or a 202 when creating a resource.
 
 ## PATCH
 Updates an existing resource in parts. Patch payload is defined elsewhere FIXME/TODO 
 
 ## OPTIONS
-Servers MUST only be for ALLOW header and the purpose of cross-origin resource communication. Servers MUST NOT provide other information beyond allowed operations and cross-orgin resource headers.
+Servers MUST only be for ALLOW header and the purpose of cross-origin resource
+communication. Servers MUST NOT provide other information beyond allowed
+operations and cross-orgin resource headers.
 
 # HTTP status codes
 
@@ -86,6 +94,9 @@ The API uses the hyper text transfer protocol ("HTTP") and provides various impl
 	* Authenticated but lack permission to resource/operation
 * 404 Not Found
 
+## Caching
+* 304
+
 ## Non-used
 Explicitly forbidden 
 * 3xx
@@ -109,7 +120,6 @@ No localization headers are accepted or returned. [Localization justification](j
 
 ## Impersonation
 FIXME/TODO oauth scope tokens?
-
 
 # Response Body
 * Dates SHOULD include timezone
