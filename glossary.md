@@ -10,3 +10,7 @@ The "R" in URL. i.e. Any part of the URL is considered a resource identifier for
 
 ## Collections
 Routes that return multiple objects are collections.
+
+## Relationship
+Between two objects a reference // TODO/FIXME
+

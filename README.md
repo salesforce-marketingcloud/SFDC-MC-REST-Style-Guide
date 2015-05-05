@@ -118,7 +118,8 @@ Servers MUST NOT send back with redirects
 * 200 MUST NOT be used with POST
 
 # Headers
-A specific set of headers are supported. A server MUST NOT respect any header outside of the defined list.
+A specific set of headers are supported. A server MUST NOT respect any header
+outside of the defined list.
 
 ## Cross origin resource sharing
 Support for CORS provides these headers
@@ -132,20 +133,125 @@ No localization headers are accepted or returned. [Localization justification](j
 ## Impersonation
 FIXME/TODO oauth scope tokens?
 
-
-
+## Logging
+* request: MAY "Original-Request-Id"
+* response: MUST "Request-Id"
+* response: MUST "Original-Request-Id" if request included "Original-Request-Id"
 
 # Response Body
 
-## Localization
-* Dates SHOULD include timezone
+## Envelope
+Server response MUST correspond to the format 
+* MUST "data" - array of data objects - contains response of route
+* MAY "meta" - object -  TODO/FIXME
+
+**Data Object**
+* MUST "id" - string - identifier for resource
+
+## Property names 
+* all MUST be camelCase 
+* properties containing a url MUST be suffixed with "Url"
+* dates MUST be suffixed with "Date"
+
+## Property types
+**Date** 
+* MUST always include date and time
+* MUST be ISO-8601 style of 2015-05-04T15:39:03Z
 	* Server MAY lack timezone for **recurring** events 
+	* MUST NOT include any other ISO-8601 date style
+	* requests MUST be in either 'Z' or plus/minus format
+
+**Number**
+* SHOULD NOT be quoted
+
+**Array**
+* MUST contain homogeneous values
+
+**Relationship**
+See also [Relationship definition](glossary.md)
+See also [Relationship object](justification/relationshipobject.md)
+* For 1-1 relationship MUST be an relationship object
+* For \*-n relationship MUST be an array of relationship object
+* Requests containing relationship objects MUST only modify relationship between the two resources
+	* Servers SHOULD error if properties outside of "id' are present in request
+
+**Relationship Object**
+* MUST contain "id" - string - reference id by object 
+* MUST NOT contain other object properties 
+	* See also [Views](#pattern)
+
+See pattern [Recurring events](pattern/recurringevent.md)
+
+## Metadata
+Servers MAY include a meta object root level of envelop. 
+
+**Meta Object**
+* MAY "totalCount" - Number - the number of total records in a collection response
+* MAY "links" - array of link objects - object defining relationships such as paging
+
+**Link object**
+MUST NOT include properties outside of set
+* MUST "href" - string - href to next state or page
+* MUST "name" - enum - description of href implying purpose
+	* valid names are "prev", "next", "self"
+	* MUST NOT use any other values
+	* See also [HATEOAS](justerification/hateoas.md)
+* MUST "path" - string - JSON path indicating the object link belongs to
+* MAY "method" - string - HTTP method to use with "href"
+
+### Example
+```json
+{
+	// TODO/FIXME crap example
+	"data" : [
+		{
+			"id" : "1",
+			"fooString" : "bar",
+			"fooDate" : "2015-06-02T12:00:00Z",
+			"fooArray" : [
+				"2015-06-02T12:00:00Z",
+				"2016-06-02T12:00:00Z",
+				"2017-06-02T12:00:00Z"
+			],
+
+			// 1-1 relation
+			"post" : {
+				"id" : "1"
+			}
+			// 1-n relation
+			"users" : [
+				 { "id" : "1" }
+				,{ "id" : "2" }
+			]
+			// n-n relation
+			"users" : [
+				 { "id" : "1" }
+				,{ "id" : "2" }
+			]
+		}
+	],
+
+
+	"meta" : {
+		// optional
+		"totalCount" : 1
+
+		"links" : [
+			{ "name" : "prev", "method": "GET", "href" : "object/1", "path" : "$.data.[0]" }
+			{ "name" : "next", "method": "GET", "href" : "object/1", "path" : "$.data.[0]" }
+		]
+	}
+}
+```
+
+## Localization
 
 ## Errors
 Error requests to a server SHOULD be idempotent (no side effect). Errors MUST be in the prescribed the error JSON format. HTTP content-type MUST NOT deviate from API's content-type.
 
 ### Error Format
 Error MUST NOT have any more than following properties
+* SHOULD "requestId" - string - "requestId" of the request
 * MUST "documentationUrl" - string - fully qualified URL to support site
 	* Support site SHOULD be localized and the JSON is not localized
 * MUST "statusCode" - int - MUST be the HTTP response code 
@@ -166,10 +272,16 @@ Validation errors SHOULD utilize JSON path
 ### Example
 ```json
 {
-	"documentationUrl" : "https://developer.salesforce.com/marketing_cloud/errors/server.failure.general",
-	"statusCode" :  500
-	"errorCode" : "server.failure.general"
-	"details" : []
+	"data" : [
+		{
+			"requestId" : "random string for internal debugging",
+			"documentationUrl" : "https://developer.salesforce.com/marketing_cloud/errors/server.failure.general",
+			"statusCode" :  500
+			"errorCode" : "server.failure.general"
+			"details" : []
+		}
+	],
+	"meta" : null
 }
 ```
 
@@ -191,26 +303,31 @@ Validation errors SHOULD utilize JSON path
 **Response**
 ```json
 {
-	"documentationUrl" : "https://developer.salesforce.com/marketing_cloud/errors/validation.error.aggregate",
-	"statusCode" :  400
-	"errorCode" : "validation.error.aggregate"
-	"details" : [
+	"data" : [
 		{
-			"documentationUrl" : "https://developer.salesforce.com/marketing_cloud/errors/validation.email.address",
-			"errorCode" : "validation.email.address"
-			"path" : "$.[0].emailaddress"
-		},
-		{
-			"documentationUrl" : "https://developer.salesforce.com/marketing_cloud/errors/validation.date",
-			"errorCode" : "validation.date"
-			"path" : "$.[0].date"
-		},
-		{
-			"documentationUrl" : "https://developer.salesforce.com/marketing_cloud/errors/validation.email.address",
-			"errorCode" : "validation.email.address"
-			"path" : "$.[1].emailaddress"
+			"documentationUrl" : "https://developer.salesforce.com/marketing_cloud/errors/validation.error.aggregate",
+			"statusCode" :  400
+			"errorCode" : "validation.error.aggregate"
+			"details" : [
+				{
+					"documentationUrl" : "https://developer.salesforce.com/marketing_cloud/errors/validation.email.address",
+					"errorCode" : "validation.email.address"
+					"path" : "$.[0].emailaddress"
+				},
+				{
+					"documentationUrl" : "https://developer.salesforce.com/marketing_cloud/errors/validation.date",
+					"errorCode" : "validation.date"
+					"path" : "$.[0].date"
+				},
+				{
+					"documentationUrl" : "https://developer.salesforce.com/marketing_cloud/errors/validation.email.address",
+					"errorCode" : "validation.email.address"
+					"path" : "$.[1].emailaddress"
+				}
+			]
 		}
-	]
+	],
+	"meta" : null
 }
 ```
 
