@@ -8,3 +8,5 @@ The "R" in URL. i.e. Any part of the URL is considered a resource identifier for
 * SHOULD Defines additional additivie behaviors
 * MUST NOT provide replacement of behavior
 
+## Collections
+Routes that return multiple objects are collections.

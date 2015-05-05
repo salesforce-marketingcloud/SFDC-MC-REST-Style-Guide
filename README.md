@@ -17,6 +17,14 @@ releases.
 
     version = "v" 1*DIGIT
 
+## Allowed modifications to a version 
+
+Servers MAY add endpoints
+
+Routes on a version MAY add properties to payload 
+
+Routes on a version MAY add optional query string parameters. Routes on a version MUST NOT add required parameters. 
+
 # HTTP methods
 
 The API uses the hyper text transfer protocol ("HTTP") and resources accept various HTTP methods on them.
@@ -46,6 +54,8 @@ eventually result. A single async query service will be available.
 ## PUT
 Creates or replaces a resource. A server SHOULD respond with a 200 when
 updating an existing resource or a 202 when creating a resource.
+
+Server MUST NOT support PUT against collection FIXME/TOOD?
 
 ## PATCH
 Updates an existing resource in parts. Patch payload is defined elsewhere FIXME/TODO 
@@ -93,13 +103,14 @@ The API uses the hyper text transfer protocol ("HTTP") and provides various impl
 * 403 Forbidden
 	* Authenticated but lack permission to resource/operation
 * 404 Not Found
+	* Routes SHOULD return 403 if resource exists but user lacks access
 
 ## Caching
+Servers MAY respond to if-modified and etag HTTP headers 
 * 304
 
-## Non-used
-Explicitly forbidden 
-* 3xx
+## Redirects
+Servers MUST NOT send back with redirects
 
 ## Codes usage with HTTP methods
 * 201 MUST only be used with PUT & POST
@@ -121,11 +132,112 @@ No localization headers are accepted or returned. [Localization justification](j
 ## Impersonation
 FIXME/TODO oauth scope tokens?
 
+
+
+
 # Response Body
+
+## Localization
 * Dates SHOULD include timezone
 	* Server MAY lack timezone for **recurring** events 
+
+## Errors
+Error requests to a server SHOULD be idempotent (no side effect). Errors MUST be in the prescribed the error JSON format. HTTP content-type MUST NOT deviate from API's content-type.
+
+### Error Format
+Error MUST NOT have any more than following properties
+* MUST "documentationUrl" - string - fully qualified URL to support site
+	* Support site SHOULD be localized and the JSON is not localized
+* MUST "statusCode" - int - MUST be the HTTP response code 
+* MUST "errorCode" - string - MUST be English US-ASCII dot separated value (no whitespace)
+	* Used codes MUST be registered with Salesforce API platform team process
+* MUST "details" - array of "error detail object" 
+	* Provides context for the error 
+	* Validation errors SHOULD have detail object for each validation error
+
+**Error Detail Object Format**
+* MUST "documentationUrl" - string - fully qualified URL to support site
+* MUST "errorCode" - string - MUST be English US-ASCII dot separated value (no whitespace)
+* MAY "path" - JSON path format - definition of JSON path that caused issue
+
+### Validation Details
+Validation errors SHOULD utilize JSON path 
+
+### Example
+```json
+{
+	"documentationUrl" : "https://developer.salesforce.com/marketing_cloud/errors/server.failure.general",
+	"statusCode" :  500
+	"errorCode" : "server.failure.general"
+	"details" : []
+}
+```
+
+### Validation Example
+**Request POST**
+```json
+[
+	{
+		"date" : "not valid date"
+		"emailaddress" : "foo_not_valid@"
+	},
+	{
+		"date" : "2015-06-02T12:00:00.000Z"
+		"emailaddress" : "@bar_not_valid.com"
+	}
+]
+```
+
+**Response**
+```json
+{
+	"documentationUrl" : "https://developer.salesforce.com/marketing_cloud/errors/validation.error.aggregate",
+	"statusCode" :  400
+	"errorCode" : "validation.error.aggregate"
+	"details" : [
+		{
+			"documentationUrl" : "https://developer.salesforce.com/marketing_cloud/errors/validation.email.address",
+			"errorCode" : "validation.email.address"
+			"path" : "$.[0].emailaddress"
+		},
+		{
+			"documentationUrl" : "https://developer.salesforce.com/marketing_cloud/errors/validation.date",
+			"errorCode" : "validation.date"
+			"path" : "$.[0].date"
+		},
+		{
+			"documentationUrl" : "https://developer.salesforce.com/marketing_cloud/errors/validation.email.address",
+			"errorCode" : "validation.email.address"
+			"path" : "$.[1].emailaddress"
+		}
+	]
+}
+```
 
 # Request Body
 * Dates SHOULD include timezone
 	* Dates MAY lack timezone for **recurring** events 
+
+Servers MUST reject requests if the body has unexpected or undocumented
+properties.  Servers MUST reject requests if the body has unexpected or
+undocumented objects 
+
+
+
+
+# URL Style
+
+## Query string
+* Servers MUST ignore requests with extra query string parameters
+* Query string parameters MUST be camelCase
+
+## Path
+URI path parameters SHOULD be nouns
+
+### Collections
+Routes that return multiple objects are collections.
+* Routes MUST have a plural named 
+* Routes MUST return an empty set instead 
+* Routes MUST always be an array even when a single object
+* Routes SHOULD be a set of fully hydrated objects 
 
