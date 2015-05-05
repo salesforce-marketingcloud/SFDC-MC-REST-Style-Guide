@@ -21,7 +21,7 @@ releases.
 
 Servers MAY add endpoints
 
-Routes on a version MAY add properties to payload 
+Routes on a version MAY add properties to payload. Route MUST NOT add required properties for creating a resource.
 
 Routes on a version MAY add optional query string parameters. Routes on a version MUST NOT add required parameters. 
 
@@ -31,39 +31,57 @@ The API uses the hyper text transfer protocol ("HTTP") and resources accept vari
 
 ## DELETE
 
-The identified resource MUST be deleted.
+A service MAY support DELETE. The identified resource MUST be deleted.
 
 ## GET
 
 The identified resource MUST be retrieved and MUST be idempotent. i.e. MUST NOT produce any side-effects.
 
 ## POST
-A service MAY optionally support POST. A service supporting POST MAY support one or both of Sync and Async.
 
-### Sync 
-The resource contained in the request MUST be created.
+A service MAY support POST.  The resource contained in the request MUST be created.
 
 The server MUST respond with a 201 status and the created resource. The server
 MUST include the created identifier for the resource.
 
-### Async 
-The server MUST respond with a 202 status and the created async task resource.
-An identifier in the task resource MUST be available for querying the
-eventually result. A single async query service will be available.
-
 ## PUT
-Creates or replaces a resource. A server SHOULD respond with a 200 when
-updating an existing resource or a 202 when creating a resource.
+
+TOOD/FIXME Kris is unsure on create support
+
+A service MAY support PUT. Creates or replaces a resource. A server SHOULD
+respond with a 200 when updating an existing resource or a 202 when creating a
+resource.
 
 Server MUST NOT support PUT against collection FIXME/TOOD?
 
 ## PATCH
-Updates an existing resource in parts. Patch payload is defined elsewhere FIXME/TODO 
+
+A service MAY support PATCH. Updates an existing resource in parts. Patch
+payload is defined elsewhere FIXME/TODO 
 
 ## OPTIONS
-Servers MUST only be for ALLOW header and the purpose of cross-origin resource
-communication. Servers MUST NOT provide other information beyond allowed
-operations and cross-orgin resource headers.
+In response to OPTIONS method servers
+* MUST respond ALLOW header and the purpose of cross-origin resource
+* MUST respond with valid methods
+* MUST NOT expose any other data
+
+# Async Interaction
+A route/method MAY support Async. The server MUST respond with a 202 status and
+"Location" header to query the async task request. At the "Location" header the
+server MUST continue responding with a 202 until the response is read. Once
+ready the "Location" URL MUST respond as the original request would have if
+done synchronously.
+
+The server MUST NOT respond with a 202 and a body.
+
+# HTTP verb substitution
+A server MUST support the HTTP method "POST" to allow HTTP methods a client may
+not support.
+
+POST query string "httpMethod" MUST be a value of 
+* PUT
+* PATCH
+* DELETE
 
 # HTTP status codes
 
@@ -86,6 +104,7 @@ The API uses the hyper text transfer protocol ("HTTP") and provides various impl
 	* Unsupported Content-Type header
 * 416 Requested Range Not Satisfiable
 * 417 Expectation Failed
+* 429 Too Many Requests
 * 500 Internal Server Error
 * 502 Bad Gateway
 * 503 Service Unavailable
@@ -104,6 +123,13 @@ The API uses the hyper text transfer protocol ("HTTP") and provides various impl
 	* Authenticated but lack permission to resource/operation
 * 404 Not Found
 	* Routes SHOULD return 403 if resource exists but user lacks access
+
+* SHOULD NOT - 204 No content
+	* High volume use cases are useful
+// FIXME/TOOD move to justification
+	* Discouraged for consistency
+		* deletes should attempt to return helpful information like "id"
+		* PUT should return the created content
 
 ## Caching
 Servers MAY respond to if-modified and etag HTTP headers 
@@ -182,6 +208,9 @@ See also [Relationship object](justification/relationshipobject.md)
 
 See pattern [Recurring events](pattern/recurringevent.md)
 
+**Enumerations**
+TODO/FIXME
+
 ## Metadata
 Servers MAY include a meta object root level of envelop. 
 
@@ -245,6 +274,9 @@ MUST NOT include properties outside of set
 ```
 
 ## Localization
+* Route MUST NEVER localize properties
+* Route MUST NEVER localize values
+
 
 ## Errors
 Error requests to a server SHOULD be idempotent (no side effect). Errors MUST be in the prescribed the error JSON format. HTTP content-type MUST NOT deviate from API's content-type.
@@ -276,8 +308,8 @@ Validation errors SHOULD utilize JSON path
 		{
 			"requestId" : "random string for internal debugging",
 			"documentationUrl" : "https://developer.salesforce.com/marketing_cloud/errors/server.failure.general",
-			"statusCode" :  500
-			"errorCode" : "server.failure.general"
+			"statusCode" :  500,
+			"errorCode" : "server.failure.general",
 			"details" : []
 		}
 	],
@@ -290,11 +322,11 @@ Validation errors SHOULD utilize JSON path
 ```json
 [
 	{
-		"date" : "not valid date"
+		"date" : "not valid date",
 		"emailaddress" : "foo_not_valid@"
 	},
 	{
-		"date" : "2015-06-02T12:00:00.000Z"
+		"date" : "2015-06-02T12:00:00.000Z",
 		"emailaddress" : "@bar_not_valid.com"
 	}
 ]
@@ -306,8 +338,8 @@ Validation errors SHOULD utilize JSON path
 	"data" : [
 		{
 			"documentationUrl" : "https://developer.salesforce.com/marketing_cloud/errors/validation.error.aggregate",
-			"statusCode" :  400
-			"errorCode" : "validation.error.aggregate"
+			"statusCode" :  400,
+			"errorCode" : "validation.error.aggregate",
 			"details" : [
 				{
 					"documentationUrl" : "https://developer.salesforce.com/marketing_cloud/errors/validation.email.address",
@@ -332,8 +364,7 @@ Validation errors SHOULD utilize JSON path
 ```
 
 # Request Body
-* Dates SHOULD include timezone
-	* Dates MAY lack timezone for **recurring** events 
+* Dates MUST include timezone
 
 Servers MUST reject requests if the body has unexpected or undocumented
 properties.  Servers MUST reject requests if the body has unexpected or
@@ -341,11 +372,10 @@ undocumented objects
 
 
 
-
 # URL Style
 
 ## Query string
-* Servers MUST ignore requests with extra query string parameters
+* Servers MUST accept and ignore extra query string parameters
 * Query string parameters MUST be camelCase
 
 ## Path
@@ -354,7 +384,7 @@ URI path parameters SHOULD be nouns
 ### Collections
 Routes that return multiple objects are collections.
 * Routes MUST have a plural named 
-* Routes MUST return an empty set instead 
+* Routes MUST return an empty array when not objects found
 * Routes MUST always be an array even when a single object
 * Routes SHOULD be a set of fully hydrated objects 
 
