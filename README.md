@@ -274,12 +274,22 @@ MUST NOT include properties outside of set
 ```
 
 ## Localization
-* Route MUST NEVER localize properties
-* Route MUST NEVER localize values
 
+A route MAY be aware of localized values. A route MUST expose localized values
+as a "relation" resource to callers of the resource. A route SHOULD allow a "filter"
+to a single localized version. A route SHOULD have a "view" that expands localized
+content relations providing the localized version AND supports the "filter" to one
+locale.
+
+Route MUST NEVER localize property names.
+
+Route MUST error if "filter" contains unsupported values.
 
 ## Errors
-Error requests to a server SHOULD be idempotent (no side effect). Errors MUST be in the prescribed the error JSON format. HTTP content-type MUST NOT deviate from API's content-type.
+
+Error requests to a server SHOULD be idempotent (no side effect). Errors MUST
+be in the prescribed the error JSON format. HTTP content-type MUST NOT deviate
+from API's content-type.
 
 ### Error Format
 Error MUST NOT have any more than following properties
