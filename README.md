@@ -267,8 +267,8 @@ MUST NOT include properties outside of set
 		"totalCount" : 1,
 
 		"links" : [
-			{ "name" : "prev", "method": "GET", "href" : "object/1", "path" : "$.data.[0]" },
-			{ "name" : "next", "method": "GET", "href" : "object/1", "path" : "$.data.[0]" }
+			{ "name" : "prev", "method": "GET", "href" : "object/1", "path" : "$.data" },
+			{ "name" : "next", "method": "GET", "href" : "object/1", "path" : "$.data" }
 		]
 	}
 }
@@ -499,6 +499,38 @@ of resources to skip is "page-1" * "size".
 
 Query string parameter "size" MUST be the maximum number of results to return.
 
+# Partial Responses
+Routes SHOULD support partial responses. Properties to **include** MUST be specified by the query string "fields". The format is [Google Partial Response Field Format](https://developers.google.com/custom-search/json-api/v1/performance#partial).
+
+* **starts** at response `data` property
+* comma-separated list to select multiple properties
+* property1/property2 to select property2 that is nested within property1; the pattern can be continued 
+* a sub-selector to request a set of specific sub-properties of arrays or objects by placing expressions in parentheses "( )"
+	* For example: fields=items(id,author/email) returns only the item ID and author's email for each element in the items array. Can also specify a single sub-field, where fields=items(id) is equivalent to fields=items/id.
+* a wildcard, "\*"  can be used for all properties within a sub-object
+    * For example: fields=items/pagemap/\* selects all objects in a pagemap.
+
+See also [Salesforce Style](http://www.salesforce.com/us/developer/docs/api_rest/Content/dome_get_field_values.htm)
+
+**Example**
+Request for a partial response: This HTTP GET request for the above resource that uses the fields parameter significantly reduces the amount of data returned.
+```
+https://www.googleapis.com/plus/v1/activities/z12gtjhq3qn2xxl2o224exwiqruvtda0i?fields=url,object(content,attachments/url)
+
+{
+ "url": "https://plus.google.com/102817283354809142195/posts/F97fqZwJESL",
+ "object": {
+  "content": "A picture... of a space ship... launched from earth 40 years ago.",
+  "attachments": [
+   {
+    "url": "http://apod.nasa.gov/apod/ap110908.html"
+   }
+  ]
+ }
+}
+```
+
+
 # General Style
 
 ## Query string
@@ -506,25 +538,25 @@ Query string parameter "size" MUST be the maximum number of results to return.
 * Query string parameters MUST be camelCase
 * Query string parameters MUST be case insensitive
 
-## Path
 
-URI SHOULD be case sensitive. Resource names MUST be nouns. 
+## Path
+Path SHOULD be case sensitive. Resource names MUST be nouns. 
 
 Route SHOULD NOT exceed two resource names in the URI.  Routes MUST NOT expose
 resource past two nested levels, implementations SHOULD wrap and expose the
 sub-resource.
 
 **Examples**
-/{version}/{service}/{resources}
-/{version}/{service}/{resources}/{id}
-/{version}/{service}/{resources}/{id}/{sub-resources}
-/{version}/{service}/{resources}/{id}/{sub-resources}/{id}
+{service}/{resources}
+{service}/{resources}/{id}
+{service}/{resources}/{id}/{sub-resources}
+{service}/{resources}/{id}/{sub-resources}/{id}
 
 Routes MUST NOT exceed
-/{version}/{service}/{resources}/{id}/{sub-resources}/{id}
+{service}/{resources}/{id}/{sub-resources}/{id}
 
 Routes SHOULD additionally exist
-/{version}/{service}/{**sub**-resources}/{id}
+{service}/{**sub**-resources}/{id}
 
 ### Collections
 Routes that return multiple objects are collections.
