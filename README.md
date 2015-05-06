@@ -553,6 +553,16 @@ https://www.googleapis.com/plus/v1/activities/z12gtjhq3qn2xxl2o224exwiqruvtda0i?
 }
 ```
 
+# Sorting 
+
+Routes MAY support sorting. Routes supporting sorting MUST only use instances
+of the query string `sort`.  Routes MAY support a subset of properties in the
+resource's data section.  A sort's property MUST be a comma separated list of
+valid properties.
+
+By default the sort order is ascending.  Routes MUST support a descending flag
+on all valid properties with a leading "-". 
+
 # Filtering
 
 Routes MAY support filtering. Routes supporting filtering MUST only use
