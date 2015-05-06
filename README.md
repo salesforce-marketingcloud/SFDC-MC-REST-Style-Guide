@@ -86,7 +86,8 @@ POST query string "httpMethod" MUST be a value of
 
 ## Implicit
 
-The API uses the hyper text transfer protocol ("HTTP") and provides various implicit status codes.
+The API uses the hyper text transfer protocol ("HTTP") and provides various
+implicit status codes. Implicit codes are framework level. 
 
 * 100 Continue
 * 206 Partial Content
@@ -111,10 +112,14 @@ The API uses the hyper text transfer protocol ("HTTP") and provides various impl
 
 ## Explicit
 
+Explicit codes are related to business logic responses.
+
 * 200 OK
 * 201 Created
 * 202 Accepted
 	* For async operations (accepted the submission)
+* 304 Not modified
+	* Routes MAY respond to etag or if-modified headers
 * 400 Bad Request
 * 401 Unauthorized
 	* Request is not authenticated
@@ -129,10 +134,6 @@ The API uses the hyper text transfer protocol ("HTTP") and provides various impl
 	* Discouraged for consistency
 		* deletes should attempt to return helpful information like "id"
 		* PUT should return the created content
-
-## Caching
-Servers MAY respond to if-modified and etag HTTP headers 
-* 304
 
 ## Redirects
 Servers MUST NOT send back with redirects
@@ -163,7 +164,7 @@ FIXME/TODO oauth scope tokens?
 * response: MUST "Request-Id"
 * response: MUST "Original-Request-Id" if request included "Original-Request-Id"
 
-# Response Body
+# Response
 
 ## Envelope
 Server response MUST correspond to the format 
@@ -172,8 +173,14 @@ Server response MUST correspond to the format
 
 **Data Object**
 * MUST "id" - string - identifier for resource
-* MUST "mcVersion" - string - identifier for current state of resource
-	* See also [currency justification](justification/currency.md) 
+
+## Header
+Route MUST respond to a single resource request with an "etag" header.
+The "meta" section MUST contain the same "etag" value.
+
+Collection routes MUST respond with an "etag" header that is representative of their
+results. Collection routes MUST also respond with "etag" values for all included
+resources in the "meta".
 
 ## Property names 
 * all MUST be camelCase 
@@ -216,6 +223,7 @@ TODO/FIXME
 Servers MAY include a meta object root level of envelop. 
 
 **Meta Object**
+* MUST "etags" - array of etag objects - object defining the version of returned resources 
 * MAY "totalCount" - Number - the number of total records in a collection response
 * MAY "links" - array of link objects - object defining relationships such as paging
 
@@ -228,6 +236,12 @@ MUST NOT include properties outside of set
 	* See also [HATEOAS](justerification/hateoas.md)
 * MUST "path" - string - JSON path indicating the object link belongs to
 * MAY "method" - string - HTTP method to use with "href"
+
+**Etag object**
+MUST NOT include properties outside of set
+* MUST "etag" - string - identifier for current state of resource
+	* See also [currency justification](justification/currency.md) 
+* MUST "path" - string - JSON path indicating the object link belongs to
 
 ### Example
 ```json
@@ -258,6 +272,9 @@ MUST NOT include properties outside of set
 				 { "id" : "1" }
 				,{ "id" : "2" }
 			]
+		},
+		{
+			"id" : "Kris is happy now"
 		}
 	],
 
@@ -269,6 +286,11 @@ MUST NOT include properties outside of set
 		"links" : [
 			{ "name" : "prev", "method": "GET", "href" : "object/1", "path" : "$.data" },
 			{ "name" : "next", "method": "GET", "href" : "object/1", "path" : "$.data" }
+		],
+
+		"etags" : [
+			{ "etag" : "gibberishLikeLastModifiedDate", "path" : "$.data.[0]" },
+			{ "etag" : "gibberishLikeVersionNumber",   "path" : "$.data.[1]" }
 		]
 	}
 }
@@ -414,20 +436,21 @@ resources to be deleted.
 
 ## Concurrency 
 
-Routes MUST support "mcVersion" with PUT/PATCH. If "mcVersion" is different than 
+Routes MUST support "If-Match" header with PUT/PATCH. If "If-Match" header is different than 
 the expected current version the route MUST fail the request.
 
-If the "mcVersion" is an empty string, null, or not provided then the route
-SHOULD attempt the satisfy the request. 
+If the "If-Match" header is omitted the route SHOULD attempt the satisfy the
+request regardless of concurrency problems.
 
 See also [currency justification](justification/currency.md) 
-See also [creating mcversion](pattern/creating_mcversion.md) 
+See also [creating etag](pattern/creating_etag.md) 
 
 ## HTTP PUT - Upserting
 
 Routes supporting PUT MUST support as a single resource having the same JSON
-schema as an item in the collection of the data section of a GET.  Routes MAY
-support PUT as an collection of relationship objects.  
+schema as an item in the collection of the data section of a GET. The request
+MAY contain "If-Match" header.  Routes MAY support PUT as an collection of
+relationship objects.  
 
 Routes MUST NOT support creation through PUT.
 
@@ -437,7 +460,7 @@ See also [Upserting](pattern/upserting.md)
 
 Routes supporting PATCH MUST support as a single resource having the same JSON
 schema as an item in the collection of the data section of a GET.  The request
-URI MUST uniquely identify the resource. The request MAY contain "mcVersion".
+URI MUST uniquely identify the resource. The request MAY contain "If-Match" header.
 The request format MAY exclude properties that need not be updated. This
 includes omitting "id".
 
