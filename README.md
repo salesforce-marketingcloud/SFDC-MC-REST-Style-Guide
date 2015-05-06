@@ -538,6 +538,10 @@ https://www.googleapis.com/plus/v1/activities/z12gtjhq3qn2xxl2o224exwiqruvtda0i?
 * Query string parameters MUST be camelCase
 * Query string parameters MUST be case insensitive
 
+## Remote field expansion
+Routes MUST NOT support a query string to expand relationship objects. 
+
+See also [Views](#views)
 
 ## Path
 Path SHOULD be case sensitive. Resource names MUST be nouns. 
