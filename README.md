@@ -223,7 +223,7 @@ Servers MAY include a meta object root level of envelop.
 MUST NOT include properties outside of set
 * MUST "href" - string - href to next state or page
 * MUST "name" - enum - description of href implying purpose
-	* valid names are "prev", "next", "self"
+	* valid names are "prev", "next", "self", "first", "last"
 	* MUST NOT use any other values
 	* See also [HATEOAS](justerification/hateoas.md)
 * MUST "path" - string - JSON path indicating the object link belongs to
@@ -446,7 +446,61 @@ property is not provided a route MUST NOT act on that property.
 
 See also [Upserting](pattern/upserting.md)
 
-# URL Style
+# General Style
+
+##Pagination 
+
+Collection routes SHOULD support pagination. Requests with no requested
+pagination MUST either return all items OR return 400 Bad Request.
+
+Routes supporting any pagination MUST support Offset.
+
+Results MUST be limited to no more than 1000 results.
+
+**Routes pages responses**
+* links MUST NOT change "limit" or "size" from the value in the request
+* links MUST include all other query string parameters in request
+* MUST include link "next". MUST provide "prev" href value of null
+* MUST include link "prev". MUST provide "prev" href value of null
+* MAY include link "first" where result MUST include first resource
+* MAY include link "last" where result MUST include last resource
+
+### Offset
+
+Routes supporting any pagination MUST support Offset. Requests MUST require both
+"offset" and "limit". 
+
+Query string parameter "offset" MUST be the number of results to skip
+
+Query string parameter "limit" MUST be the number of results to return
+
+**Examples**
+* offset=50 would begin with the 51st object in a collection
+* offset=0 would begin with the 1st object in a collection
+* offset=11 would begin with the 12th object in a collection
+
+### Cursor
+
+Routes supporting pagination MAY support cursor. Requests MUST require "limit" and
+either "before" OR "after".
+
+Query string parameter "after" MUST be an identifier of the result item to continue from.
+
+Query string parameter "before" MUST be an identifier of the result item to reverse from.
+
+Query string parameter "limit" MUST be the number of results to return.
+
+Requests with "after" or "before" MAY be respond to with a 400 if the cursor has been expired. 
+
+### Traditional Paging
+
+Routes supporting pagination MAY support traditional paging. Requests MUST require "page" and "size".
+
+Query string parameter "page" MUST be an identifier of the result to continue from. The calculation 
+of resources to skip is "page-1" * "size".
+
+Query string parameter "size" MUST be the maximum number of results to return.
+
 
 ## Query string
 * Servers MUST accept and ignore extra query string parameters
