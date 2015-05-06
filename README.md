@@ -532,45 +532,58 @@ https://www.googleapis.com/plus/v1/activities/z12gtjhq3qn2xxl2o224exwiqruvtda0i?
 
 # Filtering
 
-Routes MAY support filtering. Routes supporting filtering MUST only use instances of the query string `filter[{property}][{operation}]`. 
+Routes MAY support filtering. Routes supporting filtering MUST only use
+instances of the query string `f[{property}][{operation}]`.   A filter's
+property MUST be one of the properties on within a resource's data section.
+Routes MAY support a subset of those properties.
 
 ##Properties
 
-A filter's property MUST be one of the properties on within a resource's data
-section. If filter property operates on a nested property structure the
+If filter property operates on a nested property structure the
 "fields" format specification applies.
 
 See also [Partial Responses]("#Partial Responses")
 
 ##Operations
 Operation MUST be one of 
-* eq  - SHOULD be all types - Equals
-* not - SHOULD be all types - Not Equals
-* gt  - SHOULD ONLY be numbers and dates - Greater than
-* gte - SHOULD ONLY be numbers and dates - Greater than or equals
-* lt  - SHOULD ONLY be numbers and dates - Lesser than
-* lte - SHOULD ONLY be numbers and dates - Lesser than or equals
+* eq  - MAY support comma separated values - Equals
+* not - MAY support comma separated values - Not Equals
+* gt  - MUST ONLY be numbers and dates - Greater than
+* gte - MUST ONLY be numbers and dates - Greater than or equals
+* lt  - MUST ONLY be numbers and dates - Lesser than
+* lte - MUST ONLY be numbers and dates - Lesser than or equals
 
-Multiple filters MUST be combined with an "and" operation.
+Multiple filters MUST be and'ed together.
 
 ## Values
-For the operations "eq" and "not" routes MAY support comma separated values. Multiple values MUST BE combined with a "or" operation, i.e. an SQL "in".
+For the operations "eq" and "not" routes MAY support comma separated values. Multiple values MUST be combined with a "or" operation, i.e. a SQL "in".
+
+Operations gt, gte, lt, lte MUST support only a single values.
 
 ##Examples
 ```
-filter[{property}][{operation}]
+f[{property}][{operation}]
 
-filter[color][eq]=blue
-filter[cost][eq]=50
-filter[content/locale][eq]=en
+f[color][eq]=blue
+f[cost][eq]=50
+f[content/locale][eq]=en
 
-filter[cost][lte]=50
-filter[cost][gte]=50
-filter[cost][lt]=50
-filter[cost][gt]=50
+f[cost][lte]=50
+f[cost][gte]=50
 
-filter[color][not]=blue
-filter[cost][not]=50
+f[cost][lte]=100&f[cost][gte]=50
+WHERE cost <= 100
+AND   cost >= 50
+
+f[cost][lt]=50
+f[cost][gt]=50
+
+f[color][not]=blue
+f[cost][not]=50
+
+f[color][eq]=blue,green,red&f[cost][lte]=50
+WHERE color IN ('blue', 'green', 'red' )
+AND   cost <= 50
 ```
 
 # General Style
