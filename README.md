@@ -46,13 +46,12 @@ MUST include the created identifier for the resource.
 
 ## PUT
 
-TOOD/FIXME Kris is unsure on create support
+A service MAY support PUT. SHOULD replace a resource and MUST NOT create a resource. 
+A server SHOULD respond with a 200 when updating an existing resource. 
 
-A service MAY support PUT. Creates or replaces a resource. A server SHOULD
-respond with a 200 when updating an existing resource or a 202 when creating a
-resource.
+Server MAY support PUT against a collection that is a relationship.
 
-Server MUST NOT support PUT against collection FIXME/TOOD?
+See also [Upserting data extensions](pattern/dataextensions.md) // TODO/FIXME
 
 ## PATCH
 
@@ -173,6 +172,8 @@ Server response MUST correspond to the format
 
 **Data Object**
 * MUST "id" - string - identifier for resource
+* MUST "mcVersion" - string - identifier for current state of resource
+	* See also [currency justification](justification/currency.md) 
 
 ## Property names 
 * all MUST be camelCase 
@@ -263,10 +264,10 @@ MUST NOT include properties outside of set
 
 	"meta" : {
 		// optional
-		"totalCount" : 1
+		"totalCount" : 1,
 
 		"links" : [
-			{ "name" : "prev", "method": "GET", "href" : "object/1", "path" : "$.data.[0]" }
+			{ "name" : "prev", "method": "GET", "href" : "object/1", "path" : "$.data.[0]" },
 			{ "name" : "next", "method": "GET", "href" : "object/1", "path" : "$.data.[0]" }
 		]
 	}
@@ -292,6 +293,7 @@ be in the prescribed the error JSON format. HTTP content-type MUST NOT deviate
 from API's content-type.
 
 ### Error Format
+
 Error MUST NOT have any more than following properties
 * SHOULD "requestId" - string - "requestId" of the request
 * MUST "documentationUrl" - string - fully qualified URL to support site
@@ -374,13 +376,75 @@ Validation errors SHOULD utilize JSON path
 ```
 
 # Request Body
-* Dates MUST include timezone
+
+* Dates MUST be ISO-8601 style of 2015-05-04T15:39:03Z
+	* MUST NOT include any other ISO-8601 date style
+	* requests MUST be in either 'Z' or plus/minus format
 
 Servers MUST reject requests if the body has unexpected or undocumented
-properties.  Servers MUST reject requests if the body has unexpected or
-undocumented objects 
+properties OR objects.
 
+## HTTP GET - Retrieving
 
+Routes MUST NOT support a http body.
+
+## HTTP POST - Creating
+
+Routes supporting POST MUST support as a single resource having the same JSON
+schema as an item in the collection of the data section of a GET.  Routes MAY
+support POST as an collection of resources having the same JSON schema as the
+data section of a GET.  
+
+## HTTP Delete 
+
+Routes MAY support a request body. 
+
+See also [HTTP verb substitution](#HTTP verb substitution)
+
+### Deleting a single resource
+
+Routes supporting DELETE of a single resource MUST have the resource identified
+in the URI.  Routes supporting DELETE of a nested relationship MUST only delete
+the relationship not the resource.
+
+### Deleting multiple resources
+
+Collection routes MAY support DELETE. Request should be a collection of
+resources to be deleted.
+
+## Concurrency 
+
+Routes MUST support "mcVersion" with PUT/PATCH. If "mcVersion" is different than 
+the expected current version the route MUST fail the request.
+
+If the "mcVersion" is an empty string, null, or not provided then the route
+SHOULD attempt the satisfy the request. 
+
+See also [currency justification](justification/currency.md) 
+See also [creating mcversion](pattern/creating_mcversion.md) 
+
+## HTTP PUT - Upserting
+
+Routes supporting PUT MUST support as a single resource having the same JSON
+schema as an item in the collection of the data section of a GET.  Routes MAY
+support PUT as an collection of relationship objects.  
+
+Routes MUST NOT support creation through PUT.
+
+See also [Upserting](pattern/upserting.md)
+
+## HTTP Patch - Update
+
+Routes supporting PATCH MUST support as a single resource having the same JSON
+schema as an item in the collection of the data section of a GET.  The request
+URI MUST uniquely identify the resource. The request MAY contain "mcVersion".
+The request format MAY exclude properties that need not be updated. This
+includes omitting "id".
+
+API callers MAY clear values by providing the property with a null. If a
+property is not provided a route MUST NOT act on that property.
+
+See also [Upserting](pattern/upserting.md)
 
 # URL Style
 
