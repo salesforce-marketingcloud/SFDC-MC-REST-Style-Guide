@@ -25,7 +25,7 @@ Routes on a version MAY add properties to payload. Route MUST NOT add required p
 
 Routes on a version MAY add optional query string parameters. Routes on a version MUST NOT add required parameters. 
 
-# HTTP methods
+# HTTP verbs
 
 The API uses the hyper text transfer protocol ("HTTP") and resources accept various HTTP methods on them.
 
@@ -64,6 +64,40 @@ In response to OPTIONS method servers
 * MUST respond with valid methods
 * MUST NOT expose any other data
 
+## Custom actions
+
+Route MAY expose addition non-standard HTTP actions. Usage of "custom actions"
+SHOULD be used sparingly for consistency among resources.
+
+Routes MUST NOT allow verbs in resource paths.
+
+Routes MAY support a request body and different query string parameters.
+
+**Example**
+An operation on a resource that doesn't fit with REST is rotate an image
+resource on the server.  To Rotate the image in a RESTful way, would need to
+GET the image, rotate it client side, then PUT it back on the server. It would
+take at least two calls to perform one operation. Routes do not allow verbs in
+resource paths the solution is to POST the action to the API to be executed
+by/on the resource.
+
+# HTTP method/action substitution
+A server MUST support the HTTP method "POST" to allow HTTP methods a client may
+not support.
+
+POST query string "action" MUST be a value of 
+* PUT
+* PATCH
+* DELETE
+* "Custom action"
+
+```
+POST {service}/{resources}?action={verb}
+POST {service}/{resources}/{id}?action={name}
+POST {service}/{resources}/{id}/{sub-resources}?action={name}
+POST {service}/{resources}/{id}/{sub-resources}/{id}?action={name}
+```
+
 # Async Interaction
 A route/method MAY support Async. The server MUST respond with a 202 status and
 "Location" header to query the async task request. At the "Location" header the
@@ -72,15 +106,6 @@ ready the "Location" URL MUST respond as the original request would have if
 done synchronously.
 
 The server MUST NOT respond with a 202 and a body.
-
-# HTTP verb substitution
-A server MUST support the HTTP method "POST" to allow HTTP methods a client may
-not support.
-
-POST query string "httpMethod" MUST be a value of 
-* PUT
-* PATCH
-* DELETE
 
 # HTTP status codes
 
@@ -433,6 +458,12 @@ the relationship not the resource.
 
 Collection routes MAY support DELETE. Request should be a collection of
 resources to be deleted.
+
+## Custom actions
+
+Routes supporting "custom action" MAY have a request body. The request and
+response MAY have a different JSON schema than the other HTTP methods for the
+resource.
 
 ## Concurrency 
 
