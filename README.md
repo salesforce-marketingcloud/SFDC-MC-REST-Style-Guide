@@ -2,7 +2,10 @@
 
 # Versioning in the API
 
-The application protocol interface ("API") is versioned. Implementations MUST use an indicator in the uniform resource locator ("URL"). This indicator applies to the entire API as a whole. Resources MUST NOT be individually versioned.
+The application protocol interface ("API") is versioned. Implementations MUST
+use an indicator in the uniform resource locator ("URL"). This indicator
+applies to the entire API as a whole. Resources MUST NOT be individually
+versioned.
 
 	GET /{version}/{service}/{+resource}
     GET /v2/data/contacts/42
@@ -21,13 +24,16 @@ releases.
 
 Servers MAY add endpoints
 
-Routes on a version MAY add properties to payload. Route MUST NOT add required properties for creating a resource.
+Routes on a version MAY add properties to payload. Route MUST NOT add required
+properties for creating a resource.
 
-Routes on a version MAY add optional query string parameters. Routes on a version MUST NOT add required parameters. 
+Routes on a version MAY add optional query string parameters. Routes on a
+version MUST NOT add required parameters. 
 
 # HTTP verbs
 
-The API uses the hyper text transfer protocol ("HTTP") and resources accept various HTTP methods on them.
+The API uses the hyper text transfer protocol ("HTTP") and resources accept
+various HTTP methods on them.
 
 ## DELETE
 
@@ -35,23 +41,28 @@ A service MAY support DELETE. The identified resource MUST be deleted.
 
 ## GET
 
-The identified resource MUST be retrieved and MUST be idempotent. i.e. MUST NOT produce any side-effects.
+The identified resource MUST be retrieved and MUST be idempotent. i.e. MUST NOT
+produce any side-effects.
 
 ## POST
 
-A service MAY support POST.  The resource contained in the request MUST be created.
+A service MAY support POST.  The resource contained in the request MUST be
+created.
 
 The server MUST respond with a 201 status and the created resource. The server
 MUST include the created identifier for the resource.
 
 ## PUT
 
-A service MAY support PUT. SHOULD replace a resource and MUST NOT create a resource. 
-A server SHOULD respond with a 200 when updating an existing resource. 
+TODO/FIXME inconsistent with request payload description
+
+A service MAY support PUT. SHOULD replace a resource and SHOULD NOT create a
+resource.  A server SHOULD respond with a 200 when updating an existing
+resource. 
 
 Server MAY support PUT against a collection that is a relationship.
 
-See also [Upserting data extensions](pattern/dataextensions.md) // TODO/FIXME
+See also [Upserting](pattern/upserting.md)
 
 ## PATCH
 
@@ -176,16 +187,19 @@ outside of the defined list.
 	* Support for CORS
 * Authorization
 * Original-Request-Id
-	* Client MAY provide a tracking identifier
+	* Client MAY provide a tracking identifier. MUST be less than 1024 characters. Characters
+	  MUST be within US-ASCII.
 * If-Match
 	* Client MAY provide etag values on PUT/PATCH for concurrency problems
 * If-None-Match
 	* Client MAY provide etag values on GET for cache behavior of HTTP code 304 
 * Content-Type
 	* Client SHOULD provide "application/json"
-	* Client MAY provide "multipart" to provide both "application/json" and "binary data". MUST NOT support "form/urlencoded" sections
+	* Client MAY provide "multipart" to provide both "application/json" and
+	  "binary data". MUST NOT support "form/urlencoded" sections
 * Accept
-	* Client MAY provide an "accept" header. Client's SHOULD expect only "application/json" UNLESS the route indicates support for binary types
+	* Client MAY provide an "accept" header. Client's SHOULD expect only
+	  "application/json" UNLESS the route indicates support for binary types
 
 ## Response
 * Access-Control-Allow-Origin
@@ -197,16 +211,24 @@ outside of the defined list.
 	* Resource creation MUST respond with location of created resource
 
 * RateLimit-Limit 
-	* Rate limiting - Ceiling for the given resource. Value MUST start from one(1).
+	* Rate limiting - Ceiling for the given resource. Value MUST start from
+	  one(1).
 * RateLimit-Remaining 
-	* Rate limiting - Number of requests left for the window. Value MUST be "RateLimit-Limit" - requests made in window. 
+	* Rate limiting - Number of requests left for the window. Value MUST be
+	  "RateLimit-Limit" - requests made in window. 
 * RateLimit-Reset 
-	* Rate limiting - When window is reset. Value MUST be a specific time in UTC epoch seconds.
+	* Rate limiting - When window is reset. Value MUST be a specific time in
+	  UTC epoch seconds.
+	
+* Etag
+	* Responses MUST respond to all requests with a "Etag" header that MUST be
+	  less than 1024 characters. Characters MUST be within US-ASCII.
 
 * Request-Id
-	* Responses MUST include
+	* Responses MUST include. MUST be less than 1024 characters. Characters
+	  MUST be within US-ASCII.
 * Original-Request-Id
-	* MUST be back of Request's Original-Request-Id if provided
+	* MUST be back of Request's Original-Request-Id if provided.
 
 * Content-Type
 	* Responses SHOULD be "application/json"
@@ -218,22 +240,25 @@ outside of the defined list.
 No localization headers are accepted or returned. [Localization justification](justification/localization.md)
 
 # Response
+Responses from a route MUST have the prescribed envelope format.
+
+Routes MUST provide all properties even when value is "null".
 
 ## Envelope
 Server response MUST correspond to the format 
 * MUST "data" - array of data objects - contains response of route
-* MAY "meta" - object -  TODO/FIXME
+* MAY "meta" - object - contains all meta data for the response
 
 **Data Object**
 * MUST "id" - string - identifier for resource
 
 ## Header
-Route MUST respond to a single resource request with an "etag" header.
-The "meta" section MUST contain the same "etag" value.
+Route MUST respond to a single resource request with an "etag" header.  The
+"meta" section MUST contain the same "etag" value.
 
-Collection routes MUST respond with an "etag" header that is representative of their
-results. Collection routes MUST also respond with "etag" values for all included
-resources in the "meta".
+Collection routes MUST respond with an "etag" header that is representative of
+their results. Collection routes MUST also respond with "etag" values for all
+included resources in the "meta".
 
 Routes MUST respond with "location" header when a resource was created. 
 
@@ -275,9 +300,10 @@ See pattern [Recurring events](pattern/recurringevent.md)
 TODO/FIXME
 
 ## Metadata
-Servers MAY include a meta object root level of envelop. 
+Servers MUST include a meta object at root level of the response envelope. 
 
 **Meta Object**
+MUST NOT include properties outside of set
 * MUST "etags" - array of etag objects - object defining the version of returned resources 
 * MAY "totalCount" - Number - the number of total records in a collection response
 * MAY "links" - array of link objects - object defining relationships such as paging
@@ -286,7 +312,9 @@ Servers MAY include a meta object root level of envelop.
 MUST NOT include properties outside of set
 * MUST "href" - string - href to next state or page
 * MUST "name" - enum - description of href implying purpose
-	* valid names are "prev", "next", "self", "first", "last"
+	* valid standard names are "prev", "next", "self", "first", "last"
+	* Resource's custom action names are valid
+	* Resource's view names are valid
 	* MUST NOT use any other values
 	* See also [HATEOAS](justerification/hateoas.md)
 * MUST "path" - string - JSON path indicating the object link belongs to
@@ -335,8 +363,7 @@ MUST NOT include properties outside of set
 
 
 	"meta" : {
-		// optional
-		"totalCount" : 1,
+		"totalCount" : 2,
 
 		"links" : [
 			{ "name" : "prev", "method": "GET", "href" : "object/1", "path" : "$.data" },
@@ -344,6 +371,7 @@ MUST NOT include properties outside of set
 		],
 
 		"etags" : [
+			{ "etag" : "gibberish", "path" : "$.data" },
 			{ "etag" : "gibberishLikeLastModifiedDate", "path" : "$.data.[0]" },
 			{ "etag" : "gibberishLikeVersionNumber",   "path" : "$.data.[1]" }
 		]
@@ -378,14 +406,24 @@ Error MUST NOT have any more than following properties
 * MUST "statusCode" - int - MUST be the HTTP response code 
 * MUST "errorCode" - string - MUST be English US-ASCII dot separated value (no whitespace)
 	* Used codes MUST be registered with Salesforce API platform team process
+* MUST "message" - string
+	* MUST NOT contain user input
+	* Message can be empty
+	* Message will not be localized
 * MUST "details" - array of "error detail object" 
 	* Provides context for the error 
 	* Validation errors SHOULD have detail object for each validation error
 
 **Error Detail Object Format**
+MUST NOT have any more than following properties
 * MUST "documentationUrl" - string - fully qualified URL to support site
 * MUST "errorCode" - string - MUST be English US-ASCII dot separated value (no whitespace)
-* MAY "path" - JSON path format - definition of JSON path that caused issue
+* MUST "path" - JSON path format - definition of JSON path that caused issue
+	* Path can be empty
+* MUST "message" - string 
+	* MUST NOT contain user input
+	* Message can be empty
+	* Message will not be localized
 
 ### Validation Details
 Validation errors SHOULD utilize JSON path 
@@ -399,6 +437,7 @@ Validation errors SHOULD utilize JSON path
 			"documentationUrl" : "https://developer.salesforce.com/marketing_cloud/errors/server.failure.general",
 			"statusCode" :  500,
 			"errorCode" : "server.failure.general",
+			"message" : "The server experienced a general failure",
 			"details" : []
 		}
 	],
@@ -429,21 +468,25 @@ Validation errors SHOULD utilize JSON path
 			"documentationUrl" : "https://developer.salesforce.com/marketing_cloud/errors/validation.error.aggregate",
 			"statusCode" :  400,
 			"errorCode" : "validation.error.aggregate",
+			"message" : "Multiple validation errors occred, see details",
 			"details" : [
 				{
 					"documentationUrl" : "https://developer.salesforce.com/marketing_cloud/errors/validation.email.address",
-					"errorCode" : "validation.email.address"
-					"path" : "$.[0].emailaddress"
+					"errorCode" : "validation.email.address.lackdomain",
+					"path" : "$.[0].emailaddress",
+					"message" : "lacks domain name"
 				},
 				{
 					"documentationUrl" : "https://developer.salesforce.com/marketing_cloud/errors/validation.date",
-					"errorCode" : "validation.date"
-					"path" : "$.[0].date"
+					"errorCode" : "validation.date",
+					"path" : "$.[0].date",
+					"message" : "Data is invalid"
 				},
 				{
 					"documentationUrl" : "https://developer.salesforce.com/marketing_cloud/errors/validation.email.address",
-					"errorCode" : "validation.email.address"
-					"path" : "$.[1].emailaddress"
+					"errorCode" : "validation.email.address.lackuser",
+					"path" : "$.[1].emailaddress",
+					"message" : "Lacks user"
 				}
 			]
 		}
@@ -467,9 +510,11 @@ Routes MUST NOT support a http body.
 
 ## HTTP POST - Creating
 
+TODO/FIXME need opinions and examples of when POST to collection is a "good idea"
+
 Routes supporting POST MUST support as a single resource having the same JSON
 schema as an item in the collection of the data section of a GET.  Routes MAY
-support POST as an collection of resources having the same JSON schema as the
+support POST as a collection of resources having the same JSON schema as the
 data section of a GET.  
 
 ## HTTP Delete 
@@ -508,6 +553,8 @@ See also [creating etag](pattern/creating_etag.md)
 
 ## HTTP PUT - Upserting
 
+TODO/FIXME inconsistent with HTTP verb descriptions
+
 Routes supporting PUT MUST support as a single resource having the same JSON
 schema as an item in the collection of the data section of a GET. The request
 MAY contain "If-Match" header.  Routes MAY support PUT as an collection of
@@ -525,6 +572,9 @@ URI MUST uniquely identify the resource. The request MAY contain "If-Match" head
 The request format MAY exclude properties that need not be updated. This
 includes omitting "id".
 
+Routes SHOULD error if request attempts to update immutable properties with
+error 400 "Bad Request".
+
 API callers MAY clear values by providing the property with a null. If a
 property is not provided a route MUST NOT act on that property.
 
@@ -532,8 +582,11 @@ See also [Upserting](pattern/upserting.md)
 
 #Pagination 
 
-Collection routes SHOULD support pagination. Requests with no requested
-pagination MUST either return all items OR return 400 Bad Request.
+Collection routes SHOULD support pagination. Requests with no "limit" or "size"
+MUST always either return all items OR return 400 Bad Request regardless of
+the count of results.
+
+Requests that have more than one pagination type request then error.
 
 Routes supporting any pagination MUST support Offset.
 
@@ -557,9 +610,9 @@ Query string parameter "offset" MUST be the number of results to skip
 Query string parameter "limit" MUST be the number of results to return
 
 **Examples**
-* offset=50 would begin with the 51st object in a collection
-* offset=0 would begin with the 1st object in a collection
-* offset=11 would begin with the 12th object in a collection
+* ?limit=50&offset=50 would begin with the 51st object in a collection
+* ?limit=50&offset=0 would begin with the 1st object in a collection
+* ?limit=50&offset=11 would begin with the 12th object in a collection
 
 ## Cursor
 
@@ -574,12 +627,14 @@ Query string parameter "limit" MUST be the number of results to return.
 
 Requests with "after" or "before" MAY be respond to with a 400 if the cursor has been expired. 
 
+Requests with both "after" and "before" MUST 400 "Bad Request". 
+
 ## Traditional Paging
 
 Routes supporting pagination MAY support traditional paging. Requests MUST require "page" and "size".
 
 Query string parameter "page" MUST be an identifier of the result to continue from. The calculation 
-of resources to skip is "page-1" * "size".
+of resources to skip is "page-1" * "size". i.e. MUST start at page 1
 
 Query string parameter "size" MUST be the maximum number of results to return.
 
@@ -628,7 +683,7 @@ Views over collection resources MUST return the same "totalCount" as
 the normal collection resource.  i.e. Route's views MUST NOT implement any
 implicit filter.
 
-Routes MUST contain a superset of the JSON schema of an item or whole
+Routes MUST contain a superset of the resource's properties or whole
 collection of the data section of a GET.
 
 Route's view MAY support "partial responses" to filter the expanded data.
@@ -697,6 +752,8 @@ Routes MAY support filtering. Routes supporting filtering MUST only use
 instances of the query string `f[{property}][{operation}]`.   A filter's
 property MUST be one of the properties on within a resource's data section.
 Routes MAY support a subset of those properties.
+
+Routes supporting filtering MUST support all combinations of properties.
 
 ##Properties
 
