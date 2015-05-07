@@ -648,6 +648,36 @@ GET {service}/{resources}/{id}/{sub-resources}/views/exampleView
 GET {service}/{resources}/{id}/{sub-resources}/{id}/views/exampleView
 ```
 
+## Binary Views
+
+Binary Views are limited sections of a resource in a native binary format.
+Routes MAY support one or many binary views.
+
+A binary view response MUST have the correct "Content-Type" header for its
+resulting type. A view MUST NOT preform content negation based on the request's
+"Accept" header. A view MAY reject a request based on the "Accept" header.
+
+A binary view MUST include a "Content-Disposition" header with a file name.
+Routes MAY choose which disposition to use.
+
+### URI pattern
+
+Routes MUST expose binary views under an reserved keyword in path
+"{resource}/views/{binary name}".
+
+Routes MUST ONLY support GET http method on binary views.
+
+See also [Binary URL pattern]("justification/binary_url.md")
+
+### Examples
+
+```
+GET {service}/{resources}/views/asJpg
+GET {service}/{resources}/{id}/views/asPng
+GET {service}/{resources}/{id}/{sub-resources}/views/asXml
+GET {service}/{resources}/{id}/{sub-resources}/{id}/views/asWord
+```
+
 # Sorting 
 
 Routes MAY support sorting. Routes supporting sorting MUST only use instances
