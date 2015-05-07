@@ -144,7 +144,7 @@ Explicit codes are related to business logic responses.
 * 202 Accepted
 	* For async operations (accepted the submission)
 * 304 Not modified
-	* Routes MAY respond to etag or if-modified headers
+	* Routes MAY respond to If-None-Match (etag) header
 * 400 Bad Request
 * 401 Unauthorized
 	* Request is not authenticated
@@ -160,7 +160,7 @@ Explicit codes are related to business logic responses.
 		* PUT should return the created content
 
 ## Redirects
-Servers MUST NOT send back with redirects
+Routes MUST NOT return redirects
 
 ## Codes usage with HTTP methods
 * 201 MUST only be used with PUT & POST
@@ -171,32 +171,51 @@ Servers MUST NOT send back with redirects
 A specific set of headers are supported. A server MUST NOT respect any header
 outside of the defined list.
 
-## Cross origin resource sharing
-Support for CORS provides these headers
-* request: Origin
-* response: Access-Control-Allow-Origin
-* response: Access-Control- FIXME/TODO other ones
+## Request
+* Origin
+	* Support for CORS
+* Authorization
+* Original-Request-Id
+	* Client MAY provide a tracking identifier
+* If-Match
+	* Client MAY provide etag values on PUT/PATCH for concurrency problems
+* If-None-Match
+	* Client MAY provide etag values on GET for cache behavior of HTTP code 304 
+* Content-Type
+	* Client SHOULD provide "application/json"
+	* Client MAY provide "multipart" to provide both "application/json" and "binary data". MUST NOT support "form/urlencoded" sections
+* Accept
+	* Client MAY provide an "accept" header. Client's SHOULD expect only "application/json" UNLESS the route indicates support for binary types
 
-## Async
-For async the server responds with "Location" header to query the async task request. 
+## Response
+* Access-Control-Allow-Origin
+	* Support for CORS
+* Access-Control-\* FIXME/TODO other ones
+	* Support for CORS
+* Location
+	* Async MUST respond header to query the async task request
+	* Resource creation MUST respond with location of created resource
 
-## Rate limiting
-Servers MAY respond with one or rate limiting headers
-* Retry-After - MUST only be used for denied requests. Value MUST be a delta seconds.
-* RateLimit-Limit - Rate limit ceiling for the given request. Value MUST start from one(1).
-* RateLimit-Remaining -  Number of requests left for the window. Value MUST be "RateLimit-Limit" - requests made in window. 
-* RateLimit-Reset - When window is reset. Value MUST be a specific time in UTC epoch seconds.
+* RateLimit-Limit 
+	* Rate limiting - Ceiling for the given resource. Value MUST start from one(1).
+* RateLimit-Remaining 
+	* Rate limiting - Number of requests left for the window. Value MUST be "RateLimit-Limit" - requests made in window. 
+* RateLimit-Reset 
+	* Rate limiting - When window is reset. Value MUST be a specific time in UTC epoch seconds.
 
-## Localization
+* Request-Id
+	* Responses MUST include
+* Original-Request-Id
+	* MUST be back of Request's Original-Request-Id if provided
+
+* Content-Type
+	* Responses SHOULD be "application/json"
+	* See also [Binary Views](binary views)
+* Content-Disposition
+	* Response MAY be used when non "application/json"
+	* See also [Binary Views](binary views)
+
 No localization headers are accepted or returned. [Localization justification](justification/localization.md)
-
-## Impersonation
-FIXME/TODO oauth scope tokens?
-
-## Logging
-* request: MAY "Original-Request-Id"
-* response: MUST "Request-Id"
-* response: MUST "Original-Request-Id" if request included "Original-Request-Id"
 
 # Response
 
@@ -215,6 +234,8 @@ The "meta" section MUST contain the same "etag" value.
 Collection routes MUST respond with an "etag" header that is representative of their
 results. Collection routes MUST also respond with "etag" values for all included
 resources in the "meta".
+
+Routes MUST respond with "location" header when a resource was created. 
 
 ## Property names 
 * all MUST be camelCase 
