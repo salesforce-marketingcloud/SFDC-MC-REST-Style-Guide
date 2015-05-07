@@ -18,3 +18,9 @@ Why useful  TODO/FIXME
 ## Views
 Why useful  TODO/FIXME
 
+## Filtering
+How different from searching  TODO/FIXME
+
+## Searching
+How different from filtering  TODO/FIXME
+

@@ -690,6 +690,9 @@ on all valid properties with a leading "-".
 
 # Filtering
 
+Filtering is to limit by properties. Clients and routes SHOULD use filtering
+to limit the results in a structured and absolute way.
+
 Routes MAY support filtering. Routes supporting filtering MUST only use
 instances of the query string `f[{property}][{operation}]`.   A filter's
 property MUST be one of the properties on within a resource's data section.
@@ -743,6 +746,25 @@ f[color][eq]=blue,green,red&f[cost][lte]=50
 WHERE color IN ('blue', 'green', 'red' )
 AND   cost <= 50
 ```
+
+# Searching
+
+Searching is to find results based on one or many properties. 
+
+Routes MAY support a search.  Routes MUST return 400 when searching is
+requested but not available.  Routes SHOULD use search as a means to find
+results by a query.  Routes MUST only support searching through query string
+parameter "q".  Search SHOULD be case insensitive.
+
+Routes MAY return 400 "Bad Request" for a query. 
+
+Routes MUST return an empty collection if no results were found. 
+
+Routes MUST NOT change what properties are searched over in a version.
+
+Routes MUST search in a properties contains fashion
+
+Views MAY support search.
 
 # General Style
 
