@@ -154,8 +154,7 @@ Explicit codes are related to business logic responses.
 	* Routes SHOULD return 403 if resource exists but user lacks access
 
 * SHOULD NOT - 204 No content
-	* High volume use cases are useful
-// FIXME/TOOD move to justification
+	* High volume use cases can be exceptions
 	* Discouraged for consistency
 		* deletes should attempt to return helpful information like "id"
 		* PUT should return the created content
@@ -177,6 +176,16 @@ Support for CORS provides these headers
 * request: Origin
 * response: Access-Control-Allow-Origin
 * response: Access-Control- FIXME/TODO other ones
+
+## Async
+For async the server responds with "Location" header to query the async task request. 
+
+## Rate limiting
+Servers MAY respond with one or rate limiting headers
+* Retry-After - MUST only be used for denied requests. Value MUST be a specific time in UTC epoch seconds
+* RateLimit-Limit - Rate limit ceiling for the given request. Value MUST start from one(1).
+* RateLimit-Remaining -  Number of requests left for the window. Value MUST be "RateLimit-Limit" - requests made in window. 
+* RateLimit-Reset - When window is reset. Value MUST be a specific time in UTC epoch seconds.
 
 ## Localization
 No localization headers are accepted or returned. [Localization justification](justification/localization.md)
