@@ -182,7 +182,7 @@ For async the server responds with "Location" header to query the async task req
 
 ## Rate limiting
 Servers MAY respond with one or rate limiting headers
-* Retry-After - MUST only be used for denied requests. Value MUST be a specific time in UTC epoch seconds
+* Retry-After - MUST only be used for denied requests. Value MUST be a delta seconds.
 * RateLimit-Limit - Rate limit ceiling for the given request. Value MUST start from one(1).
 * RateLimit-Remaining -  Number of requests left for the window. Value MUST be "RateLimit-Limit" - requests made in window. 
 * RateLimit-Reset - When window is reset. Value MUST be a specific time in UTC epoch seconds.
