@@ -12,7 +12,7 @@ See also [version location](jusification/versionlocation.md)
 ## Version numbering schema
 
 Versions in URL MUST start with the letter "v" and are followed by the version
-number, which is a whole number. The version number is not tired to product
+number, which is a whole number. The version number is not tied to product
 releases.
 
     version = "v" 1*DIGIT
@@ -554,7 +554,11 @@ of resources to skip is "page-1" * "size".
 Query string parameter "size" MUST be the maximum number of results to return.
 
 # Partial Responses
-Routes SHOULD support partial responses. Properties to **include** MUST be specified by the query string "fields". The format is [Google Partial Response Field Format](https://developers.google.com/custom-search/json-api/v1/performance#partial).
+
+Partial Responses are limited version of a resource.  Routes SHOULD support
+partial responses. Properties to **include** MUST be specified by the query
+string "fields". The format is [Google Partial Response Field
+Format](https://developers.google.com/custom-search/json-api/v1/performance#partial).
 
 * **starts** at response `data` property
 * comma-separated list to select multiple properties
@@ -582,6 +586,36 @@ https://www.googleapis.com/plus/v1/activities/z12gtjhq3qn2xxl2o224exwiqruvtda0i?
   ]
  }
 }
+```
+
+# Views
+
+Views are expanded version of a resource. Routes MAY support one or many views.
+Routes MUST NOT be used as a means to aggregate non-related resources.  Route's
+view SHOULD expand relationship properties in the data object. 
+
+Views over collection resources MUST return the same "totalCount" as
+the normal collection resource.  i.e. Route's views MUST NOT implement any
+implicit filter.
+
+Routes MUST contain a superset of the JSON schema of an item or whole
+collection of the data section of a GET.
+
+Route's view MAY support "partial responses" to filter the expanded data.
+
+## URI pattern
+
+Routes MUST expose views under an reserved keyword in path "{resource}/views/{view name}".
+
+Routes MUST ONLY support GET http method on views.
+
+## Examples
+
+```
+GET {service}/{resources}/views/exampleView
+GET {service}/{resources}/{id}/views/exampleView
+GET {service}/{resources}/{id}/{sub-resources}/views/exampleView
+GET {service}/{resources}/{id}/{sub-resources}/{id}/views/exampleView
 ```
 
 # Sorting 
@@ -668,6 +702,9 @@ Path SHOULD be case sensitive. Resource names MUST be nouns.
 Route SHOULD NOT exceed two resource names in the URI.  Routes MUST NOT expose
 resource past two nested levels, implementations SHOULD wrap and expose the
 sub-resource.
+
+Routes MUST NOT use reserve word(s) in resource name
+* "views"
 
 **Examples**
 {service}/{resources}

@@ -12,4 +12,9 @@ Routes that return multiple objects are collections.
 ## Relationship
 Between two objects, a reference // TODO/FIXME
 
+## Partial Responses
+Why useful  TODO/FIXME
+
+## Views
+Why useful  TODO/FIXME
 
