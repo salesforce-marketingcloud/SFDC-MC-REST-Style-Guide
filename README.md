@@ -22,13 +22,15 @@ releases.
 
 ## Allowed modifications to a version 
 
-Servers MAY add endpoints
+Servers MAY add endpoints.
 
-Routes on a version MAY add properties to payload. Route MUST NOT add required
+Routes on a version MAY add properties to a payload. Route MUST NOT add required
 properties for creating a resource.
 
 Routes on a version MAY add optional query string parameters. Routes on a
 version MUST NOT add required parameters. 
+
+See also [breaking changes](jusification/breakingchanges.md)
 
 # HTTP verbs
 
