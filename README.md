@@ -39,7 +39,7 @@ various HTTP methods on them.
 
 ## DELETE
 
-A service MAY support DELETE. The identified resource MUST be deleted.
+A resource MAY support DELETE. The identified resource MUST be deleted.
 
 ## GET
 
@@ -48,7 +48,7 @@ produce any side-effects.
 
 ## POST
 
-A service MAY support POST.  The resource contained in the request MUST be
+A resource MAY support POST.  The resource contained in the request MUST be
 created.
 
 The server MUST respond with a 201 status and the created resource. The server
@@ -56,7 +56,7 @@ MUST include the created identifier for the resource.
 
 ## PUT
 
-A service MAY support PUT. SHOULD replace a resource and MUST NOT create a
+A resource MAY support PUT. SHOULD replace a resource and MUST NOT create a
 resource.  A server SHOULD respond with a 200 when updating an existing
 resource. 
 
@@ -66,7 +66,7 @@ See also [Upserting](pattern/upserting.md)
 
 ## PATCH
 
-A service MAY support PATCH. Updates an existing resource in parts. Patch
+A resource MAY support PATCH. Updates an existing resource in parts. Patch
 payload is defined elsewhere FIXME/TODO 
 
 ## OPTIONS
@@ -77,7 +77,7 @@ In response to OPTIONS method servers
 
 ## Custom actions
 
-Route MAY expose addition non-standard HTTP actions. Usage of "custom actions"
+Resources MAY expose addition non-standard HTTP actions. Usage of "custom actions"
 SHOULD be used sparingly for consistency among resources.
 
 Routes MUST NOT allow verbs in resource paths.
