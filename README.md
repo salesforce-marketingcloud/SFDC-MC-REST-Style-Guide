@@ -7,8 +7,8 @@ use an indicator in the uniform resource locator ("URL"). This indicator
 applies to the entire API as a whole. Resources MUST NOT be individually
 versioned.
 
-	GET /{version}/{service}/{+resource}
-    GET /v2/data/contacts/42
+    GET /{version}/{service}/{+resource}
+    GET /v2/data/contacts
 
 See also [version location](jusification/versionlocation.md)
 
