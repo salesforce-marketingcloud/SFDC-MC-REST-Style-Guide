@@ -54,9 +54,7 @@ MUST include the created identifier for the resource.
 
 ## PUT
 
-TODO/FIXME inconsistent with request payload description
-
-A service MAY support PUT. SHOULD replace a resource and SHOULD NOT create a
+A service MAY support PUT. SHOULD replace a resource and MUST NOT create a
 resource.  A server SHOULD respond with a 200 when updating an existing
 resource. 
 
@@ -551,9 +549,7 @@ request regardless of concurrency problems.
 See also [currency justification](justification/currency.md) 
 See also [creating etag](pattern/creating_etag.md) 
 
-## HTTP PUT - Upserting
-
-TODO/FIXME inconsistent with HTTP verb descriptions
+## HTTP PUT - Replacing
 
 Routes supporting PUT MUST support as a single resource having the same JSON
 schema as an item in the collection of the data section of a GET. The request
