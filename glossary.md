@@ -28,3 +28,6 @@ How different from searching  TODO/FIXME
 ## Searching
 How different from filtering  TODO/FIXME
 
+## Querying
+How different from searching  TODO/FIXME
+

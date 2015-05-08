@@ -90,6 +90,13 @@ take at least two calls to perform one operation. Routes do not allow verbs in
 resource paths the solution is to POST the action to the API to be executed
 by/on the resource.
 
+## Querying
+
+Querying is a special custom action that **should** be used instead of searching and filtering. 
+
+See also [Querying](pattern/querying.md)
+
+
 # HTTP method/action substitution
 A server MUST support the HTTP method "POST" to allow HTTP methods a client may
 not support.
@@ -172,7 +179,7 @@ Explicit codes are related to business logic responses.
 Routes MUST NOT return redirects
 
 ## Codes usage with HTTP methods
-* 201 MUST only be used with PUT & POST
+* 201 MUST only be used with POST
 * 202 MUST only be used with Async requests
 * 200 MUST NOT be used with POST
 
@@ -760,8 +767,8 @@ See also [Partial Responses]("#Partial Responses")
 
 ##Operations
 Operation MUST be one of 
-* eq  - MAY support comma separated values - Equals
-* not - MAY support comma separated values - Not Equals
+* eq  - MAY support comma separated values double quoted - Equals
+* not - MAY support comma separated values double quoted - Not Equals
 * gt  - MUST ONLY be numbers and dates - Greater than
 * gte - MUST ONLY be numbers and dates - Greater than or equals
 * lt  - MUST ONLY be numbers and dates - Lesser than
@@ -815,9 +822,11 @@ Routes MUST return an empty collection if no results were found.
 
 Routes MUST NOT change what properties are searched over in a version.
 
-Routes MUST search in a properties contains fashion
+Routes SHOULD search in a properties contains fashion
 
 Views MAY support search.
+
+See also [Querying](pattern/querying.md)
 
 # General Style
 
