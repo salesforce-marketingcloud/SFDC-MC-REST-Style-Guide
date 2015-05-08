@@ -349,12 +349,12 @@ MUST NOT include properties outside of set
 			// 1-1 relation
 			"post" : {
 				"id" : "1"
-			}
+			},
 			// 1-n relation
 			"users" : [
 				 { "id" : "1" }
 				,{ "id" : "2" }
-			]
+			],
 			// n-n relation
 			"users" : [
 				 { "id" : "1" }
