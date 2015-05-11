@@ -57,11 +57,11 @@ Location: header pointing to the newly created resource, or where a collection o
 
 ## PUT
 
-A resource MAY support PUT. SHOULD replace a resource and MUST NOT create a
+A resource MAY support PUT. A PUT SHOULD replace a resource and MUST NOT create a
 resource.  A server SHOULD respond with a 200 when updating an existing
 resource. 
 
-Server MAY support PUT against a collection that is a relationship.
+A server MAY support PUT against a collection that is a relationship.
 
 See also [Upserting](pattern/upserting.md)
 
