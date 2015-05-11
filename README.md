@@ -44,15 +44,16 @@ A resource MAY support DELETE. The identified resource MUST be deleted.
 ## GET
 
 The identified resource MUST be retrieved and MUST be idempotent. i.e. MUST NOT
-produce any side-effects.
+produce any side-effects.  
 
 ## POST
 
 A resource MAY support POST.  The resource contained in the request MUST be
-created.
+created, OR the server MUST respond with an error.
 
 The server MUST respond with a 201 status and the created resource. The server
-MUST include the created identifier for the resource.
+MUST include the created identifier for the resource.  The server MUST respond with a 
+Location: header pointing to the newly created resource, or where a collection of resources may be found. 
 
 ## PUT
 
