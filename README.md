@@ -28,7 +28,7 @@ Routes on a version MAY add properties to a payload. Route MUST NOT add required
 properties for creating a resource.
 
 Routes on a version MAY add optional query string parameters. Routes on a
-version MUST NOT add required parameters. 
+version MUST NOT add required query string parameters. 
 
 See also [breaking changes](jusification/breakingchanges.md)
 
