@@ -34,8 +34,8 @@ See also [breaking changes](jusification/breakingchanges.md)
 
 # HTTP verbs
 
-The API uses the hyper text transfer protocol ("HTTP") and resources accept
-various HTTP methods on them.
+The API uses the hyper text transfer protocol ("HTTP"). Resources accept
+several HTTP methods.
 
 ## DELETE
 
