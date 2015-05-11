@@ -32,6 +32,28 @@ version MUST NOT add required parameters.
 
 See also [breaking changes](jusification/breakingchanges.md)
 
+## Sub-Versioning Objects
+
+Servers MUST respond with Content-Version in the Header for resources.  This version MUST be incremented with each change to an object.  E.g. when making breaking OR non-breaking changes to a response object for a resource. 
+
+```
+# Old Version
+# Content-Version : 1
+{
+	foo: "string",
+	bar: 1
+}
+
+# New Version
+# Content-Version : 2
+{
+	foo: "string",
+	bar: 1,
+	baz: true
+}
+```
+
+
 # HTTP verbs
 
 The API uses the hyper text transfer protocol ("HTTP") and resources accept
