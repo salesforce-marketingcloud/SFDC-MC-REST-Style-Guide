@@ -574,56 +574,28 @@ Validation errors SHOULD utilize JSON path
 }
 ```
 
-# Request Body
+# Sorting 
 
-* Dates MUST be ISO-8601 style of 2015-05-04T15:39:03Z
-	* MUST NOT include any other ISO-8601 date style
-	* requests MUST be in either 'Z' or plus/minus format
+Routes MAY support sorting. Routes supporting sorting MUST only use instances
+of the query string `sort`.  Routes MAY support a subset of properties in the
+resource's data section.  A sort's property MUST be a comma separated list of
+valid properties.
 
-Servers MUST reject requests if the body has unexpected or undocumented
-properties OR objects.
+By default the sort order is ascending.  Routes MUST support a descending flag
+on all valid properties with a leading "-". 
 
+# Filtering
 
-## Custom actions
+Filtering is to limit by properties. Clients and routes SHOULD use filtering
+to limit the results in a structured and absolute way.
 
-Routes supporting "custom action" MAY have a request body. The request and
-response MAY have a different JSON schema than the other HTTP methods for the
-resource.
+Routes MAY support filtering. Routes supporting filtering MUST only use
+instances of the query string `f[{property}][{operation}]`.   A filter's
+property MUST be one of the properties on within a resource's data section.
+Routes MAY support a subset of those properties.
 
-Resources MAY expose addition non-standard HTTP actions. Usage of "custom actions"
-SHOULD be used sparingly for consistency among resources.
+Routes supporting filtering MUST support all combinations of properties.
 
-Routes MUST NOT allow verbs in resource paths.
-
-Routes MAY support a request body and different query string parameters.
-
-**Example**
-An operation on a resource that doesn't fit with REST is rotate an image
-resource on the server.  To Rotate the image in a RESTful way, would need to
-GET the image, rotate it client side, then PUT it back on the server. It would
-take at least two calls to perform one operation. Routes do not allow verbs in
-resource paths the solution is to POST the action to the API to be executed
-by/on the resource.
-
-## Concurrency 
-
-Routes MUST support "If-Match" header with PUT/PATCH. If "If-Match" header is different than 
-the expected current version the route MUST fail the request.
-
-If the "If-Match" header is omitted the route SHOULD attempt the satisfy the
-request regardless of concurrency problems.
-
-See also [currency justification](justification/currency.md) 
-See also [creating etag](pattern/creating_etag.md) 
-
-# Async Interaction
-A route/method MAY support Async. The server MUST respond with a 202 status and
-"Location" header to query the async task request. At the "Location" header the
-server MUST continue responding with a 202 until the response is read. Once
-ready the "Location" URL MUST respond as the original request would have if
-done synchronously.
-
-The server MUST NOT respond with a 202 and a body.
 
 #Pagination 
 
@@ -682,6 +654,59 @@ Query string parameter "page" MUST be an identifier of the result to continue fr
 of resources to skip is "page-1" * "size". i.e. MUST start at page 1
 
 Query string parameter "size" MUST be the maximum number of results to return.
+
+
+# Request Body
+
+* Dates MUST be ISO-8601 style of 2015-05-04T15:39:03Z
+	* MUST NOT include any other ISO-8601 date style
+	* requests MUST be in either 'Z' or plus/minus format
+
+Servers MUST reject requests if the body has unexpected or undocumented
+properties OR objects.
+
+
+## Custom actions
+
+Routes supporting "custom action" MAY have a request body. The request and
+response MAY have a different JSON schema than the other HTTP methods for the
+resource.
+
+Resources MAY expose addition non-standard HTTP actions. Usage of "custom actions"
+SHOULD be used sparingly for consistency among resources.
+
+Routes MUST NOT allow verbs in resource paths.
+
+Routes MAY support a request body and different query string parameters.
+
+**Example**
+An operation on a resource that doesn't fit with REST is rotate an image
+resource on the server.  To Rotate the image in a RESTful way, would need to
+GET the image, rotate it client side, then PUT it back on the server. It would
+take at least two calls to perform one operation. Routes do not allow verbs in
+resource paths the solution is to POST the action to the API to be executed
+by/on the resource.
+
+## Concurrency 
+
+Routes MUST support "If-Match" header with PUT/PATCH. If "If-Match" header is different than 
+the expected current version the route MUST fail the request.
+
+If the "If-Match" header is omitted the route SHOULD attempt the satisfy the
+request regardless of concurrency problems.
+
+See also [currency justification](justification/currency.md) 
+See also [creating etag](pattern/creating_etag.md) 
+
+# Async Interaction
+A route/method MAY support Async. The server MUST respond with a 202 status and
+"Location" header to query the async task request. At the "Location" header the
+server MUST continue responding with a 202 until the response is read. Once
+ready the "Location" URL MUST respond as the original request would have if
+done synchronously.
+
+The server MUST NOT respond with a 202 and a body.
+
 
 # Partial Responses
 
@@ -778,27 +803,6 @@ GET {service}/{resources}/{id}/{sub-resources}/views/asXml
 GET {service}/{resources}/{id}/{sub-resources}/{id}/views/asWord
 ```
 
-# Sorting 
-
-Routes MAY support sorting. Routes supporting sorting MUST only use instances
-of the query string `sort`.  Routes MAY support a subset of properties in the
-resource's data section.  A sort's property MUST be a comma separated list of
-valid properties.
-
-By default the sort order is ascending.  Routes MUST support a descending flag
-on all valid properties with a leading "-". 
-
-# Filtering
-
-Filtering is to limit by properties. Clients and routes SHOULD use filtering
-to limit the results in a structured and absolute way.
-
-Routes MAY support filtering. Routes supporting filtering MUST only use
-instances of the query string `f[{property}][{operation}]`.   A filter's
-property MUST be one of the properties on within a resource's data section.
-Routes MAY support a subset of those properties.
-
-Routes supporting filtering MUST support all combinations of properties.
 
 ##Properties
 
