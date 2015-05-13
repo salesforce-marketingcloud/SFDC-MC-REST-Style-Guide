@@ -32,6 +32,67 @@ version MUST NOT add required query string parameters.
 
 See also [breaking changes](jusification/breakingchanges.md)
 
+# HTTP status codes
+
+## Implicit
+
+The API uses the hyper text transfer protocol ("HTTP") and provides various
+implicit status codes. Implicit codes are framework level. 
+
+* 100 Continue
+* 206 Partial Content
+* 404 Not Found
+* 405 Method Not Allowed
+* 406 Not Acceptable
+	* Accept header
+* 411 Length Required
+* 412 Precondition Failed
+* 413 Request Entity Too Large
+* 414 Request URI Too Long
+    * See also [async as header](justification/asyncAsHeader.md)
+* 415 Unsupported Media Type
+	* Unsupported Content-Type header
+* 416 Requested Range Not Satisfiable
+* 417 Expectation Failed
+* 429 Too Many Requests
+* 500 Internal Server Error
+* 502 Bad Gateway
+* 503 Service Unavailable
+* 504 Gateway Timeout
+
+## Explicit
+
+Explicit codes are related to business logic responses.
+
+* 200 OK
+* 201 Created
+* 202 Accepted
+	* For async operations (accepted the submission)
+* 304 Not modified
+	* Routes MAY respond to If-None-Match (etag) header
+* 400 Bad Request
+* 401 Unauthorized
+	* Request is not authenticated
+* 403 Forbidden
+	* Authenticated but lack permission to resource/operation
+* 404 Not Found
+	* Routes SHOULD return 403 if resource exists but user lacks access
+
+* SHOULD NOT - 204 No content
+	* High volume use cases can be exceptions
+	* Discouraged for consistency
+		* deletes should attempt to return helpful information like "id"
+		* PUT should return the created content
+
+## Redirects
+Routes MUST NOT return redirects
+
+## Codes usage with HTTP methods
+* 201 MUST only be used with POST
+* 202 MUST only be used with Async requests
+* 200 MUST NOT be used with POST
+
+
 # HTTP verbs
 
 The API uses the hyper text transfer protocol ("HTTP"). Resources accept
@@ -151,66 +212,6 @@ POST {service}/{resources}/{id}/{sub-resources}/{id}?action={name}
 ```
 
 
-
-# HTTP status codes
-
-## Implicit
-
-The API uses the hyper text transfer protocol ("HTTP") and provides various
-implicit status codes. Implicit codes are framework level. 
-
-* 100 Continue
-* 206 Partial Content
-* 404 Not Found
-* 405 Method Not Allowed
-* 406 Not Acceptable
-	* Accept header
-* 411 Length Required
-* 412 Precondition Failed
-* 413 Request Entity Too Large
-* 414 Request URI Too Long
-    * See also [async as header](justification/asyncAsHeader.md)
-* 415 Unsupported Media Type
-	* Unsupported Content-Type header
-* 416 Requested Range Not Satisfiable
-* 417 Expectation Failed
-* 429 Too Many Requests
-* 500 Internal Server Error
-* 502 Bad Gateway
-* 503 Service Unavailable
-* 504 Gateway Timeout
-
-## Explicit
-
-Explicit codes are related to business logic responses.
-
-* 200 OK
-* 201 Created
-* 202 Accepted
-	* For async operations (accepted the submission)
-* 304 Not modified
-	* Routes MAY respond to If-None-Match (etag) header
-* 400 Bad Request
-* 401 Unauthorized
-	* Request is not authenticated
-* 403 Forbidden
-	* Authenticated but lack permission to resource/operation
-* 404 Not Found
-	* Routes SHOULD return 403 if resource exists but user lacks access
-
-* SHOULD NOT - 204 No content
-	* High volume use cases can be exceptions
-	* Discouraged for consistency
-		* deletes should attempt to return helpful information like "id"
-		* PUT should return the created content
-
-## Redirects
-Routes MUST NOT return redirects
-
-## Codes usage with HTTP methods
-* 201 MUST only be used with POST
-* 202 MUST only be used with Async requests
-* 200 MUST NOT be used with POST
 
 # Headers
 A specific set of headers are supported. A server MUST NOT respect any header
