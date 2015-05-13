@@ -92,7 +92,6 @@ Routes MUST NOT return redirects
 * 202 MUST only be used with Async requests
 * 200 MUST NOT be used with POST
 
-
 # HTTP verbs
 
 The API uses the hyper text transfer protocol ("HTTP"). Resources accept
@@ -212,7 +211,6 @@ POST {service}/{resources}/{id}/{sub-resources}/{id}?action={name}
 ```
 
 
-
 # Headers
 A specific set of headers are supported. A server MUST NOT respect any header
 outside of the defined list.
@@ -273,6 +271,52 @@ outside of the defined list.
 	* See also [Binary Views](binary views)
 
 No localization headers are accepted or returned. [Localization justification](justification/localization.md)
+
+# General Style
+
+## Path
+Path SHOULD be case sensitive. Resource names MUST be nouns. 
+
+Route SHOULD NOT exceed two resource names in the URI.  Routes MUST NOT expose
+resource past two nested levels, implementations SHOULD wrap and expose the
+sub-resource.
+
+Routes MUST NOT use reserve word(s) in resource name
+* "views"
+
+**Examples**
+{service}/{resources}
+{service}/{resources}/{id}
+{service}/{resources}/{id}/{sub-resources}
+{service}/{resources}/{id}/{sub-resources}/{id}
+
+Routes MUST NOT exceed
+{service}/{resources}/{id}/{sub-resources}/{id}
+
+Routes SHOULD additionally exist
+{service}/{**sub**-resources}/{id}
+
+## Query string
+* Servers MUST accept and ignore extra query string parameters
+* Query string parameters MUST be camelCase
+* Query string parameters MUST be case insensitive
+
+## Collections
+Routes that return multiple objects are collections.
+* Routes MUST have a plural named 
+* Routes MUST return an empty array when not objects found
+* Routes MUST always be an array even when a single object
+* Routes SHOULD be a set of fully hydrated objects 
+
+## Remote field expansion
+Routes MUST NOT support a query string to expand relationship objects. 
+
+See also [Views](#views)
+
+## Marketing Cloud Specific Properties
+
+TODO/FIXME: info about memberid, enterpriseId, other SFMC specific properties here.
+
 
 # Response
 Responses from a route MUST have the prescribed envelope format.
@@ -826,44 +870,5 @@ Views MAY support search.
 
 See also [Querying](pattern/querying.md)
 
-# General Style
 
-## Query string
-* Servers MUST accept and ignore extra query string parameters
-* Query string parameters MUST be camelCase
-* Query string parameters MUST be case insensitive
-
-## Remote field expansion
-Routes MUST NOT support a query string to expand relationship objects. 
-
-See also [Views](#views)
-
-## Path
-Path SHOULD be case sensitive. Resource names MUST be nouns. 
-
-Route SHOULD NOT exceed two resource names in the URI.  Routes MUST NOT expose
-resource past two nested levels, implementations SHOULD wrap and expose the
-sub-resource.
-
-Routes MUST NOT use reserve word(s) in resource name
-* "views"
-
-**Examples**
-{service}/{resources}
-{service}/{resources}/{id}
-{service}/{resources}/{id}/{sub-resources}
-{service}/{resources}/{id}/{sub-resources}/{id}
-
-Routes MUST NOT exceed
-{service}/{resources}/{id}/{sub-resources}/{id}
-
-Routes SHOULD additionally exist
-{service}/{**sub**-resources}/{id}
-
-### Collections
-Routes that return multiple objects are collections.
-* Routes MUST have a plural named 
-* Routes MUST return an empty array when not objects found
-* Routes MUST always be an array even when a single object
-* Routes SHOULD be a set of fully hydrated objects 
 
