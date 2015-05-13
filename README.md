@@ -150,14 +150,7 @@ POST {service}/{resources}/{id}/{sub-resources}?action={name}
 POST {service}/{resources}/{id}/{sub-resources}/{id}?action={name}
 ```
 
-# Async Interaction
-A route/method MAY support Async. The server MUST respond with a 202 status and
-"Location" header to query the async task request. At the "Location" header the
-server MUST continue responding with a 202 until the response is read. Once
-ready the "Location" URL MUST respond as the original request would have if
-done synchronously.
 
-The server MUST NOT respond with a 202 and a body.
 
 # HTTP status codes
 
@@ -578,6 +571,14 @@ request regardless of concurrency problems.
 See also [currency justification](justification/currency.md) 
 See also [creating etag](pattern/creating_etag.md) 
 
+# Async Interaction
+A route/method MAY support Async. The server MUST respond with a 202 status and
+"Location" header to query the async task request. At the "Location" header the
+server MUST continue responding with a 202 until the response is read. Once
+ready the "Location" URL MUST respond as the original request would have if
+done synchronously.
+
+The server MUST NOT respond with a 202 and a body.
 
 #Pagination 
 
