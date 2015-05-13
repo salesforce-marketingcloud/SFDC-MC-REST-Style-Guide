@@ -605,6 +605,56 @@ Routes MAY support a subset of those properties.
 
 Routes supporting filtering MUST support all combinations of properties.
 
+##Properties
+
+If filter property operates on a nested property structure the
+"fields" format specification applies.
+
+See also [Partial Responses]("#Partial Responses")
+
+##Operations
+Operation MUST be one of 
+* eq  - MAY support comma separated values double quoted - Equals
+* not - MAY support comma separated values double quoted - Not Equals
+* gt  - MUST ONLY be numbers and dates - Greater than
+* gte - MUST ONLY be numbers and dates - Greater than or equals
+* lt  - MUST ONLY be numbers and dates - Lesser than
+* lte - MUST ONLY be numbers and dates - Lesser than or equals
+
+Multiple filters MUST be and'ed together.
+
+## Values
+For the operations "eq" and "not" routes MAY support comma separated values. Multiple values MUST be combined with a "or" operation, i.e. a SQL "in".
+
+Operations gt, gte, lt, lte MUST support only a single values.
+
+##Examples
+```
+f[{property}][{operation}]
+
+f[color][eq]=blue
+f[cost][eq]=50
+f[content/locale][eq]=en
+
+f[cost][lte]=50
+f[cost][gte]=50
+
+f[cost][lte]=100&f[cost][gte]=50
+WHERE cost <= 100
+AND   cost >= 50
+
+f[cost][lt]=50
+f[cost][gt]=50
+
+f[color][not]=blue
+f[cost][not]=50
+
+f[color][eq]=blue,green,red&f[cost][lte]=50
+WHERE color IN ('blue', 'green', 'red' )
+AND   cost <= 50
+```
+
+
 
 #Pagination 
 
@@ -827,54 +877,6 @@ GET {service}/{resources}/{id}/{sub-resources}/{id}/views/asWord
 ```
 
 
-##Properties
-
-If filter property operates on a nested property structure the
-"fields" format specification applies.
-
-See also [Partial Responses]("#Partial Responses")
-
-##Operations
-Operation MUST be one of 
-* eq  - MAY support comma separated values double quoted - Equals
-* not - MAY support comma separated values double quoted - Not Equals
-* gt  - MUST ONLY be numbers and dates - Greater than
-* gte - MUST ONLY be numbers and dates - Greater than or equals
-* lt  - MUST ONLY be numbers and dates - Lesser than
-* lte - MUST ONLY be numbers and dates - Lesser than or equals
-
-Multiple filters MUST be and'ed together.
-
-## Values
-For the operations "eq" and "not" routes MAY support comma separated values. Multiple values MUST be combined with a "or" operation, i.e. a SQL "in".
-
-Operations gt, gte, lt, lte MUST support only a single values.
-
-##Examples
-```
-f[{property}][{operation}]
-
-f[color][eq]=blue
-f[cost][eq]=50
-f[content/locale][eq]=en
-
-f[cost][lte]=50
-f[cost][gte]=50
-
-f[cost][lte]=100&f[cost][gte]=50
-WHERE cost <= 100
-AND   cost >= 50
-
-f[cost][lt]=50
-f[cost][gt]=50
-
-f[color][not]=blue
-f[cost][not]=50
-
-f[color][eq]=blue,green,red&f[cost][lte]=50
-WHERE color IN ('blue', 'green', 'red' )
-AND   cost <= 50
-```
 
 
 
