@@ -655,6 +655,28 @@ of resources to skip is "page-1" * "size". i.e. MUST start at page 1
 
 Query string parameter "size" MUST be the maximum number of results to return.
 
+# Searching
+
+Searching is to find results based on one or many properties. 
+
+Routes MAY support a search.  Routes MUST return 400 when searching is
+requested but not available.  Routes SHOULD use search as a means to find
+results by a query.  Routes MUST only support searching through query string
+parameter "q".  Search SHOULD be case insensitive.
+
+Routes MAY return 400 "Bad Request" for a query. 
+
+Routes MUST return an empty collection if no results were found. 
+
+Routes MUST NOT change what properties are searched over in a version.
+
+Routes SHOULD search in a properties contains fashion
+
+Views MAY support search.
+
+See also [Querying](pattern/querying.md)
+
+
 
 # Request Body
 
@@ -853,26 +875,6 @@ WHERE color IN ('blue', 'green', 'red' )
 AND   cost <= 50
 ```
 
-# Searching
-
-Searching is to find results based on one or many properties. 
-
-Routes MAY support a search.  Routes MUST return 400 when searching is
-requested but not available.  Routes SHOULD use search as a means to find
-results by a query.  Routes MUST only support searching through query string
-parameter "q".  Search SHOULD be case insensitive.
-
-Routes MAY return 400 "Bad Request" for a query. 
-
-Routes MUST return an empty collection if no results were found. 
-
-Routes MUST NOT change what properties are searched over in a version.
-
-Routes SHOULD search in a properties contains fashion
-
-Views MAY support search.
-
-See also [Querying](pattern/querying.md)
 
 
 
