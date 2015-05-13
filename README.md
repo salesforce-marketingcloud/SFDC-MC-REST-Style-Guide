@@ -125,22 +125,6 @@ In response to OPTIONS method servers
 * MUST respond with valid methods
 * MUST NOT expose any other data
 
-## Custom actions
-
-Resources MAY expose addition non-standard HTTP actions. Usage of "custom actions"
-SHOULD be used sparingly for consistency among resources.
-
-Routes MUST NOT allow verbs in resource paths.
-
-Routes MAY support a request body and different query string parameters.
-
-**Example**
-An operation on a resource that doesn't fit with REST is rotate an image
-resource on the server.  To Rotate the image in a RESTful way, would need to
-GET the image, rotate it client side, then PUT it back on the server. It would
-take at least two calls to perform one operation. Routes do not allow verbs in
-resource paths the solution is to POST the action to the API to be executed
-by/on the resource.
 
 ## Querying
 
@@ -567,6 +551,21 @@ properties OR objects.
 Routes supporting "custom action" MAY have a request body. The request and
 response MAY have a different JSON schema than the other HTTP methods for the
 resource.
+
+Resources MAY expose addition non-standard HTTP actions. Usage of "custom actions"
+SHOULD be used sparingly for consistency among resources.
+
+Routes MUST NOT allow verbs in resource paths.
+
+Routes MAY support a request body and different query string parameters.
+
+**Example**
+An operation on a resource that doesn't fit with REST is rotate an image
+resource on the server.  To Rotate the image in a RESTful way, would need to
+GET the image, rotate it client side, then PUT it back on the server. It would
+take at least two calls to perform one operation. Routes do not allow verbs in
+resource paths the solution is to POST the action to the API to be executed
+by/on the resource.
 
 ## Concurrency 
 
