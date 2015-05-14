@@ -42,7 +42,8 @@ See also [breaking changes](jusification/breakingchanges.md)
 ## Implicit
 
 The API uses the hyper text transfer protocol ("HTTP") and provides various
-implicit status codes. Implicit codes are framework level. 
+implicit status codes. Implicit codes are framework level, and generally unused
+by Service and Route developers. 
 
 * 100 Continue
 * 206 Partial Content
@@ -67,7 +68,8 @@ implicit status codes. Implicit codes are framework level.
 
 ## Explicit
 
-Explicit codes are related to business logic responses.
+Explicit codes are related to business logic responses, and will generally be
+used by Service and Route developers.
 
 * 200 OK
 * 201 Created
@@ -83,19 +85,24 @@ Explicit codes are related to business logic responses.
 * 404 Not Found
 	* Routes SHOULD return 403 if resource exists but user lacks access
 
-* SHOULD NOT - 204 No content
+### Dragons Be Here
+
+* 204 No content
+	* SHOULD NOT be used
 	* High volume use cases can be exceptions
 	* Discouraged for consistency
 		* deletes should attempt to return helpful information like "id"
 		* PUT should return the created content
 
 ## Redirects
-Routes MUST NOT return redirects
+
+Routes MUST NOT return redirect status codes (3XX Codes excluding 304).
 
 ## Codes usage with HTTP methods
 * 201 MUST only be used with POST
 * 202 MUST only be used with Async requests
-* 200 MUST NOT be used with POST
+* 200 SHOULD NOT be used with POST
+    * 200 MAY be used for Custom Actions, and HTTP Method Substitution. 
 
 # HTTP verbs
 
