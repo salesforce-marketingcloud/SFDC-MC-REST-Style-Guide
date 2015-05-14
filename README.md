@@ -579,7 +579,7 @@ Routes MUST provide all properties even when value is "null".
 ## Envelope
 Server response MUST correspond to the format
 * MUST "data" - array of data objects - contains response of route
-* MAY "meta" - object - contains all meta data for the response
+* MAY "meta" - metadata object - contains all meta data for the response
 
 **Data Object**
 * MUST "id" - string - identifier for resource
@@ -640,17 +640,17 @@ See pattern [Recurring events](pattern/recurringevent.md)
 * Predefined and static list of options. All options MUST be listed in discovery 2
 * MUST be reference as string
 
-## Metadata
+## Metadata object format
 Servers MUST include a meta object at root level of the response envelope.
 
 **Meta Object**
-MUST NOT include properties outside of set
+* MUST NOT include properties outside of set
 * MUST "etags" - array of etag objects - object defining the version of returned resources
 * MAY "totalCount" - Number - the number of total records in a collection response
 * MAY "links" - array of link objects - object defining relationships such as paging
 
 **Link object**
-MUST NOT include properties outside of set
+* MUST NOT include properties outside of set
 * MUST "href" - string - href to next state or page
 * MUST "name" - enum - description of href implying purpose
 	* valid standard names are "prev", "next", "self", "first", "last"
@@ -662,7 +662,7 @@ MUST NOT include properties outside of set
 * MAY "method" - string - HTTP method to use with "href"
 
 **Etag object**
-MUST NOT include properties outside of set
+* MUST NOT include properties outside of set
 * MUST "etag" - string - identifier for current state of resource
 	* See also [currency justification](justification/currency.md)
 * MUST "path" - string - JSON path indicating the object link belongs to
