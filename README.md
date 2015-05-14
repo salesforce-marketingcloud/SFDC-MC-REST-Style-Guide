@@ -469,10 +469,8 @@ outside of the defined list.
 
 * Content-Type
 	* Responses SHOULD be "application/json"
-	* See also [Binary Views](binary views)
 * Content-Disposition
 	* Response MAY be used when non "application/json"
-	* See also [Binary Views](binary views)
 
 No localization headers are accepted or returned. [Localization justification](justification/localization.md)
 
