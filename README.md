@@ -437,9 +437,7 @@ outside of the defined list.
 	  "application/json" UNLESS the route indicates support for binary types
 
 ## Response
-* Access-Control-Allow-Origin
-	* Support for CORS
-* Access-Control-\* FIXME/TODO other ones
+* Access-Control-Allow-Origin, Access-Control-Allow-Methods, Access-Control-Allow-Headers, Access-Control-Max-Age
 	* Support for CORS
 * Location
 	* Async MUST respond header to query the async task request
