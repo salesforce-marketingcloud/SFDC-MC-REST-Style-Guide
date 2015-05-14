@@ -134,7 +134,7 @@ used by Service and Route developers.
 		* PUT should return the replaced content with a 200
 		* POST/create should return the created content with implict defaults and generated "id" with a 200
 * 304 Not modified
-	* Routes MAY respond to If-None-Match (etag) header
+	* MUST only be used for freshness negotiation
 * 400 Bad Request
 * 401 Unauthorized
 	* Request is not authenticated
