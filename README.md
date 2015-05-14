@@ -75,6 +75,11 @@ used by Service and Route developers.
 * 201 Created
 * 202 Accepted
 	* For async operations (accepted the submission)
+* 204 No content
+	* SHOULD NOT be used. When used MUST indicate request was successful and state submitted was accepted with no modifications or defaults. Discouraged for consistency. 
+		* Deletes SHOULD return helpful information like "id" with a 200
+		* PUT should return the replaced content with a 200
+		* POST/create should return the created content with implict defaults and generated "id" with a 200
 * 304 Not modified
 	* Routes MAY respond to If-None-Match (etag) header
 * 400 Bad Request
@@ -84,15 +89,6 @@ used by Service and Route developers.
 	* Authenticated but lack permission to resource/operation
 * 404 Not Found
 	* Routes SHOULD return 403 if resource exists but user lacks access
-
-### Dragons Be Here
-
-* 204 No content
-	* SHOULD NOT be used
-	* High volume use cases can be exceptions
-	* Discouraged for consistency
-		* deletes should attempt to return helpful information like "id"
-		* PUT should return the created content
 
 ## Redirects
 
