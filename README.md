@@ -58,13 +58,13 @@ The application protocol interface ("API") is exposed with different versions. I
 use an indicator in the uniform resource locator ("URL"). This indicator
 applies to the entire API as a whole. Resources MUST NOT expose their own versions.
 
-    GET {BASEURL}/{version}/{service}/{+resource}
+    GET /{version}/{service}/{+resource}
 
 ## Example:
 
-    {BASEURL}/v4/data/contacts
+    /v4/data/contacts
 
-See also [version location](jusification/versionlocation.md)
+See also [version location](justification/versionlocation.md)
 
 ## Version numbering schema
 
@@ -79,14 +79,14 @@ releases.
 
 Servers MAY add endpoints to an existing Version.
 
-Routes on a Version MAY add properties to a request or response payload. Routes
-MUST NOT add required properties to a request or response payload. Routes MUST
-NOT remove existing properties from a request or response payload.
+Routes on a version MAY add properties to a request or response payload. Routes
+MUST NOT add required properties to a request payload. Routes MUST NOT remove
+existing properties from a request or response payload. Routes MUST NOT change
+type or the meaning of existing properties.
 
-Routes on a Version MAY add or remove optional query string parameters. Routes
-on a version MUST NOT add or remove required query string parameters.
-
-See also [breaking changes](jusification/breakingchanges.md)
+Routes on a version MAY add new optional query string parameters.  Routes on a
+version MUST NOT remove query string parameters.  Routes on a version MUST NOT
+add new required query string parameters. 
 
 # HTTP status codes
 
@@ -630,7 +630,7 @@ Route MUST NEVER localize property names.
 Route MUST error if "filter" contains unsupported values.
 
 ## Example
-```json
+```javascript
 {
 	// TODO/FIXME crap example
 	"data" : [
@@ -713,7 +713,7 @@ Error MUST NOT have anymore than following properties
 	* Validation errors SHOULD have detail object for each validation error
 
 **Error Detail Object Format**
-MUST NOT have any more than following properties
+* MUST NOT have any more than following properties
 * MUST "documentationUrl" - string - fully qualified URL to support site
 * MUST "errorCode" - string - MUST be English US-ASCII dot separated value (no whitespace)
 * MUST "path" - JSON path format - definition of JSON path that caused issue
