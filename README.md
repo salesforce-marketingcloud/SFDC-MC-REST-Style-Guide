@@ -137,6 +137,21 @@ Location: /v4/content/articles/1
 }
 # A new article with id 1 is created
 
+# Creating a nested object, tags, that will be associated to an article
+POST /v4/content/tags
+{
+	"tag" : "business"
+}
+201 Created
+Location: /v4/content/tags/2
+{
+	"data" : [{
+		"id" : 2,
+		"tag" : "business"
+	}]
+}
+# A tag is created with ID 2
+
 # Appending a relationships to a Resource
 POST /v4/content/articles/1/tags
 {
@@ -151,8 +166,29 @@ POST /v4/content/articles/1/tags
 			{ "id" : "2" }
 		]
 	}]
-
 }
+# tag 2 is associated to article 1
+
+# Alternate Flow for creating new article with relationship
+POST /v4/content/articles
+{
+	"name" : "A new Article"
+	"tags " : [
+		{ "id" : "2" }
+	]
+}
+201 Created
+Location: /v4/content/articles/1
+{
+	"data" : [{
+		"id" : 1,
+		"name" : "A new Article",
+		"tags" : [
+			{ "id" : "2" }
+		]
+	}]
+}
+# Article 1 is created with tag 2 relationship
 
 ```
 
