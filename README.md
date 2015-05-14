@@ -111,20 +111,93 @@ several HTTP methods.
 
 ## DELETE
 
-A resource MAY support DELETE. The identified resource MUST be deleted.
-
-Routes MAY support a request body. 
+A resource MAY support DELETE. The identified resource MUST be deleted.  
+Routes MAY support a request body for DELETE requests. 
 
 ### Deleting a single resource
 
 Routes supporting DELETE of a single resource MUST have the resource identified
 in the URI.  Routes supporting DELETE of a nested relationship MUST only delete
-the relationship not the resource.
+the relationship not the nested resources.
+
+```
+# Deleting a single resource:
+
+DELETE /v4/content/articles/1
+200 OK
+{
+	"data" : [{
+		"id" : 1
+	}]
+}
+# Deletes an article with ID 1
+
+# Deleting a single resource relationship:
+
+GET /v4/data/tags/2
+200 OK
+{
+	"data" : [{
+		"id" : 2,
+		article: {
+			"id" : 1
+		}
+	}]
+}
+# A tag exists on article id 1
+
+DELETE /v4/data/articles/1/tags/2
+200 OK
+{
+	"data" : [{
+		"id" : 2
+	}]
+}
+# Deletes the RELATIONSHIP of comment 2 to article 1
+
+GET /v4/data/tags/2
+200 OK
+{
+	"data" : [{
+		"id" : 2,
+		article: {
+			"id" : null
+		}
+	}]
+}
+# tag still exists, but does not relate to article 1 any longer.
+
+```
 
 ### Deleting multiple resources
 
 Collection routes MAY support DELETE. Request should be a collection of
 resources to be deleted.
+
+
+```
+
+DELETE /v4/data/articles
+{
+	"data" : [{
+		"id" : 2
+	},
+	{	"id" : 3
+	}]
+}
+
+200 OK
+{
+	"data" : [{
+		"id" : 2
+	},
+	{	"id" : 3
+	}]
+
+}
+# Articles 2 and 3 are deleted.
+
+```
 
 See also [HTTP verb substitution](#HTTP verb substitution)
 
