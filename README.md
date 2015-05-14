@@ -400,8 +400,6 @@ Routes MUST NOT support creation through PUT.
 See also [Upserting](pattern/upserting.md)
 
 
-See also [Upserting](pattern/upserting.md)
-
 ## PATCH
 
 A resource MAY support PATCH. Updates an existing resource in parts. 
