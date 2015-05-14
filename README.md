@@ -173,7 +173,10 @@ with a Location: header pointing to the newly created resource.
 	"data" : [{
 		"id" : 1,
 		"name" : "A new Article"
-	}]
+	}],
+	"meta" : {
+		""
+	}
 }
 /* A new article with id 1 is created */
 ```
@@ -558,6 +561,7 @@ Routes MUST respond with "location" header when a resource was created.
 
 ## Property types
 **Date**
+
 * MUST always include date and time
 * MUST be ISO-8601 style of 2015-05-04T15:39:03Z
 	* Server MAY lack timezone for **recurring** events
@@ -565,20 +569,26 @@ Routes MUST respond with "location" header when a resource was created.
 	* requests MUST be in either 'Z' or plus/minus format
 
 **Number**
+
 * SHOULD NOT be quoted
 
 **Array**
+
 * MUST contain homogeneous values
 
 **Relationship**
-See also [Relationship definition](glossary.md)
-See also [Relationship object](justification/relationshipobject.md)
+
 * For 1-1 relationship MUST be an relationship object
 * For \*-n relationship MUST be an array of relationship object
 * Requests containing relationship objects MUST only modify relationship between the two resources
 	* Servers SHOULD error if properties outside of "id" are present in request
 
+See also [Relationship definition](glossary.md)
+
+See also [Relationship object](justification/relationshipobject.md)
+
 **Relationship Object**
+
 * MUST contain "id" - string - reference id by object
 * MUST NOT contain other object properties
 	* See also [Views](#pattern)
@@ -586,7 +596,9 @@ See also [Relationship object](justification/relationshipobject.md)
 See pattern [Recurring events](pattern/recurringevent.md)
 
 **Enumerations**
-TODO/FIXME
+
+* Predefined and static list of options. All options MUST be listed in discovery 2
+* MUST be reference as string
 
 ## Metadata
 Servers MUST include a meta object at root level of the response envelope.
