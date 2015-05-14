@@ -644,12 +644,18 @@ Route MUST error if "filter" contains unsupported values.
 ## Errors
 
 Error requests to a server SHOULD be idempotent (no side effect). Errors MUST
-be in the prescribed the error JSON format. HTTP content-type MUST NOT deviate
-from API's content-type.
+be in the prescribed the error JSON format if successful calls to the route 
+would have responded with JSON.
 
-### Error Format
 
-Error MUST NOT have any more than following properties
+### Error Envelope
+
+Server response MUST correspond to the format 
+* MUST "error" - Error object - contains encountered error
+
+### Error object Format
+
+Error MUST NOT have anymore than following properties
 * SHOULD "requestId" - string - "requestId" of the request
 * MUST "documentationUrl" - string - fully qualified URL to support site
 	* Support site SHOULD be localized and the JSON is not localized
@@ -681,67 +687,58 @@ Validation errors SHOULD utilize JSON path
 ### Example
 ```json
 {
-	"data" : [
-		{
-			"requestId" : "random string for internal debugging",
-			"documentationUrl" : "https://developer.salesforce.com/marketing_cloud/errors/server.failure.general",
-			"statusCode" :  500,
-			"errorCode" : "server.failure.general",
-			"message" : "The server experienced a general failure",
-			"details" : []
-		}
-	],
-	"meta" : null
+	"error" : {
+		"requestId" : "random string for internal debugging",
+		"documentationUrl" : "https://developer.salesforce.com/marketing_cloud/errors/server.failure.general",
+		"statusCode" :  500,
+		"errorCode" : "server.failure.general",
+		"message" : "The server experienced a general failure",
+		"details" : []
+	}
 }
 ```
 
 ### Validation Example
 **Request POST**
 ```json
-[
-	{
-		"date" : "not valid date",
-		"emailaddress" : "foo_not_valid@"
-	},
-	{
-		"date" : "2015-06-02T12:00:00.000Z",
-		"emailaddress" : "@bar_not_valid.com"
-	}
-]
+{
+	"date" : "not valid date",
+	"date2" : "2015-06-02T00:00:00Z",
+	"emailAddress" : "foo_not_valid@",
+	"emailAddress2" : "@example.com",
+}
 ```
 
 **Response**
 ```json
 {
-	"data" : [
+	"error" :
 		{
 			"documentationUrl" : "https://developer.salesforce.com/marketing_cloud/errors/validation.error.aggregate",
 			"statusCode" :  400,
 			"errorCode" : "validation.error.aggregate",
-			"message" : "Multiple validation errors occred, see details",
+			"message" : "Multiple validation errors occured, see details",
 			"details" : [
 				{
 					"documentationUrl" : "https://developer.salesforce.com/marketing_cloud/errors/validation.email.address",
 					"errorCode" : "validation.email.address.lackdomain",
-					"path" : "$.[0].emailaddress",
+					"path" : "$.emailAddress",
 					"message" : "lacks domain name"
 				},
 				{
 					"documentationUrl" : "https://developer.salesforce.com/marketing_cloud/errors/validation.date",
 					"errorCode" : "validation.date",
-					"path" : "$.[0].date",
-					"message" : "Data is invalid"
+					"path" : "$.date",
+					"message" : "Date is invalid"
 				},
 				{
 					"documentationUrl" : "https://developer.salesforce.com/marketing_cloud/errors/validation.email.address",
 					"errorCode" : "validation.email.address.lackuser",
-					"path" : "$.[1].emailaddress",
+					"path" : "$.emailAddress2",
 					"message" : "Lacks user"
 				}
 			]
 		}
-	],
-	"meta" : null
 }
 ```
 
