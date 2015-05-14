@@ -103,7 +103,6 @@ by Service and Route developers.
 * 406 Not Acceptable
 	* Accept header
 * 411 Length Required
-* 412 Precondition Failed
 * 413 Request Entity Too Large
 * 414 Request URI Too Long
     * See also [async as header](justification/asyncAsHeader.md)
@@ -142,6 +141,8 @@ used by Service and Route developers.
 	* Authenticated but lack permission to resource/operation
 * 404 Not Found
 	* Routes SHOULD return 403 if resource exists but user lacks access
+* 412 Precondition Failed
+	* MUST only be used for concurrency failure 
 
 Routes MUST NOT return redirect status codes (3XX Codes excluding 304).
 
