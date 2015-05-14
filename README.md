@@ -8,7 +8,10 @@ applies to the entire API as a whole. Resources MUST NOT be individually
 versioned.
 
     GET /{version}/{service}/{+resource}
-    GET /v2/data/contacts
+
+## Example:
+
+    {BASEURL}/v4/data/contacts
 
 See also [version location](jusification/versionlocation.md)
 
@@ -19,16 +22,18 @@ number, which is a whole number. The version number is not tied to product
 releases.
 
     version = "v" 1*DIGIT
+    e.g. - v4
 
-## Allowed modifications to a version 
+## Allowed changes/updates to a Version 
 
-Servers MAY add endpoints.
+Servers MAY add endpoints to an existing Version.
 
-Routes on a version MAY add properties to a payload. Route MUST NOT add required
-properties for creating a resource.
+Routes on a Version MAY add properties to a request or response payload. Routes
+MUST NOT add required properties to a request or response payload. Routes MUST
+NOT remove existing properties from a request or response payload. 
 
-Routes on a version MAY add optional query string parameters. Routes on a
-version MUST NOT add required query string parameters. 
+Routes on a Version MAY add or remove optional query string parameters. Routes
+on a version MUST NOT add or remove required query string parameters. 
 
 See also [breaking changes](jusification/breakingchanges.md)
 
