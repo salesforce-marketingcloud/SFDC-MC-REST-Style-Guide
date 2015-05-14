@@ -564,8 +564,12 @@ See also [Views](#views)
 
 ## Marketing Cloud Specific Properties
 
-TODO/FIXME: info about memberid, enterpriseId, other SFMC specific properties here.
+Responses when referencing a user MUST reference in a sub-object with three properties
+* memberId - string - member, i.e. business unit, of the reference
+* enterpriseid - string - enterprise that memberId sits under. For many customers this is the same as memberId
+* employeeId - string - specific user being references
 
+Routes SHOULD only reference enterpiseId by self and even then rarely.
 
 # Response
 Responses from a route MUST have the prescribed envelope format.
