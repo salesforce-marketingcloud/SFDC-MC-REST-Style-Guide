@@ -170,13 +170,16 @@ with a Location: header pointing to the newly created resource.
 }
 // 201 Created
 // Location: /v4/content/articles/1
+// Etag: "gibberishLikeSha1"
 {
 	"data" : [{
 		"id" : 1,
 		"name" : "A new Article"
 	}],
 	"meta" : {
-		""
+		"etags" : [
+			{ "etag" : "gibberishLikeSha1", "path" : "$.data[0]" }
+		]
 	}
 }
 /* A new article with id 1 is created */
@@ -190,11 +193,17 @@ with a Location: header pointing to the newly created resource.
 }
 // 201 Created
 // Location: /v4/content/tags/2
+// Etag: "gibberishLikeSha2"
 {
 	"data" : [{
 		"id" : 2,
 		"tag" : "business"
-	}]
+	}],
+	"meta" : {
+		"etags" : [
+			{ "etag" : "gibberishLikeSha2", "path" : "$.data[0]" }
+		]
+	}
 }
 /* A tag is created with ID 2 */
 ```
@@ -206,6 +215,8 @@ with a Location: header pointing to the newly created resource.
 	"id" : "2"
 }
 // 201 Created
+// Location: /v4/content/articles/1/tags
+// Etag: "gibberish"
 {
 	"data" : [{
 		"id" : "1",
@@ -213,7 +224,12 @@ with a Location: header pointing to the newly created resource.
 		"tags" : [
 			{ "id" : "2" }
 		]
-	}]
+	}],
+	"meta" : {
+		"etags" : [
+			{ "etag" : "gibberish", "path" : "$.data[0]" }
+		]
+	}
 }
 /* tag 2 is associated to article 1 */
 ```
@@ -229,6 +245,7 @@ with a Location: header pointing to the newly created resource.
 }
 // 201 Created
 // Location: /v4/content/articles/1
+// Etag: "gibberishLikeModifiedDate"
 {
 	"data" : [{
 		"id" : 1,
@@ -236,7 +253,12 @@ with a Location: header pointing to the newly created resource.
 		"tags" : [
 			{ "id" : "2" }
 		]
-	}]
+	}],
+	"meta" : {
+		"etags" : [
+			{ "etag" : "gibberishLikeModifiedDate", "path" : "$.data[0]" }
+		]
+	}
 }
 /* Article 1 is created with tag 2 relationship */
 ```
@@ -251,11 +273,17 @@ Routes MUST NOT support a http body.
 ```javascript
 // GET /v4/content/articles/1
 // 200 OK
+// Etag: "gibberish"
 {
 	"data" : [{
 		"id" : 1,
 		"name" : "An Article"
-	}]
+	}],
+	"meta" : {
+		"etags" : [
+			{ "etag" : "gibberish", "path" : "$.data[0]" }
+		]
+	}
 }
 /* returns article id 1 */
 ```
@@ -289,6 +317,7 @@ resources to be deleted.
 ```javascript
 /* Deleting a single resource relationship */
 // GET /v4/data/articles/2
+// Etag : "gibberish"
 // 200 OK
 {
 	"data" : [{
@@ -296,7 +325,12 @@ resources to be deleted.
 		"tags": {
 			"id" : 1
 		}
-	}]
+	}],
+	"meta" : {
+		"etags" : [
+			{ "etag" : "gibberish", "path" : "$.data[0]" }
+		]
+	}
 }
 /* A tag exists on article id 2, with tag id 1 */
 
@@ -311,13 +345,17 @@ resources to be deleted.
 
 // GET /v4/data/tags/1
 // 200 OK
+// Etag : "gibberishForTag"
 {
 	"data" : [{
 		"id" : 1,
-		article: {
-			"id" : null
-		}
-	}]
+		"articles": []
+	}],
+	"meta" : {
+		"etags" : [
+			{ "etag" : "gibberishForTag", "path" : "$.data[0]" }
+		]
+	}
 }
 /* tag still exists, but does not relate to article 2 any longer */
 ```
@@ -337,7 +375,6 @@ resources to be deleted.
 		{ "id" : 2 },
 		{ "id" : 3 }
 	]
-
 }
 /* Articles 2 and 3 are deleted */
 ```
@@ -640,8 +677,8 @@ Route MUST error if "filter" contains unsupported values.
 
 ## Example
 ```javascript
+// GET /v4/data/foos?offset=1&limit=2
 {
-	// TODO/FIXME crap example
 	"data" : [
 		{
 			"id" : "1",
@@ -651,25 +688,17 @@ Route MUST error if "filter" contains unsupported values.
 				"2015-06-02T12:00:00Z",
 				"2016-06-02T12:00:00Z",
 				"2017-06-02T12:00:00Z"
-			],
-
-			// 1-1 relation
-			"post" : {
-				"id" : "1"
-			},
-			// 1-n relation
-			"users" : [
-				 { "id" : "1" }
-				,{ "id" : "2" }
-			],
-			// n-n relation
-			"users" : [
-				 { "id" : "1" }
-				,{ "id" : "2" }
 			]
 		},
 		{
-			"id" : "Kris is happy now"
+			"id" : "2",
+			"fooString" : "bar2",
+			"fooDate" : "2015-06-02T12:00:00Z",
+			"fooArray" : [
+				"2015-06-02T12:00:00Z",
+				"2016-06-02T12:00:00Z",
+				"2017-06-02T12:00:00Z"
+			]
 		}
 	],
 
@@ -678,8 +707,8 @@ Route MUST error if "filter" contains unsupported values.
 		"totalCount" : 2,
 
 		"links" : [
-			{ "name" : "prev", "method": "GET", "href" : "object/1", "path" : "$.data" },
-			{ "name" : "next", "method": "GET", "href" : "object/1", "path" : "$.data" }
+			{ "name" : "prev", "method": "GET", "href" : "/v4/data/foos?offset=0&limit=2", "path" : "$.data" },
+			{ "name" : "next", "method": "GET", "href" : "/v4/data/foos?offset=3&limit=2", "path" : "$.data" }
 		],
 
 		"etags" : [
