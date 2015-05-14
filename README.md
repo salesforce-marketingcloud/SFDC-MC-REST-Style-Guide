@@ -537,7 +537,7 @@ See also [Relationship object](justification/relationshipobject.md)
 * For 1-1 relationship MUST be an relationship object
 * For \*-n relationship MUST be an array of relationship object
 * Requests containing relationship objects MUST only modify relationship between the two resources
-	* Servers SHOULD error if properties outside of "id' are present in request
+	* Servers SHOULD error if properties outside of "id" are present in request
 
 **Relationship Object**
 * MUST contain "id" - string - reference id by object 
