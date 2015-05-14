@@ -519,7 +519,7 @@ sub-resource.
 
 Routes MUST NOT use reserve word(s) in resource name
 * "views"
-* "bviews"
+* "binary"
 
 **Examples**
 {service}/{resources}
