@@ -71,9 +71,11 @@ Explicit codes are related to business logic responses, and will generally be
 used by Service and Route developers.
 
 * 200 OK
+	* SHOULD NOT be used with POST/create, MAY be used for Custom Actions, and HTTP Method Substitution
 * 201 Created
+	* MUST only be used with POST
 * 202 Accepted
-	* For async operations (accepted the submission)
+	* MUST only be used with Async requests
 * 204 No content
 	* SHOULD NOT be used. When used MUST indicate request was successful and state submitted was accepted with no modifications or defaults. Discouraged for consistency. 
 		* Deletes SHOULD return helpful information like "id" with a 200
@@ -92,12 +94,6 @@ used by Service and Route developers.
 ## Redirects
 
 Routes MUST NOT return redirect status codes (3XX Codes excluding 304).
-
-## Codes usage with HTTP methods
-* 201 MUST only be used with POST
-* 202 MUST only be used with Async requests
-* 200 SHOULD NOT be used with POST
-    * 200 MAY be used for Custom Actions, and HTTP Method Substitution. 
 
 # HTTP verbs
 
