@@ -404,8 +404,7 @@ See also [Upserting](pattern/upserting.md)
 
 ## PATCH
 
-A resource MAY support PATCH. Updates an existing resource in parts. Patch
-payload is defined elsewhere FIXME/TODO
+A resource MAY support PATCH. Updates an existing resource in parts. 
 
 Routes supporting PATCH MUST support as a single resource having the same JSON
 schema as an item in the collection of the data section of a GET.  The request
