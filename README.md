@@ -7,7 +7,7 @@ use an indicator in the uniform resource locator ("URL"). This indicator
 applies to the entire API as a whole. Resources MUST NOT be individually
 versioned.
 
-    GET /{version}/{service}/{+resource}
+    GET {BASEURL}/{version}/{service}/{+resource}
 
 ## Example:
 
@@ -113,23 +113,19 @@ several HTTP methods.
 
 A resource MAY support POST.  Routes supporting POST MUST support as a single
 resource having the same JSON schema as an item in the collection of the data
-section of a GET.  Routes MAY support POST as a collection of resources having
-the same JSON schema as the data section of a GET. The resource contained in
-the request MUST be created, OR the server MUST respond with an error.
+section of a GET. The resource contained in the request MUST be created, OR
+the server MUST respond with an error.
 
 The server MUST respond with a 201 status and the created resource. The server
 MUST include the created identifier for the resource.  The server MUST respond
-with a Location: header pointing to the newly created resource, or where a
-collection of resources may be found. 
+with a Location: header pointing to the newly created resource. 
 
 ```
 # Creating a Single Resource
 
 POST /v4/content/articles
 {
-	"data" : [{
-		"name" : "A new Article"
-	}]
+	"name" : "A new Article"
 }
 201 Created
 Location: /v4/content/articles/1
@@ -140,11 +136,25 @@ Location: /v4/content/articles/1
 	}]
 }
 # A new article with id 1 is created
+
+# Appending a relationships to a Resource
+POST /v4/content/articles/1/tags
+{
+	"id" : "2"
+}
+201 Created
+{
+	"data" : [{
+		"id" : "1",
+		"name" : "A new Article",
+		"tags" : [
+			{ "id" : "2" }
+		]
+	}]
+
+}
+
 ```
-
-TODO/FIXME need opinions and examples of when POST to collection is a "good idea"
-
-
 
 ## GET
 
