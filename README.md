@@ -2,10 +2,9 @@
 
 # Versioning in the API
 
-The application protocol interface ("API") is versioned. Implementations MUST
+The application protocol interface ("API") is exposed with different versions. Implementations MUST
 use an indicator in the uniform resource locator ("URL"). This indicator
-applies to the entire API as a whole. Resources MUST NOT be individually
-versioned.
+applies to the entire API as a whole. Resources MUST NOT expose their own versions.
 
     GET {BASEURL}/{version}/{service}/{+resource}
 
