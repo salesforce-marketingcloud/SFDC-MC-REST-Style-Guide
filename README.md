@@ -123,11 +123,11 @@ Explicit codes are related to business logic responses, and will generally be
 used by Service and Route developers.
 
 * 200 OK
-	* SHOULD NOT be used with POST/create, MAY be used for Custom Actions, and HTTP Method Substitution
+	* SHOULD NOT be used with POST/create
 * 201 Created
 	* MUST only be used with POST
 * 202 Accepted
-	* MUST only be used with Async requests
+	* MUST only be used with async requests
 * 204 No content
 	* SHOULD NOT be used. When used MUST indicate request was successful and state submitted was accepted with no modifications or defaults. Discouraged for consistency.
 		* Deletes SHOULD return helpful information like "id" with a 200
