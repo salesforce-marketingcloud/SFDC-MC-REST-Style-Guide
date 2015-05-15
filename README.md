@@ -1050,7 +1050,5 @@ Routes MAY add properties that are searched in a version.
 Routes SHOULD search properties in a contains (e.g. Left and Right side
 wildcard, *foo*) fashion
 
-Views MAY support search.
-
 See also [Querying](pattern/querying.md)
 
