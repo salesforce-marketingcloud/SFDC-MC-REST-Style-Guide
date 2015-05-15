@@ -890,9 +890,14 @@ TEXTDATA =  ALPHA / DIGIT / SP
 ```
 
 ## Values
-For the operations "eq" and "not" routes MAY support comma separated values. Multiple values MUST be combined with a "or" operation, i.e. a SQL "in".
+For the operations "eq" and "not" routes MAY support comma separated values.
+Multiple values MUST be combined with an "or" operation, e.g.
 
-Operations gt, gte, lt, lte MUST support only a single values. Routes MUST treat all double quotes and commas as literals in these operations.
+    SELECT id FROM items WHERE items.value IN (1,2,3)
+    SELECT id FROM items WHERE items.value = 1 OR items.value = 2 OR items.value = 3
+
+Operations gt, gte, lt, lte MUST support only a single value. Routes MUST
+treat all double quotes and commas as literals in these operations.
 
 ## Examples
 ```
