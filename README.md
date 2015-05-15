@@ -940,8 +940,9 @@ Query string parameter "limit" MUST be the number of results to return
 
 ## Cursor
 
-Routes supporting pagination MAY support cursor. Requests MUST require "limit" and
-either "before" OR "after".
+Routes supporting pagination MAY support cursor. Requests MUST require "limit".
+Non first set MUST require either "before" OR "after". Callers implicitly
+request Cursor paging by omitting "offset" query string parameter.
 
 Query string parameter "after" MUST be an identifier of the result item to continue from.
 
