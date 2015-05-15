@@ -437,11 +437,17 @@ See also [Querying](pattern/querying.md)
 A server MUST support the HTTP method "POST" to allow HTTP methods a client may
 not support.
 
-POST query string "action" MUST be a value of
+POST query string "action" MUST be a case sensitive value of
 * PUT
 * PATCH
 * DELETE
 * "Custom action"
+
+Routes MUST respond with error to
+* PuT
+* Patch
+* delete
+* etc other case variations
 
 ```
 POST {service}/{resources}?action={verb}
