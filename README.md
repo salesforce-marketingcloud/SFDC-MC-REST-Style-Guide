@@ -141,8 +141,6 @@ used by Service and Route developers.
 	* Authenticated but lack permission to resource/operation
 * 404 Not Found
 	* Routes SHOULD return 403 if resource exists but user lacks access
-* 412 Precondition Failed
-	* MUST only be used for concurrency failure 
 
 Routes MUST NOT return redirect status codes (3XX Codes excluding 304).
 
