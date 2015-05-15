@@ -462,9 +462,9 @@ A specific set of headers are supported. A server MUST NOT respect any header
 outside of the defined list.
 
 ## Request
-* Origin
-	* Support for CORS
 * Authorization
+* Origin, Access-Control-Request-Method, Access-Control-Request-Headers
+	* Support for CORS
 * Original-Request-Id
 	* Client MAY provide a tracking identifier. MUST be less than 1024 characters. Characters
 	  MUST be within US-ASCII.
@@ -481,7 +481,7 @@ outside of the defined list.
 	  "application/json" UNLESS the route indicates support for binary types
 
 ## Response
-* Access-Control-Allow-Origin, Access-Control-Allow-Methods, Access-Control-Allow-Headers, Access-Control-Max-Age
+* Access-Control-Allow-Origin, Access-Control-Allow-Methods, Access-Control-Allow-Headers, Access-Control-Max-Age, Access-Control-Expose-Headers, Access-Control-Allow-Credentials
 	* Support for CORS
 * Location
 	* Async MUST respond header to query the async task request
