@@ -450,7 +450,7 @@ Routes MUST respond with error to
 * etc other case variations
 
 ```
-POST {service}/{resources}?action={verb}
+POST {service}/{resources}?action={name}
 POST {service}/{resources}/{id}?action={name}
 POST {service}/{resources}/{id}/{sub-resources}?action={name}
 POST {service}/{resources}/{id}/{sub-resources}/{id}?action={name}
