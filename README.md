@@ -1043,9 +1043,12 @@ Routes MAY return 400 "Bad Request" for a query.
 
 Routes MUST return an empty collection if no results were found.
 
-Routes MUST NOT change what properties are searched over in a version.
+Routes MUST NOT remove properties that are searched in a version.
 
-Routes SHOULD search in a properties contains fashion
+Routes MAY add properties that are searched in a version.
+
+Routes SHOULD search properties in a contains (e.g. Left and Right side
+wildcard, *foo*) fashion
 
 Views MAY support search.
 
