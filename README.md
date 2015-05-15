@@ -838,10 +838,14 @@ Validation errors SHOULD utilize JSON path
 Routes MAY support sorting. Routes supporting sorting MUST only use instances
 of the query string `sort`.  Routes MAY support a subset of properties in the
 resource's data section.  A sort's property MUST be a comma separated list of
-valid properties. Nested properties MUST NOT be supported for sorting.
+valid properties. 
 
 By default the sort order is ascending.  Routes MUST support a descending flag
 on all valid properties with a leading "-".
+
+TODO: Add syntax for Sorting.
+
+TODO: Add partial responses here.
 
 # Filtering
 
