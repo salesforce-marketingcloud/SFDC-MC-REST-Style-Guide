@@ -473,11 +473,9 @@ outside of the defined list.
 	* Client MAY provide etag values on GET for cache behavior of HTTP code 304
 * Content-Type
 	* Client SHOULD provide "application/json"
-	* Client MAY provide "multipart" to provide both "application/json" and
-	  "binary data". MUST NOT support "form/urlencoded" sections
 * Accept
 	* Client MAY provide an "accept" header. Client's SHOULD expect only
-	  "application/json" UNLESS the route indicates support for binary types
+	  "application/json"
 
 ## Response
 * Access-Control-Allow-Origin, Access-Control-Allow-Methods, Access-Control-Allow-Headers, Access-Control-Max-Age, Access-Control-Expose-Headers, Access-Control-Allow-Credentials
