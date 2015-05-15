@@ -849,7 +849,7 @@ on all valid properties with a leading "-".
 
 # Filtering
 
-Filtering is to limit by properties. Clients and routes SHOULD use filtering
+Filtering MUST be restricted to exposed properties. Clients and routes SHOULD use filtering
 to limit the results in a structured and absolute way.
 
 Routes MAY support filtering. Routes supporting filtering MUST only use
@@ -868,8 +868,8 @@ See also [Partial Responses]("#Partial Responses")
 
 ## Operations
 Operation MUST be one of
-* eq  - MAY support comma separated values double quoted - Equals
-* not - MAY support comma separated values double quoted - Not Equals
+* eq  - MAY support comma separated values that support double quoted - Equals
+* not - MAY support comma separated values that support double quoted - Not Equals
 * gt  - MUST ONLY be numbers and dates - Greater than
 * gte - MUST ONLY be numbers and dates - Greater than or equals
 * lt  - MUST ONLY be numbers and dates - Lesser than
@@ -877,37 +877,99 @@ Operation MUST be one of
 
 Multiple filters MUST be and'ed together.
 
+## Comma Separated Values
+
+Values in the "eq" and "not" operations MUST be treaded in accordance to the following ABNF grammar adapted from  [RFC4180 i.e. "CSV Mime type format"](https://tools.ietf.org/html/rfc4180). See also [RFC2234 Augmented BNF syntax](https://tools.ietf.org/html/rfc2234)
+
+```abnf
+value = (escaped / non-escaped)
+escaped = DQUOTE *(TEXTDATA / COMMA / 2DQUOTE) DQUOTE
+non-escaped = *TEXTDATA
+
+COMMA = %x2C
+DQUOTE = %x22
+TEXTDATA =  ALPHA / DIGIT / SP
+```
+
 ## Values
 For the operations "eq" and "not" routes MAY support comma separated values. Multiple values MUST be combined with a "or" operation, i.e. a SQL "in".
 
-Operations gt, gte, lt, lte MUST support only a single values.
+Operations gt, gte, lt, lte MUST support only a single values. Routes MUST treat all double quotes and commas as literals in these operations.
 
 ## Examples
 ```
-f[{property}][{operation}]
+/* Pattern */
+f[{property}][{operation}]={value}
+```
 
-f[color][eq]=blue
+
+```
+/* numbers */
 f[cost][eq]=50
+WHERE cost = '50'
+```
+
+```
+/* sub-properties */
 f[content/locale][eq]=en
+WHERE locale = 'en'
+```
 
+```
+/* comparsion equality */
 f[cost][lte]=50
-f[cost][gte]=50
+WHERE cost <= 50
 
+f[cost][gte]=50
+WHERE cost >= 50
+```
+
+```
+/* not */
+f[color][not]=blue
+WHERE color <> 'blue'
+
+f[cost][not]=50
+WHERE cost <> 50
+```
+
+```
+/* multiple filters */
 f[cost][lte]=100&f[cost][gte]=50
 WHERE cost <= 100
 AND   cost >= 50
 
-f[cost][lt]=50
-f[cost][gt]=50
+f[cost][gt]=50&f[cost][lt]=100
+WHERE cost < 100
+AND   cost > 50
+```
 
-f[color][not]=blue
-f[cost][not]=50
-
-f[color][eq]=blue,green,red&f[cost][lte]=50
-WHERE color IN ('blue', 'green', 'red' )
+```
+/* complex example */
+f[color][eq]=blue,"green","red"""&f[cost][lte]=50
+WHERE color IN ('blue', 'green', 'red"' )
 AND   cost <= 50
 ```
 
+```
+/* Quote handling */
+
+/* no quotes */
+f[color][eq]=blue
+WHERE color = 'blue'
+
+/* quotes are removed */
+f[color][eq]="blue"
+WHERE color = 'blue'
+
+/* one instance of quote is retained */
+f[color][eq]="""blue"
+WHERE color = '"blue'
+
+/* two instance of quotes escapes */
+f[color][eq]="""blue"""
+WHERE color = '"blue"'
+```
 
 
 # Pagination
