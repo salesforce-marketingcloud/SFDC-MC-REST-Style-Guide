@@ -7,7 +7,7 @@ Table of contents
 * HTTP status codes
 	* Implicit
 	* Explicit
-* HTTP verbs
+* HTTP Methods
 	* POST
 	* GET
 	* DELETE
@@ -54,9 +54,10 @@ Table of contents
 
 # Versioning in the API
 
-The application protocol interface ("API") is exposed with different versions. Implementations MUST
-use an indicator in the uniform resource locator ("URL"). This indicator
-applies to the entire API as a whole. Resources MUST NOT expose their own versions.
+The application protocol interface ("API") is published in multipleversions.
+Implementations MUST use an indicator in the uniform resource locator ("URL").
+This indicator applies to the entire API as a whole. Resources MUST NOT expose
+their own versions.
 
     GET /{version}/{service}/{+resource}
 
@@ -84,8 +85,8 @@ MUST NOT add required properties to a request payload. Routes MUST NOT remove
 existing properties from a request or response payload. Routes MUST NOT change
 type or the meaning of existing properties.
 
-Routes on a version MAY add new optional query string parameters.  Routes on a
-version MUST NOT remove query string parameters.  Routes on a version MUST NOT
+Routes on a version MAY add new optional query string parameters. Routes on a
+version MUST NOT remove query string parameters. Routes on a version MUST NOT
 add new required query string parameters. 
 
 # HTTP status codes
@@ -136,17 +137,18 @@ used by Service and Route developers.
 * 304 Not modified
 	* MUST only be used for freshness negotiation
 * 400 Bad Request
-	* MUST be used for concurrency failure 
 * 401 Unauthorized
 	* Request is not authenticated
 * 403 Forbidden
 	* Authenticated but lack permission to resource/operation
 * 404 Not Found
 	* Routes SHOULD return 403 if resource exists but user lacks access
+* 412 Precondition Failed
+	* MUST be used for concurrency failure 
 
 Routes MUST NOT return redirect status codes (3XX Codes excluding 304).
 
-# HTTP verbs
+# HTTP Methods
 
 The API uses the hyper text transfer protocol ("HTTP"). Resources accept
 several HTTP methods.
