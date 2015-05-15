@@ -524,6 +524,7 @@ sub-resource.
 
 Routes MUST NOT use reserve word(s) in resource name
 * "views"
+* "files"
 
 **Examples**
 {service}/{resources}
