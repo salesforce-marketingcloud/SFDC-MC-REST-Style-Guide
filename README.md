@@ -524,7 +524,6 @@ sub-resource.
 
 Routes MUST NOT use reserve word(s) in resource name
 * "views"
-* "binary"
 
 **Examples**
 {service}/{resources}
@@ -561,8 +560,6 @@ Routes that return multiple objects are collections.
 
 ## Remote field expansion
 Routes MUST NOT support a query string to expand relationship objects.
-
-See also [Views](#views)
 
 ## Marketing Cloud Specific Properties
 
