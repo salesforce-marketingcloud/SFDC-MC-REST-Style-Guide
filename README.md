@@ -561,12 +561,20 @@ See also [Views](#views)
 
 ## Marketing Cloud Specific Properties
 
-Responses when referencing a user MUST reference in a sub-object with three properties
-* memberId - string - member, i.e. business unit, of the reference
-* enterpriseid - string - enterprise that memberId sits under. For many customers this is the same as memberId
-* employeeId - string - specific user being references
+Responses when referencing a user or business unit MUST reference with a relationship object.
 
-Routes SHOULD only reference enterpiseId by self and even then rarely.
+* member - relationship - member, i.e. business unit, of the reference
+	* Example ` "member" : { "id" : "20720" } `
+	* Example ` "ownedBy" : [ { "id" : "20720" } ] `
+* enterprise - relationship - enterprise that member sits under. For many customers this is the same as member
+	* Example ` "enterprise" : { "id" : "20720" } `
+* employee/user - string - specific user being references
+	* Example ` "createdBy" : { "id" : "20720" } `
+	* Example ` "employees" : [ { "id" : "20720" } ] `
+	* Example ` "user" : { "id" : "20720" } `
+	* Example ` "users" : [ { "id" : "20720" } ]`
+
+Routes SHOULD NOT reference "member" and/or "employee/user" without referencing the parent "enterprise".
 
 # Response
 Responses from a route MUST have the prescribed envelope format.
