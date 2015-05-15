@@ -441,7 +441,6 @@ POST query string "action" MUST be a case sensitive value of
 * PUT
 * PATCH
 * DELETE
-* "Custom action"
 
 Routes MUST respond with error to
 * PuT
