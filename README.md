@@ -103,6 +103,7 @@ by Service and Route developers.
 * 406 Not Acceptable
 	* Accept header
 * 411 Length Required
+* 412 Precondition Failed
 * 413 Request Entity Too Large
 * 414 Request URI Too Long
     * See also [async as header](justification/asyncAsHeader.md)
@@ -135,6 +136,7 @@ used by Service and Route developers.
 * 304 Not modified
 	* MUST only be used for freshness negotiation
 * 400 Bad Request
+	* MUST be used for concurrency failure 
 * 401 Unauthorized
 	* Request is not authenticated
 * 403 Forbidden
