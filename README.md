@@ -849,15 +849,14 @@ on all valid properties with a leading "-".
 
 # Filtering
 
-Filtering MUST be restricted to exposed properties. Clients and routes SHOULD use filtering
-to limit the results in a structured and absolute way.
+Filtering is to remove items from a collection based on the value of properties
+for objects in the collection. Filtering MUST be restricted to properties on
+the resource. Routes SHOULD use filtering to limit the results of a collection.
 
-Routes MAY support filtering. Routes supporting filtering MUST only use
-instances of the query string `f[{property}][{operation}]`.   A filter's
-property MUST be one of the properties on within a resource's data section.
-Routes MAY support a subset of those properties.
-
-Routes supporting filtering MUST support all combinations of properties.
+Routes MAY support filtering. Routes supporting filtering MUST use the query
+string `f[{property}][{operation}]`. A filter's property MUST be one of the
+properties on within a resource's data section.  Routes MAY support a subset of
+those properties.
 
 ## Properties
 
