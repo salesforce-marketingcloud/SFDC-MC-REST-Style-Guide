@@ -421,9 +421,9 @@ See also [Upserting](pattern/upserting.md)
 
 ## OPTIONS
 In response to OPTIONS method servers
-* MUST respond ALLOW header and the purpose of cross-origin resource
 * MUST respond with valid methods
 * MUST NOT expose any other data
+* Is reserved for cross-origin resource sharing (CORS)
 
 
 ## Querying
