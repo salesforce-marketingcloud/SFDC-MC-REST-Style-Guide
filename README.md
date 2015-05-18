@@ -198,7 +198,7 @@ with a Location: header pointing to the newly created resource.
 // Etag: "gibberishLikeSha2"
 {
 	"data" : [{
-		"id" : 2,
+		"id" : "2",
 		"tag" : "business"
 	}],
 	"meta" : {
@@ -211,7 +211,7 @@ with a Location: header pointing to the newly created resource.
 ```
 
 ```javascript
-/* Appending a relationships to a Resource */
+/* Appending a relationship to a Resource */
 // POST /v4/content/articles/1/tags
 {
 	"id" : "2"
@@ -250,7 +250,7 @@ with a Location: header pointing to the newly created resource.
 // Etag: "gibberishLikeModifiedDate"
 {
 	"data" : [{
-		"id" : 1,
+		"id" : "1",
 		"name" : "A new Article",
 		"tags" : [
 			{ "id" : "2" }
@@ -278,8 +278,11 @@ Routes MUST NOT support a http body.
 // Etag: "gibberish"
 {
 	"data" : [{
-		"id" : 1,
-		"name" : "An Article"
+		"id" : "1",
+		"name" : "An Article",
+		"tags" : [
+			{ "id" : "2" }
+		]
 	}],
 	"meta" : {
 		"etags" : [
@@ -288,6 +291,47 @@ Routes MUST NOT support a http body.
 	}
 }
 /* returns article id 1 */
+
+
+// GET /v4/content/articles/1/tags/2
+// 200 OK
+// Etag: "gibberishLikeSha2"
+{
+	"data" : [{
+		"id" : "2",
+		"tag" : "business"
+	}],
+	"meta" : {
+		"etags" : [
+			{ "etag" : "gibberishLikeSha2", "path" : "$.data[0]" }
+		]
+	}
+}
+/* returns a tag related to article 1 */
+
+
+// GET /v4/content/articles/1/tags
+// 200 OK
+// Etag: "gibberishLikeSha2"
+{
+	"data" : [
+	{
+		"id" : "2",
+		"tag" : "business"
+	},
+	{
+		"id" : "3",
+		"tag" : "technology"
+	}
+	],
+	"meta" : {
+		"etags" : [
+			{ "etag" : "gibberishLikeSha2", "path" : "$.data[0]" }
+		]
+	}
+}
+/* returns a tag related to article 1 */
+
 ```
 
 ## DELETE
@@ -310,7 +354,7 @@ resources to be deleted.
 // 200 OK
 {
 	"data" : [{
-		"id" : 1
+		"id" : "1"
 	}]
 }
 /* Deletes an article with ID 1 */
@@ -323,7 +367,7 @@ resources to be deleted.
 // 200 OK
 {
 	"data" : [{
-		"id" : 2,
+		"id" : "2",
 		"tags": {
 			"id" : 1
 		}
@@ -340,7 +384,7 @@ resources to be deleted.
 // 200 OK
 {
 	"data" : [{
-		"id" : 2
+		"id" : "2"
 	}]
 }
 /* Deletes the RELATIONSHIP of tag 1 on article 2 */
@@ -350,7 +394,7 @@ resources to be deleted.
 // Etag : "gibberishForTag"
 {
 	"data" : [{
-		"id" : 1,
+		"id" : "1",
 		"articles": []
 	}],
 	"meta" : {
@@ -367,15 +411,15 @@ resources to be deleted.
 // DELETE /v4/data/articles
 {
 	"data" : [
-		{ "id" : 2 },
-		{ "id" : 3 }
+		{ "id" : "2" },
+		{ "id" : "3" }
 	]
 }
 // 200 OK
 {
 	"data" : [
-		{ "id" : 2 },
-		{ "id" : 3 }
+		{ "id" : "2" },
+		{ "id" : "3" }
 	]
 }
 /* Articles 2 and 3 are deleted */
@@ -854,7 +898,7 @@ The format is [Google Partial Response Field
 Format](https://developers.google.com/custom-search/json-api/v1/performance#partial).
 
 
-See Also: [Google's Description of  Partial Response Field](pattern/google_partial_responses.md)
+See Also: [Google's Description of Partial Response Field](pattern/google_partial_responses.md)
 
 * **starts** at response `data` property
 * comma-separated list to select multiple properties
