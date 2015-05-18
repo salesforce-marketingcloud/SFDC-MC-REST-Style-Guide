@@ -312,7 +312,7 @@ Routes MUST NOT support a http body.
 
 // GET /v4/content/articles/1/tags
 // 200 OK
-// Etag: "gibberishLikeSha2"
+// Etag: "gibberibberish"
 {
 	"data" : [
 	{
