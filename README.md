@@ -41,6 +41,7 @@ Table of contents
 	* Example
 	* Validation Example
 * Sorting
+* Partial Responses
 * Filtering
 	* Properties
 	* Operations
