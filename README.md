@@ -427,25 +427,6 @@ In version 4.0 of the style guide, Collection routes MUST NOT support DELETE.
 /* tag still exists, but does not relate to article 2 any longer */
 ```
 
-```javascript
-/* Deleting multiple resources */
-// DELETE /v4/data/articles
-{
-	"data" : [
-		{ "id" : "2" },
-		{ "id" : "3" }
-	]
-}
-// 200 OK
-{
-	"data" : [
-		{ "id" : "2" },
-		{ "id" : "3" }
-	]
-}
-/* Articles 2 and 3 are deleted */
-```
-
 See also [HTTP verb substitution](#HTTP verb substitution)
 
 
