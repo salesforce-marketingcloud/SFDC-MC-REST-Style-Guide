@@ -847,7 +847,6 @@ See also [Relationship object](justification/relationshipobject.md)
 
 * MUST contain "id" - string - reference id by object
 * MUST NOT contain other object properties
-	* See also [Views](#pattern)
 
 See pattern [Recurring events](pattern/recurringevent.md)
 
