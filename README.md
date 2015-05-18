@@ -326,11 +326,17 @@ Routes MUST NOT support a http body.
 	],
 	"meta" : {
 		"etags" : [
-			{ "etag" : "gibberishLikeSha2", "path" : "$.data[0]" }
+			{ "etag" : "gibberibberish", "path" : "$.data" },
+			{ "etag" : "gibberishLikeSha2", "path" : "$.data[0]" },
+			{ "etag" : "gibberishLikeSha3", "path" : "$.data[1]" }
+		],
+		"links" : [
+			{ "name" : "prev", "method": "GET", "href" : null, "path" : "$.data" },
+			{ "name" : "next", "method": "GET", "href" : null, "path" : "$.data" }
 		]
 	}
 }
-/* returns a tag related to article 1 */
+/* returns a collection of tags related to article 1 */
 
 ```
 
@@ -904,7 +910,10 @@ See Also: [Google's Description of Partial Response Field](pattern/google_partia
 * comma-separated list to select multiple properties
 * property1/property2 to select property2 that is nested within property1; the pattern can be continued 
 * a sub-selector to request a set of specific sub-properties of arrays or objects by placing expressions in parentheses "( )"
-	* For example: fields=items(id,author/email) returns only the item ID and author's email for each element in the items array. Can also specify a single sub-field, where fields=items(id) is equivalent to fields=items/id.
+	* For example: fields=items(id,author/email) returns only the item ID
+	  and author's email for each element in the items array. Can also
+	  specify a single sub-field, where fields=items(id) is equivalent to
+	  fields=items/id.
 * a wildcard, "\*"  can be used for all properties within a sub-object
     * For example: fields=items/pagemap/\* selects all objects in a pagemap.
 
