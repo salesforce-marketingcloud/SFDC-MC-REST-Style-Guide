@@ -847,7 +847,14 @@ on all valid properties with a leading "-".
 TODO: Add syntax for Sorting.
 
 # Partial Responses
-Routes SHOULD support partial responses. Properties to **include** MUST be specified by the query string "fields". The format is [Google Partial Response Field Format](https://developers.google.com/custom-search/json-api/v1/performance#partial).
+Routes SHOULD support partial responses. Properties to **include** MUST be
+specified by the query string "fields". 
+
+The format is [Google Partial Response Field
+Format](https://developers.google.com/custom-search/json-api/v1/performance#partial).
+
+
+See Also: [Google's Description of  Partial Response Field](pattern/google_partial_responses.md)
 
 * **starts** at response `data` property
 * comma-separated list to select multiple properties
