@@ -349,8 +349,7 @@ Routes supporting DELETE of a single resource MUST have the resource identified
 in the URI.  Routes supporting DELETE of a nested relationship MUST only delete
 the relationship not the nested resources.
 
-Collection routes MAY support DELETE. Request should be a collection of
-resources to be deleted.
+In version 4.0 of the style guide, Collection routes MUST NOT support DELETE. 
 
 ### Examples
 
