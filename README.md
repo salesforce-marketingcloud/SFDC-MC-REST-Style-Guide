@@ -373,9 +373,9 @@ In version 4.0 of the style guide, Collection routes MUST NOT support DELETE.
 {
 	"data" : [{
 		"id" : "2",
-		"tags": {
-			"id" : 1
-		}
+		"tags": [
+			{ "id" : "1" }
+		]
 	}],
 	"meta" : {
 		"etags" : [
@@ -389,7 +389,7 @@ In version 4.0 of the style guide, Collection routes MUST NOT support DELETE.
 // 200 OK
 {
 	"data" : [{
-		"id" : "2"
+		"id" : "1"
 	}]
 }
 /* Deletes the RELATIONSHIP of tag 1 on article 2 */
@@ -408,6 +408,22 @@ In version 4.0 of the style guide, Collection routes MUST NOT support DELETE.
 		]
 	}
 }
+
+// GET /v4/data/articles/2
+// Etag : "gibberish"
+// 200 OK
+{
+	"data" : [{
+		"id" : "2",
+		"tags": [ ]
+	}],
+	"meta" : {
+		"etags" : [
+			{ "etag" : "gibberish", "path" : "$.data[0]" }
+		]
+	}
+}
+
 /* tag still exists, but does not relate to article 2 any longer */
 ```
 
