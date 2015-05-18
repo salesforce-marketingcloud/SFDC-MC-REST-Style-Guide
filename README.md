@@ -688,8 +688,7 @@ outside of the defined list.
 * Content-Type
 	* Client SHOULD provide "application/json"
 * Accept
-	* Client MAY provide an "accept" header. Client's SHOULD expect only
-	  "application/json"
+	* Client MAY provide an "accept" header. Routes MUST ignore the header.
 
 ## Response
 * Access-Control-Allow-Origin, Access-Control-Allow-Methods, Access-Control-Allow-Headers, Access-Control-Max-Age, Access-Control-Expose-Headers, Access-Control-Allow-Credentials
@@ -719,9 +718,7 @@ outside of the defined list.
 	* MUST be back of Request's Original-Request-Id if provided.
 
 * Content-Type
-	* Responses SHOULD be "application/json"
-* Content-Disposition
-	* Response MAY be used when non "application/json"
+	* Responses MUST be "application/json"
 
 
 # Style
