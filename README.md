@@ -642,13 +642,6 @@ In response to OPTIONS method servers
 * Is reserved for cross-origin resource sharing (CORS)
 
 
-## Querying
-
-Querying is a special custom action that **should** be used instead of searching and filtering.
-
-See also [Querying](pattern/querying.md)
-
-
 ## HTTP method/action substitution
 A server MUST support the HTTP method "POST" to allow HTTP methods a client may
 not support.
