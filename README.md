@@ -353,7 +353,7 @@ In version 4.0 of the style guide, Collection routes MUST NOT support DELETE.
 
 ### Examples
 
-```javascript
+```javascript 
 /* Deleting a single resource */
 // DELETE /v4/data/articles/1
 // 200 OK
@@ -436,14 +436,112 @@ A resource MAY support PUT. A PUT SHOULD replace a resource and MUST NOT create 
 resource.  A server SHOULD respond with a 200 when updating an existing
 resource.
 
-In Version 4.0 of this Style Guide, A server must not support PUT against a collection. 
-
 Routes supporting PUT MUST support as a single resource having the same JSON
 schema as an item in the collection of the data section of a GET. The request
-MAY contain "If-Match" header.  Routes MAY support PUT as an collection of
-relationship objects.
+MAY contain "If-Match" header.  
+
+In Version 4.0 of this Style Guide, A server must not support PUT against a collection. 
 
 Routes MUST NOT support creation through PUT.
+
+### Examples
+```
+// GET /v4/data/articles/2
+// Etag : "putexample1"
+// 200 OK
+{
+	"data" : [{
+		"id" : "2",
+		"name" : "An Article",
+		"tags": [
+			{ "id" : "1" }
+		]
+	}],
+	"meta" : {
+		"etags" : [
+			{ "etag" : "putexample1", "path" : "$.data[0]" }
+		]
+	}
+}
+/* A tag exists on article id 2, with tag id 1 */
+
+// PUT /v4/data/articles/2
+{
+	"id" : "2",
+	"name" : "A Renamed Article",
+	"tags": [
+		{ "id" : "1" }
+	]
+}
+// 200 OK
+// Etag: "putexample2"
+{
+	"data" : [{
+		"id" : "2",
+		"name" : "A Renamed Article",
+		"tags": [
+			{ "id" : "1" }
+		]
+	}],
+	"meta" : {
+		"etags" : [
+			{ "etag" : "putexample2", "path" : "$.data[0]" }
+		]
+	}
+}
+/* Update article id 2 */
+
+// PUT /v4/data/articles/2
+// If-Match: putexample1
+{
+	"id" : "2",
+	"name" : "A Re-Renamed Article",
+	"tags": [
+		{ "id" : "1" }
+	]
+}
+// 412 Precondition Failed
+{
+    "error" : {
+        "requestId" : "random string for internal debugging",
+        "documentationUrl" : "https://developer.salesforce.com/marketing_cloud/errors/client.failure.EtagMismatch",
+        "statusCode" :  412,
+        "errorCode" : "client.failure.EtagMismatch",
+        "message" : "Invalid Request - Etag Mismatch",
+        "details" : []
+    }
+}
+/* PUT failed to update due to Etag mismatch */
+
+// PUT /v4/data/articles/2
+// If-Match: putexample2
+{
+	"id" : "2",
+	"name" : "A Re-Re-Renamed Article",
+	"tags": [
+		{ "id" : "1" }
+	]
+}
+// 200 OK
+// Etag: "putexample3"
+{
+	"data" : [{
+		"id" : "2",
+		"name" : "A Re-Re-Renamed Article",
+		"tags": [
+			{ "id" : "1" }
+		]
+	}],
+	"meta" : {
+		"etags" : [
+			{ "etag" : "putexample3", "path" : "$.data[0]" }
+		]
+	}
+}
+/* PUT successfully updates article 2 while specificying which version of the document to modify */
+
+
+```
 
 See also [Upserting](pattern/upserting.md)
 
