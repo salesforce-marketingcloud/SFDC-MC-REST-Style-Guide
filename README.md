@@ -538,9 +538,9 @@ Routes MUST NOT support creation through PUT.
 {
     "error" : {
         "requestId" : "1309da52-a2c5-4efb-ab87-349eeab3ae60",
-        "documentationUrl" : "https://developer.salesforce.com/marketing_cloud/errors/client.failure.EtagMismatch",
+        "documentationUrl" : "https://developer.salesforce.com/marketing_cloud/errors/client.failure.etagmismatch",
         "statusCode" :  412,
-        "errorCode" : "client.failure.EtagMismatch",
+        "errorCode" : "client.failure.etagmismatch",
         "message" : "Invalid Request - Etag Mismatch",
         "details" : []
     }
@@ -1017,7 +1017,7 @@ Error MUST NOT have anymore than following properties
 **Error Detail Object Format**
 * MUST NOT have any more than following properties
 * MUST "documentationUrl" - string - fully qualified URL to support site
-* MUST "errorCode" - string - MUST be English US-ASCII dot separated value (no whitespace)
+* MUST "errorCode" - string - MUST be English US-ASCII, lower case, dot separated value (no whitespace)
 * MUST "path" - JSON path format - definition of JSON path that caused issue
 	* Path can be empty
 * MUST "message" - string
