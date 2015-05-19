@@ -537,7 +537,7 @@ Routes MUST NOT support creation through PUT.
 // 412 Precondition Failed
 {
     "error" : {
-        "requestId" : "random string for internal debugging",
+        "requestId" : "1309da52-a2c5-4efb-ab87-349eeab3ae60",
         "documentationUrl" : "https://developer.salesforce.com/marketing_cloud/errors/client.failure.EtagMismatch",
         "statusCode" :  412,
         "errorCode" : "client.failure.EtagMismatch",
@@ -1032,7 +1032,7 @@ Validation errors SHOULD utilize JSON path
 ```json
 {
 	"error" : {
-		"requestId" : "random string for internal debugging",
+		"requestId" : "e6f521f2-d8ae-4f37-82d7-c2fc1f9d5a9d",
 		"documentationUrl" : "https://developer.salesforce.com/marketing_cloud/errors/server.failure.general",
 		"statusCode" :  500,
 		"errorCode" : "server.failure.general",
