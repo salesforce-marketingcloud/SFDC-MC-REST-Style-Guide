@@ -368,8 +368,8 @@ In version 4.0 of the style guide, Collection routes MUST NOT support DELETE.
 ```javascript
 /* Deleting a single resource relationship */
 // GET /v4/data/articles/2
-// Etag : "gibberish"
 // 200 OK
+// Etag : "gibberish"
 {
 	"data" : [{
 		"id" : "2",
@@ -395,8 +395,8 @@ In version 4.0 of the style guide, Collection routes MUST NOT support DELETE.
 /* Deletes the RELATIONSHIP of tag 1 on article 2 */
 
 // GET /v4/data/tags/1
-// 200 OK
 // Etag : "gibberishForTag"
+// 200 OK
 {
 	"data" : [{
 		"id" : "1",
@@ -410,8 +410,8 @@ In version 4.0 of the style guide, Collection routes MUST NOT support DELETE.
 }
 
 // GET /v4/data/articles/2
-// Etag : "gibberish"
 // 200 OK
+// Etag : "gibberish"
 {
 	"data" : [{
 		"id" : "2",
@@ -447,8 +447,8 @@ Routes MUST NOT support creation through PUT.
 ### Examples
 ```
 // GET /v4/data/articles/2
-// Etag : "putexample1"
 // 200 OK
+// Etag : "putexample1"
 {
 	"data" : [{
 		"id" : "2",
@@ -563,6 +563,52 @@ API callers MAY clear values by providing the property with a null. If a
 property is not provided a route MUST NOT act on that property.
 
 See also [Upserting](pattern/upserting.md)
+
+### Examples
+```
+// GET /v4/data/articles/2
+// 200 OK
+// Etag : "patchexample1"
+{
+	"data" : [{
+		"id" : "2",
+		"name" : "An Article",
+		"description" : "A story with words.",
+		"tags": [
+			{ "id" : "1" }
+		]
+	}],
+	"meta" : {
+		"etags" : [
+			{ "etag" : "patchexample1", "path" : "$.data[0]" }
+		]
+	}
+}
+/* A tag exists on article id 2, with tag id 1 */
+
+// PATCH /v4/data/articles/2
+{
+	"name" : "A Renamed Article"
+}
+// 200 OK
+// Etag: "patchexample2"
+{
+	"data" : [{
+		"id" : "2",
+		"name" : "A Renamed Article",
+		"description" : "A story with words.",
+		"tags": [
+			{ "id" : "1" }
+		]
+	}],
+	"meta" : {
+		"etags" : [
+			{ "etag" : "patchexample2", "path" : "$.data[0]" }
+		]
+	}
+}
+/* Update article id 2 */
+```
 
 
 ## OPTIONS
