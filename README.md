@@ -718,7 +718,6 @@ outside of the defined list.
 * Content-Disposition
 	* Response MAY be used when non "application/json"
 
-No localization headers are accepted or returned. [Localization justification](justification/localization.md)
 
 # Style
 
@@ -884,15 +883,7 @@ Servers MUST include a meta object at root level of the response envelope.
 
 ## Localization
 
-A route MAY be aware of localized values. A route MUST expose localized values
-as a "relation" resource to callers of the resource. A route SHOULD allow a "filter"
-to a single localized version. A route SHOULD have a "view" that expands localized
-content relations providing the localized version AND supports the "filter" to one
-locale.
-
-Route MUST NEVER localize property names.
-
-Route MUST error if "filter" contains unsupported values.
+Routes adhering to Style Guide 4.0 MUST NOT provide localized values.
 
 ## Example
 ```javascript
