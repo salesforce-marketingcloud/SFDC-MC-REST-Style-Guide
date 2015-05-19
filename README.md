@@ -49,6 +49,7 @@ and input/output formats of APIs so SDks can be automatically constructed and us
 	* Validation Details
 	* Example
 	* Validation Example
+* Field Specification Format
 * Sorting
 * Partial Responses
 * Filtering
@@ -1043,30 +1044,13 @@ Validation errors SHOULD utilize JSON path
 }
 ```
 
-# Sorting
-
-Routes MAY support sorting. Routes supporting sorting MUST only use instances
-of the query string `sort`.  Routes MAY support a subset of properties in the
-resource's data section.  A sort's property MUST be a comma separated list of
-valid properties. 
-
-By default the sort order is ascending.  Routes MUST support a descending flag
-on all valid properties with a leading "-".
-
-TODO: Add syntax for Sorting.
-
-# Partial Responses
-Routes SHOULD support partial responses. Properties to **include** MUST be
-specified by the query string "fields". 
-
+# Field Specification Format
 The format is [Google Partial Response Field
 Format](https://developers.google.com/custom-search/json-api/v1/performance#partial).
-
 
 See Also: [Google's Description of Partial Response Field](pattern/google_partial_responses.md)
 
 * **starts** at response `data` property
-* comma-separated list to select multiple properties
 * property1/property2 to select property2 that is nested within property1; the pattern can be continued 
 * a sub-selector to request a set of specific sub-properties of arrays or objects by placing expressions in parentheses "( )"
 	* For example: fields=items(id,author/email) returns only the item ID
@@ -1075,6 +1059,24 @@ See Also: [Google's Description of Partial Response Field](pattern/google_partia
 	  fields=items/id.
 * a wildcard, "\*"  can be used for all properties within a sub-object
     * For example: fields=items/pagemap/\* selects all objects in a pagemap.
+
+# Sorting
+
+Routes MAY support sorting. Routes supporting sorting MUST only use instances
+of the query string `sort`.  Properties MUST be defined with the Field Specification Format.
+Routes MAY support a subset of properties in the
+resource's data section.  A sort's property MUST be a comma separated list of
+valid properties.  A sort with a field specification wider than one property
+MUST return 400 error.
+
+By default the sort order is ascending.  Routes MUST support a descending flag
+on all valid properties with a leading "-" on the field specification format.
+
+# Partial Responses
+Routes SHOULD support partial responses. Properties to **include** MUST be
+specified by the query string "fields". The format MUST be "Field Specification format".
+
+* comma-separated list to select multiple properties
 
 See also [Salesforce Style](http://www.salesforce.com/us/developer/docs/api_rest/Content/dome_get_field_values.htm)
 
@@ -1096,8 +1098,6 @@ https://www.googleapis.com/plus/v1/activities/z12gtjhq3qn2xxl2o224exwiqruvtda0i?
 }
 ```
 
-
-
 # Filtering
 
 Filtering MUST be restricted to exposed properties. Clients and routes SHOULD use filtering
@@ -1105,7 +1105,8 @@ to limit the results in a structured and absolute way.
 
 Routes MAY support filtering. Routes supporting filtering MUST only use
 instances of the query string `f[{property}][{operation}]`.   A filter's
-property MUST be one of the properties on within a resource's data section.
+property MUST be in the Field Specification Format. 
+A filter with a field specification wider than one property MUST return 400 error.
 Routes MAY support a subset of those properties.
 
 ## Properties
