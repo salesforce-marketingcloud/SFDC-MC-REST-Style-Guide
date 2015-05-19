@@ -201,7 +201,7 @@ with a Location: header pointing to the newly created resource.
 }
 // 201 Created
 // Location: /v4/content/articles/1
-// Etag: "gibberishLikeSha1"
+// Etag: "fd66fa03845ebcc44a0357641a1f99ef"
 {
 	"data" : [{
 		"id" : 1,
@@ -209,7 +209,7 @@ with a Location: header pointing to the newly created resource.
 	}],
 	"meta" : {
 		"etags" : [
-			{ "etag" : "gibberishLikeSha1", "path" : "$.data[0]" }
+			{ "etag" : "fd66fa03845ebcc44a0357641a1f99ef", "path" : "$.data[0]" }
 		]
 	}
 }
@@ -224,7 +224,7 @@ with a Location: header pointing to the newly created resource.
 }
 // 201 Created
 // Location: /v4/content/tags/2
-// Etag: "gibberishLikeSha2"
+// Etag: "d59c46e81cc47bddfbc0474557393886"
 {
 	"data" : [{
 		"id" : "2",
@@ -232,7 +232,7 @@ with a Location: header pointing to the newly created resource.
 	}],
 	"meta" : {
 		"etags" : [
-			{ "etag" : "gibberishLikeSha2", "path" : "$.data[0]" }
+			{ "etag" : "d59c46e81cc47bddfbc0474557393886", "path" : "$.data[0]" }
 		]
 	}
 }
@@ -247,7 +247,7 @@ with a Location: header pointing to the newly created resource.
 }
 // 201 Created
 // Location: /v4/content/articles/1/tags
-// Etag: "gibberish"
+// Etag: "5053893c9d20cc2113264fcbf77b8377"
 {
 	"data" : [{
 		"id" : "1",
@@ -258,7 +258,7 @@ with a Location: header pointing to the newly created resource.
 	}],
 	"meta" : {
 		"etags" : [
-			{ "etag" : "gibberish", "path" : "$.data[0]" }
+			{ "etag" : "5053893c9d20cc2113264fcbf77b8377", "path" : "$.data[0]" }
 		]
 	}
 }
@@ -276,7 +276,7 @@ with a Location: header pointing to the newly created resource.
 }
 // 201 Created
 // Location: /v4/content/articles/1
-// Etag: "gibberishLikeModifiedDate"
+// Etag: "5053893c9d20cc2113264fcbf77b8377"
 {
 	"data" : [{
 		"id" : "1",
@@ -287,7 +287,7 @@ with a Location: header pointing to the newly created resource.
 	}],
 	"meta" : {
 		"etags" : [
-			{ "etag" : "gibberishLikeModifiedDate", "path" : "$.data[0]" }
+			{ "etag" : "5053893c9d20cc2113264fcbf77b8377", "path" : "$.data[0]" }
 		]
 	}
 }
@@ -304,7 +304,7 @@ Routes MUST NOT support a http body.
 ```javascript
 // GET /v4/content/articles/1
 // 200 OK
-// Etag: "gibberish"
+// Etag: "0e39098733467763f2f4ee9ab29aa649"
 {
 	"data" : [{
 		"id" : "1",
@@ -315,7 +315,7 @@ Routes MUST NOT support a http body.
 	}],
 	"meta" : {
 		"etags" : [
-			{ "etag" : "gibberish", "path" : "$.data[0]" }
+			{ "etag" : "0e39098733467763f2f4ee9ab29aa649", "path" : "$.data[0]" }
 		]
 	}
 }
@@ -324,7 +324,7 @@ Routes MUST NOT support a http body.
 
 // GET /v4/content/articles/1/tags/2
 // 200 OK
-// Etag: "gibberishLikeSha2"
+// Etag: "d59c46e81cc47bddfbc0474557393886"
 {
 	"data" : [{
 		"id" : "2",
@@ -332,7 +332,7 @@ Routes MUST NOT support a http body.
 	}],
 	"meta" : {
 		"etags" : [
-			{ "etag" : "gibberishLikeSha2", "path" : "$.data[0]" }
+			{ "etag" : "d59c46e81cc47bddfbc0474557393886", "path" : "$.data[0]" }
 		]
 	}
 }
@@ -341,7 +341,7 @@ Routes MUST NOT support a http body.
 
 // GET /v4/content/articles/1/tags
 // 200 OK
-// Etag: "gibberibberish"
+// Etag: "c428d847ba365dcd2b10a995548857a2"
 {
 	"data" : [
 	{
@@ -355,9 +355,9 @@ Routes MUST NOT support a http body.
 	],
 	"meta" : {
 		"etags" : [
-			{ "etag" : "gibberibberish", "path" : "$.data" },
-			{ "etag" : "gibberishLikeSha2", "path" : "$.data[0]" },
-			{ "etag" : "gibberishLikeSha3", "path" : "$.data[1]" }
+			{ "etag" : "c428d847ba365dcd2b10a995548857a2", "path" : "$.data" },
+			{ "etag" : "7393c891e51f6c4e9db10a27dd11dd05", "path" : "$.data[0]" },
+			{ "etag" : "bdfec487dfd57d7d68ad6955e3d67692", "path" : "$.data[1]" }
 		],
 		"links" : [
 			{ "name" : "prev", "method": "GET", "href" : null, "path" : "$.data" },
@@ -398,7 +398,7 @@ In version 4.0 of the style guide, Collection routes MUST NOT support DELETE.
 /* Deleting a single resource relationship */
 // GET /v4/data/articles/2
 // 200 OK
-// Etag : "gibberish"
+// Etag : "9a7668f8e9b9b6685c0624f416ba69c4"
 {
 	"data" : [{
 		"id" : "2",
@@ -408,7 +408,7 @@ In version 4.0 of the style guide, Collection routes MUST NOT support DELETE.
 	}],
 	"meta" : {
 		"etags" : [
-			{ "etag" : "gibberish", "path" : "$.data[0]" }
+			{ "etag" : "9a7668f8e9b9b6685c0624f416ba69c4", "path" : "$.data[0]" }
 		]
 	}
 }
@@ -424,7 +424,7 @@ In version 4.0 of the style guide, Collection routes MUST NOT support DELETE.
 /* Deletes the RELATIONSHIP of tag 1 on article 2 */
 
 // GET /v4/data/tags/1
-// Etag : "gibberishForTag"
+// Etag : "4d8291e8196a6358b0e918e38ee4c0de"
 // 200 OK
 {
 	"data" : [{
@@ -433,14 +433,14 @@ In version 4.0 of the style guide, Collection routes MUST NOT support DELETE.
 	}],
 	"meta" : {
 		"etags" : [
-			{ "etag" : "gibberishForTag", "path" : "$.data[0]" }
+			{ "etag" : "4d8291e8196a6358b0e918e38ee4c0de", "path" : "$.data[0]" }
 		]
 	}
 }
 
 // GET /v4/data/articles/2
 // 200 OK
-// Etag : "gibberish"
+// Etag : "f362309f1c74a38ef40cb600c04786cb"
 {
 	"data" : [{
 		"id" : "2",
@@ -448,7 +448,7 @@ In version 4.0 of the style guide, Collection routes MUST NOT support DELETE.
 	}],
 	"meta" : {
 		"etags" : [
-			{ "etag" : "gibberish", "path" : "$.data[0]" }
+			{ "etag" : "f362309f1c74a38ef40cb600c04786cb", "path" : "$.data[0]" }
 		]
 	}
 }
@@ -602,7 +602,7 @@ See also [Upserting](pattern/upserting.md)
 ```
 // GET /v4/data/articles/2
 // 200 OK
-// Etag : "patchexample1"
+// Etag : "006b1b00e09eda9c9c95353ff1eb58f1"
 {
 	"data" : [{
 		"id" : "2",
@@ -614,7 +614,7 @@ See also [Upserting](pattern/upserting.md)
 	}],
 	"meta" : {
 		"etags" : [
-			{ "etag" : "patchexample1", "path" : "$.data[0]" }
+			{ "etag" : "006b1b00e09eda9c9c95353ff1eb58f1", "path" : "$.data[0]" }
 		]
 	}
 }
@@ -625,7 +625,7 @@ See also [Upserting](pattern/upserting.md)
 	"name" : "A Renamed Article"
 }
 // 200 OK
-// Etag: "patchexample2"
+// Etag: "6ee3a8df40b4ed21287bbbb745794ed8"
 {
 	"data" : [{
 		"id" : "2",
@@ -637,7 +637,7 @@ See also [Upserting](pattern/upserting.md)
 	}],
 	"meta" : {
 		"etags" : [
-			{ "etag" : "patchexample2", "path" : "$.data[0]" }
+			{ "etag" : "6ee3a8df40b4ed21287bbbb745794ed8", "path" : "$.data[0]" }
 		]
 	}
 }
@@ -648,7 +648,7 @@ See also [Upserting](pattern/upserting.md)
 	"description" : null
 }
 // 200 OK
-// Etag: "patchexample3"
+// Etag: "b8d93a92c87ff73dea1a9fb0d1721321"
 {
 	"data" : [{
 		"id" : "2",
@@ -660,7 +660,7 @@ See also [Upserting](pattern/upserting.md)
 	}],
 	"meta" : {
 		"etags" : [
-			{ "etag" : "patchexample3", "path" : "$.data[0]" }
+			{ "etag" : "b8d93a92c87ff73dea1a9fb0d1721321", "path" : "$.data[0]" }
 		]
 	}
 }
@@ -941,6 +941,7 @@ Routes adhering to Style Guide 4.0 MUST NOT provide localized values.
 ## Example
 ```javascript
 // GET /v4/data/foos?offset=1&limit=2
+// Etag: "a95ffbe406a5e4fb76a4d1c25c4b2995"
 {
 	"data" : [
 		{
@@ -967,7 +968,7 @@ Routes adhering to Style Guide 4.0 MUST NOT provide localized values.
 
 
 	"meta" : {
-		"totalCount" : 2,
+		"totalCount" : 20,
 
 		"links" : [
 			{ "name" : "prev", "method": "GET", "href" : "/v4/data/foos?offset=0&limit=2", "path" : "$.data" },
@@ -975,9 +976,9 @@ Routes adhering to Style Guide 4.0 MUST NOT provide localized values.
 		],
 
 		"etags" : [
-			{ "etag" : "gibberish", "path" : "$.data" },
-			{ "etag" : "gibberishLikeLastModifiedDate", "path" : "$.data.[0]" },
-			{ "etag" : "gibberishLikeVersionNumber",   "path" : "$.data.[1]" }
+			{ "etag" : "a95ffbe406a5e4fb76a4d1c25c4b2995", "path" : "$.data" },
+			{ "etag" : "a15e8ad4000684fdc8a04cd22ac835ca", "path" : "$.data.[0]" },
+			{ "etag" : "754bd3129114a6eab71374bb12492896", "path" : "$.data.[1]" }
 		]
 	}
 }
