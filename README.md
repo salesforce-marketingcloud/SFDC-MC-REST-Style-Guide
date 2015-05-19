@@ -436,7 +436,7 @@ A resource MAY support PUT. A PUT SHOULD replace a resource and MUST NOT create 
 resource.  A server SHOULD respond with a 200 when updating an existing
 resource.
 
-A server MAY support PUT against a collection that is a relationship.
+In Version 4.0 of this Style Guide, A server must not support PUT against a collection. 
 
 Routes supporting PUT MUST support as a single resource having the same JSON
 schema as an item in the collection of the data section of a GET. The request
