@@ -201,7 +201,7 @@ with a Location: header pointing to the newly created resource.
 }
 // 201 Created
 // Location: /v4/content/articles/1
-// Etag: "fd66fa03845ebcc44a0357641a1f99ef"
+// Etag: W/"fd66fa03845ebcc44a0357641a1f99ef"
 {
 	"data" : [{
 		"id" : 1,
@@ -224,7 +224,7 @@ with a Location: header pointing to the newly created resource.
 }
 // 201 Created
 // Location: /v4/content/tags/2
-// Etag: "d59c46e81cc47bddfbc0474557393886"
+// Etag: W/"d59c46e81cc47bddfbc0474557393886"
 {
 	"data" : [{
 		"id" : "2",
@@ -247,7 +247,7 @@ with a Location: header pointing to the newly created resource.
 }
 // 201 Created
 // Location: /v4/content/articles/1/tags
-// Etag: "5053893c9d20cc2113264fcbf77b8377"
+// Etag: W/"5053893c9d20cc2113264fcbf77b8377"
 {
 	"data" : [{
 		"id" : "1",
@@ -276,7 +276,7 @@ with a Location: header pointing to the newly created resource.
 }
 // 201 Created
 // Location: /v4/content/articles/1
-// Etag: "5053893c9d20cc2113264fcbf77b8377"
+// Etag: W/"5053893c9d20cc2113264fcbf77b8377"
 {
 	"data" : [{
 		"id" : "1",
@@ -304,7 +304,7 @@ Routes MUST NOT support a http body.
 ```javascript
 // GET /v4/content/articles/1
 // 200 OK
-// Etag: "0e39098733467763f2f4ee9ab29aa649"
+// Etag: W/"0e39098733467763f2f4ee9ab29aa649"
 {
 	"data" : [{
 		"id" : "1",
@@ -324,7 +324,7 @@ Routes MUST NOT support a http body.
 
 // GET /v4/content/articles/1/tags/2
 // 200 OK
-// Etag: "d59c46e81cc47bddfbc0474557393886"
+// Etag: W/"d59c46e81cc47bddfbc0474557393886"
 {
 	"data" : [{
 		"id" : "2",
@@ -341,7 +341,7 @@ Routes MUST NOT support a http body.
 
 // GET /v4/content/articles/1/tags
 // 200 OK
-// Etag: "c428d847ba365dcd2b10a995548857a2"
+// Etag: W/"c428d847ba365dcd2b10a995548857a2"
 {
 	"data" : [
 	{
@@ -398,7 +398,7 @@ In version 4.0 of the style guide, Collection routes MUST NOT support DELETE.
 /* Deleting a single resource relationship */
 // GET /v4/data/articles/2
 // 200 OK
-// Etag : "9a7668f8e9b9b6685c0624f416ba69c4"
+// Etag : W/"9a7668f8e9b9b6685c0624f416ba69c4"
 {
 	"data" : [{
 		"id" : "2",
@@ -424,7 +424,7 @@ In version 4.0 of the style guide, Collection routes MUST NOT support DELETE.
 /* Deletes the RELATIONSHIP of tag 1 on article 2 */
 
 // GET /v4/data/tags/1
-// Etag : "4d8291e8196a6358b0e918e38ee4c0de"
+// Etag : W/"4d8291e8196a6358b0e918e38ee4c0de"
 // 200 OK
 {
 	"data" : [{
@@ -440,7 +440,7 @@ In version 4.0 of the style guide, Collection routes MUST NOT support DELETE.
 
 // GET /v4/data/articles/2
 // 200 OK
-// Etag : "f362309f1c74a38ef40cb600c04786cb"
+// Etag : W/"f362309f1c74a38ef40cb600c04786cb"
 {
 	"data" : [{
 		"id" : "2",
@@ -482,7 +482,7 @@ Routes MUST NOT support creation through PUT.
 ```
 // GET /v4/data/articles/2
 // 200 OK
-// Etag : "putexample1"
+// Etag : W/"putexample1"
 {
 	"data" : [{
 		"id" : "2",
@@ -508,7 +508,7 @@ Routes MUST NOT support creation through PUT.
 	]
 }
 // 200 OK
-// Etag: "putexample2"
+// Etag: W/"putexample2"
 {
 	"data" : [{
 		"id" : "2",
@@ -526,7 +526,7 @@ Routes MUST NOT support creation through PUT.
 /* Update article id 2 */
 
 // PUT /v4/data/articles/2
-// If-Match: putexample1
+// If-Match: W/"putexample1"
 {
 	"id" : "2",
 	"name" : "A Re-Renamed Article",
@@ -548,7 +548,7 @@ Routes MUST NOT support creation through PUT.
 /* PUT failed to update due to Etag mismatch */
 
 // PUT /v4/data/articles/2
-// If-Match: putexample2
+// If-Match: W/"putexample2"
 {
 	"id" : "2",
 	"name" : "A Re-Re-Renamed Article",
@@ -557,7 +557,7 @@ Routes MUST NOT support creation through PUT.
 	]
 }
 // 200 OK
-// Etag: "putexample3"
+// Etag: W/"putexample3"
 {
 	"data" : [{
 		"id" : "2",
@@ -602,7 +602,7 @@ See also [Upserting](pattern/upserting.md)
 ```
 // GET /v4/data/articles/2
 // 200 OK
-// Etag : "006b1b00e09eda9c9c95353ff1eb58f1"
+// Etag : W/"006b1b00e09eda9c9c95353ff1eb58f1"
 {
 	"data" : [{
 		"id" : "2",
@@ -625,7 +625,7 @@ See also [Upserting](pattern/upserting.md)
 	"name" : "A Renamed Article"
 }
 // 200 OK
-// Etag: "6ee3a8df40b4ed21287bbbb745794ed8"
+// Etag: W/"6ee3a8df40b4ed21287bbbb745794ed8"
 {
 	"data" : [{
 		"id" : "2",
@@ -648,7 +648,7 @@ See also [Upserting](pattern/upserting.md)
 	"description" : null
 }
 // 200 OK
-// Etag: "b8d93a92c87ff73dea1a9fb0d1721321"
+// Etag: W/"b8d93a92c87ff73dea1a9fb0d1721321"
 {
 	"data" : [{
 		"id" : "2",
@@ -941,7 +941,7 @@ Routes adhering to Style Guide 4.0 MUST NOT provide localized values.
 ## Example
 ```javascript
 // GET /v4/data/foos?offset=1&limit=2
-// Etag: "a95ffbe406a5e4fb76a4d1c25c4b2995"
+// Etag: W/"a95ffbe406a5e4fb76a4d1c25c4b2995"
 {
 	"data" : [
 		{
