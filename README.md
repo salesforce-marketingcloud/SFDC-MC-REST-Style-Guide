@@ -1154,6 +1154,7 @@ A filter with a field specification wider than one property MUST return 400 erro
 ```
 /* error as it has one property */
 ?filter[parent/*][eq]=1
+
 ```
 
 ## Properties
@@ -1281,8 +1282,6 @@ Collection routes SHOULD support pagination. Requests with no "limit" or "size"
 MUST always either return all items OR return 400 Bad Request regardless of
 the count of results.
 
-Requests that have more than one pagination type request then error.
-
 Routes supporting any pagination MUST support Offset.
 
 Results MUST be limited to no more than 1000 results.
@@ -1296,6 +1295,9 @@ Results MUST be limited to no more than 1000 results.
 * MAY include link "last" where result MUST include last resource
 
 ## Offset
+
+Offset paging allows request to specify number of rows to skip and number of
+rows to return after the skipped amount.
 
 Routes supporting any pagination MUST support Offset. Requests MUST require both
 "offset" and "limit".
@@ -1311,28 +1313,20 @@ Query string parameter "limit" MUST be the number of results to return
 
 ## Cursor
 
-Routes supporting pagination MAY support cursor. Requests MUST require "limit".
-Non first set MUST require either "before" OR "after". Callers implicitly
-request Cursor paging by omitting "offset" query string parameter.
+Cursor paging allows clients to browse large and dynamic datasets without
+invalidating data.
 
-Query string parameter "after" MUST be an identifier of the result item to continue from.
+Routes following style guide 4.0 SHALL NOT support cursor paging.
 
-Query string parameter "before" MUST be an identifier of the result item to reverse from.
-
-Query string parameter "limit" MUST be the number of results to return.
-
-Requests with "after" or "before" MAY be respond to with a 400 if the cursor has been expired.
-
-Requests with both "after" and "before" MUST 400 "Bad Request".
+See also [Facebook cursor paging](http://api-portal.anypoint.mulesoft.com/facebook/api/facebook-graph-api/docs/reference/pagination)
+See also [Amazon cursor paging](http://docs.aws.amazon.com/cloudsearch/latest/developerguide/paginating-results.html#deep-paging)
 
 ## Traditional Paging
 
-Routes supporting pagination MAY support traditional paging. Requests MUST require "page" and "size".
+Traditional paging allows the client to avoid math by taking a page number and
+page size value. 
 
-Query string parameter "page" MUST be an identifier of the result to continue from. The calculation
-of resources to skip is "page-1" * "size". i.e. MUST start at page 1
-
-Query string parameter "size" MUST be the maximum number of results to return.
+Routes following style guide 4.0 SHALL NOT support traditional paging.
 
 # Searching
 
@@ -1358,8 +1352,8 @@ See also [Querying](pattern/querying.md)
 
 # Authentication
 
-Authentication MUST be done in-line with the [OAuth 2.0 (RFC6749)](http://tools.ietf.org/html/rfc6749) 
-specification using a limited set of [OAuth 2.0 Bearer Token Usage (RFC6750)](http://tools.ietf.org/html/rfc6750#section-2).
-These restrictions are additionally placed on token usage; routes MUST only use the Authorization header; routes SHALL NOT accept
-Form-encoded body or URI Query parameter tokens.
+Authentication MUST only be done with "Authorization" header. Routes bearer token usage MUST NOT accept Form-encoded body; routes MUST NOT accept URI Query parameter tokens. 
+
+See also [OAuth 2.0 (RFC6749)](http://tools.ietf.org/html/rfc6749) 
+See also [OAuth 2.0 Bearer Token Usage (RFC6750)](http://tools.ietf.org/html/rfc6750#section-2).
 
