@@ -1147,8 +1147,14 @@ to limit the results in a structured and absolute way.
 Routes MAY support filtering. Routes supporting filtering MUST only use
 instances of the query string `f[{property}][{operation}]`.   A filter's
 property MUST be in the Field Specification Format. 
-A filter with a field specification wider than one property MUST return 400 error.
 Routes MAY support a subset of those properties.
+
+A filter with a field specification wider than one property MUST return 400 error.
+
+```
+/* error as it has one property */
+?filter[parent/*][eq]=1
+```
 
 ## Properties
 
