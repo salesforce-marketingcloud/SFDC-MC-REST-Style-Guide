@@ -111,25 +111,40 @@ implicit status codes. Implicit codes are framework level, and generally unused
 by Service and Route developers.
 
 * 100 Continue
+	* Large requests
 * 206 Partial Content
+	* Large requests
 * 404 Not Found
+	* Route not defined
 * 405 Method Not Allowed
+	* Invalid HTTP methods on route
+	* Invalid "action" http verb substitution
 * 406 Not Acceptable
-	* Accept header
+	* Not compatible in Accept header
 * 411 Length Required
+	* Request must have length; security denial of service concern
 * 412 Precondition Failed
+	* Http1.1 compatibility
 * 413 Request Entity Too Large
+	* Exceeding configuration of web server
 * 414 Request URI Too Long
-    * See also [async as header](justification/asyncAsHeader.md)
+	* Exceeding configuration of web server
 * 415 Unsupported Media Type
 	* Unsupported Content-Type header
 * 416 Requested Range Not Satisfiable
+	* large request resume
 * 417 Expectation Failed
+	* Http1.1 compatibility (except header)
 * 429 Too Many Requests
+	* API rate limiting
 * 500 Internal Server Error
+	* unexpected uncontrolled error scenario
 * 502 Bad Gateway
+	* reverse proxy style deployments
 * 503 Service Unavailable
+	* reverse proxy style deployments
 * 504 Gateway Timeout
+	* reverse proxy style deployments
 
 ## Explicit
 
@@ -150,6 +165,7 @@ used by Service and Route developers.
 * 304 Not modified
 	* MUST only be used for freshness negotiation
 * 400 Bad Request
+	* generic validation errors
 * 401 Unauthorized
 	* Request is not authenticated
 * 403 Forbidden
