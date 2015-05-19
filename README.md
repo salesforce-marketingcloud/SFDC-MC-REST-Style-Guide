@@ -608,6 +608,30 @@ See also [Upserting](pattern/upserting.md)
 	}
 }
 /* Update article id 2 */
+
+// PATCH /v4/data/articles/2
+{
+	"description" : null
+}
+// 200 OK
+// Etag: "patchexample3"
+{
+	"data" : [{
+		"id" : "2",
+		"name" : "A Renamed Article",
+		"description" : null,
+		"tags": [
+			{ "id" : "1" }
+		]
+	}],
+	"meta" : {
+		"etags" : [
+			{ "etag" : "patchexample3", "path" : "$.data[0]" }
+		]
+	}
+}
+/* Sets description (and only description) field to null */
+
 ```
 
 
