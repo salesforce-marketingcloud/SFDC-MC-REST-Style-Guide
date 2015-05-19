@@ -1,8 +1,15 @@
 # Fuel API Standards
 
-The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in [RFC 2119](http://www.ietf.org/rfc/rfc2119.txt).
+The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD",
+"SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be
+interpreted as described in [RFC 2119](http://www.ietf.org/rfc/rfc2119.txt).
 
-Table of contents
+## Introduction
+Fuel API standards project aim is to normalize API interaction across public
+APIs of the Salesforce Marketing Cloud. Including the documenting of capability
+and input/output formats of APIs so SDks can be automatically constructed and used.
+
+## Table of contents
 * Versioning in the API
 	* Version numbering schema
 	* Allowed changes/updates to a Version
