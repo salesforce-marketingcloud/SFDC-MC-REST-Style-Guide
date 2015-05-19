@@ -62,6 +62,7 @@ and input/output formats of APIs so SDks can be automatically constructed and us
 	* Cursor
 	* Traditional Paging
 * Searching
+* Authentication
 
 # Versioning in the API
 
@@ -1308,4 +1309,11 @@ Routes SHOULD search properties in a contains (e.g. Left and Right side
 wildcard, *foo*) fashion
 
 See also [Querying](pattern/querying.md)
+
+# Authentication
+
+Authentication MUST be done in-line with the [OAuth 2.0 (RFC6749)](http://tools.ietf.org/html/rfc6749) 
+specification using a limited set of [OAuth 2.0 Bearer Token Usage (RFC6750)](http://tools.ietf.org/html/rfc6750#section-2).
+These restrictions are additionally placed on token usage; routes MUST only use the Authorization header; routes SHALL NOT accept
+Form-encoded body or URI Query parameter tokens.
 
