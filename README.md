@@ -599,7 +599,7 @@ property is not provided a route MUST NOT act on that property.
 See also [Upserting](pattern/upserting.md)
 
 ### Examples
-```
+```javascript
 // GET /v4/data/articles/2
 // 200 OK
 // Etag : W/"006b1b00e09eda9c9c95353ff1eb58f1"
@@ -1311,6 +1311,300 @@ Query string parameter "limit" MUST be the number of results to return
 * ?limit=50&offset=50 would begin with the 51st object in a collection
 * ?limit=50&offset=0 would begin with the 1st object in a collection
 * ?limit=50&offset=11 would begin with the 12th object in a collection
+
+```javascript
+/* No prameters, defaults offset=0 limit=1000 but is limited to the 10 records that exist */
+// GET /v4/data/supercomputers
+// 200 OK
+// Etag: W/"4f13206cc628c697b99db0b0e81360fe"
+{
+	"data" : [
+		{
+			"id" : "1",
+			"name" : "National Super Computer Center in Guangzhou",
+			"vendor" : "NUDT",
+			"cores" : 3120000,
+			"tflops" : 33862.7
+		},
+		{
+			"id" : "2",
+			"name" : "DOE/SC/Oak Ridge National Laboratory",
+			"vendor" : "Cray Inc.",
+			"cores" : 560640,
+			"tflops" : 17590.0
+		},
+		{
+			"id" : "3",
+			"name" : "DOE/NNSA/LLNL",
+			"vendor" : "IBM",
+			"cores" : 1572864,
+			"tflops" : 17173.2
+		},
+		{
+			"id" : "4",
+			"name" : "RIKEN Advanced Institute for Computational Science (AICS)",
+			"vendor" : "Fujitsu",
+			"cores" : 705024,
+			"tflops" : 10510.0
+		},
+		{
+			"id" : "5",
+			"name" : "DOE/SC/Argonne National Laboratory",
+			"vendor" : "IBM",
+			"cores" : 786432,
+			"tflops" : 8586.6
+		},
+		{
+			"id" : "6",
+			"name" : "Swiss National Supercomputing Centre (CSCS)",
+			"vendor" : "Cray Inc.",
+			"cores" : 115984,
+			"tflops" : 6271.0
+		},
+		{
+			"id" : "7",
+			"name" : "Texas Advanced Computing Center/Univ. of Texas",
+			"vendor" : "Dell",
+			"cores" : 462462,
+			"tflops" : 5168.1
+		},
+		{
+			"id" : "8",
+			"name" : "Forschungszentrum Juelich (FZJ)",
+			"vendor" : "IBM",
+			"cores" : 458752,
+			"tflops" : 5008.9
+		},
+		{
+			"id" : "9",
+			"name" : "DOE/NNSA/LLNL",
+			"vendor" : "IBM",
+			"cores" : 393216,
+			"tflops" : 4293.3
+		},
+		{
+			"id" : "10",
+			"name" : "Government",
+			"vendor" : "Cray Inc.",
+			"cores" : 72800,
+			"tflops" : 3577.0
+		}
+	],
+
+	"meta" : {
+		"totalCount" : 10,
+
+		"links" : [],
+
+		"etags" : [
+			{ "etag" : "4f13206cc628c697b99db0b0e81360fe", "path" : "$.data" },
+			{ "etag" : "a1642ed98e14ce6a38157c405e936c9a", "path" : "$.data.[0]" },
+			{ "etag" : "f2b97c46e1fd59e1ffd8770a4443e5fb", "path" : "$.data.[1]" },
+			{ "etag" : "848aa6ee22420808a2f189ccf099890c", "path" : "$.data.[2]" },
+			{ "etag" : "763dfaace31f258f5943e0bda6df3eff", "path" : "$.data.[3]" },
+			{ "etag" : "7f0e65bc2c27133019910adfa417b06a", "path" : "$.data.[4]" },
+			{ "etag" : "3512b84a84693263c0aa0b43aba56ad8", "path" : "$.data.[5]" },
+			{ "etag" : "19496405f44bd20931ba8d9f47ec2ba9", "path" : "$.data.[6]" },
+			{ "etag" : "d5ffe9f8043a443eda470a7d2ef1f912", "path" : "$.data.[7]" },
+			{ "etag" : "94ff6b88e91b4751a6fecfd5a1803dee", "path" : "$.data.[8]" },
+			{ "etag" : "e9e3658acab0e30691fac3c74df466ae", "path" : "$.data.[9]" }
+		]
+	}
+}
+```
+
+```javascript
+/* Limit returns that count of rows, defaults offset=0  */
+// GET /v4/data/supercomputers?limit=2
+// 200 OK
+// Etag: W/"f544328e483547e8615b62e854c961a3"
+{
+	"data" : [
+		{
+			"id" : "1",
+			"name" : "National Super Computer Center in Guangzhou",
+			"vendor" : "NUDT",
+			"cores" : 3120000,
+			"tflops" : 33862.7
+		},
+		{
+			"id" : "2",
+			"name" : "DOE/SC/Oak Ridge National Laboratory",
+			"vendor" : "Cray Inc.",
+			"cores" : 560640,
+			"tflops" : 17590.0
+		}
+	],
+
+	"meta" : {
+		"totalCount" : 10,
+
+		"links" : [
+			{ "name" : "next", "method": "GET", "href" : "/v4/data/supercomputers?limit=2&offset=2", "path" : "$.data" }
+		],
+
+		"etags" : [
+			{ "etag" : "f544328e483547e8615b62e854c961a3", "path" : "$.data" },
+			{ "etag" : "a1642ed98e14ce6a38157c405e936c9a", "path" : "$.data.[0]" },
+			{ "etag" : "f2b97c46e1fd59e1ffd8770a4443e5fb", "path" : "$.data.[1]" },
+		]
+	}
+}
+```
+
+```javascript
+/* Next page */
+// GET /v4/data/supercomputers?limit=2&offset=2
+// 200 OK
+// Etag: W/"1e20c4d502f360146baa0b98ad040697"
+{
+	"data" : [
+		{
+			"id" : "3",
+			"name" : "DOE/NNSA/LLNL",
+			"vendor" : "IBM",
+			"cores" : 1572864,
+			"tflops" : 17173.2
+		},
+		{
+			"id" : "4",
+			"name" : "RIKEN Advanced Institute for Computational Science (AICS)",
+			"vendor" : "Fujitsu",
+			"cores" : 705024,
+			"tflops" : 10510.0
+		},
+	],
+
+	"meta" : {
+		"totalCount" : 10,
+
+		"links" : [
+			{ "name" : "next", "method": "GET", "href" : "/v4/data/supercomputers?limit=2&offset=4", "path" : "$.data" }
+			{ "name" : "prev", "method": "GET", "href" : "/v4/data/supercomputers?limit=2&offset=0", "path" : "$.data" }
+		],
+
+		"etags" : [
+			{ "etag" : "1e20c4d502f360146baa0b98ad040697", "path" : "$.data" },
+			/* etags of rows match previous values */
+			{ "etag" : "763dfaace31f258f5943e0bda6df3eff", "path" : "$.data.[0]" },
+			{ "etag" : "7f0e65bc2c27133019910adfa417b06a", "path" : "$.data.[1]" },
+		]
+	}
+}
+```
+
+```javascript
+/* Last page, non-starting offset */
+// GET /v4/data/supercomputers?limit=4&offset=6
+// 200 OK
+// Etag: W/"5a3bb04baf2318afb62cfb18d5c674b5"
+{
+	"data" : [
+		{
+			"id" : "7",
+			"name" : "Texas Advanced Computing Center/Univ. of Texas",
+			"vendor" : "Dell",
+			"cores" : 462462,
+			"tflops" : 5168.1
+		},
+		{
+			"id" : "8",
+			"name" : "Forschungszentrum Juelich (FZJ)",
+			"vendor" : "IBM",
+			"cores" : 458752,
+			"tflops" : 5008.9
+		},
+		{
+			"id" : "9",
+			"name" : "DOE/NNSA/LLNL",
+			"vendor" : "IBM",
+			"cores" : 393216,
+			"tflops" : 4293.3
+		},
+		{
+			"id" : "10",
+			"name" : "Government",
+			"vendor" : "Cray Inc.",
+			"cores" : 72800,
+			"tflops" : 3577.0
+		}
+	],
+
+	"meta" : {
+		"totalCount" : 10,
+
+		"links" : [
+			/* offset reflects api user current request; offset 2 */
+			{ "name" : "prev", "method": "GET", "href" : "/v4/data/supercomputers?limit=4&offset=2", "path" : "$.data" }
+		],
+
+		"etags" : [
+			{ "etag" : "5a3bb04baf2318afb62cfb18d5c674b5", "path" : "$.data" },
+			/* etags of rows match previous values */
+			{ "etag" : "19496405f44bd20931ba8d9f47ec2ba9", "path" : "$.data.[0]" },
+			{ "etag" : "d5ffe9f8043a443eda470a7d2ef1f912", "path" : "$.data.[1]" },
+			{ "etag" : "94ff6b88e91b4751a6fecfd5a1803dee", "path" : "$.data.[2]" },
+			{ "etag" : "e9e3658acab0e30691fac3c74df466ae", "path" : "$.data.[3]" }
+		]
+	}
+}
+```
+
+```javascript
+/* Last page with over hanging offset just returns possible rows */
+// GET /v4/data/supercomputers?limit=6&offset=9
+// 200 OK
+// Etag: W/"b5a571c0ad9a00dd7756824210c88461"
+{
+	"data" : [
+		{
+			"id" : "10",
+			"name" : "Government",
+			"vendor" : "Cray Inc.",
+			"cores" : 72800,
+			"tflops" : 3577.0
+		}
+	],
+
+	"meta" : {
+		"totalCount" : 10,
+
+		"links" : [
+			/* offset reflects api user current request; offset 3 */
+			{ "name" : "prev", "method": "GET", "href" : "/v4/data/supercomputers?limit=6&offset=3", "path" : "$.data" }
+		],
+
+		"etags" : [
+			{ "etag" : "b5a571c0ad9a00dd7756824210c88461", "path" : "$.data" },
+			/* etags of rows match previous values */
+			{ "etag" : "e9e3658acab0e30691fac3c74df466ae", "path" : "$.data.[0]" }
+		]
+	}
+}
+```
+
+```javascript
+/* empty results are not an error */
+// GET /v4/data/supercomputers?limit=1000&offset=1000
+// 200 OK
+// Etag: W/"9e913b5713774eb61d40d42dc37406a3"
+{
+	"data" : [],
+
+	"meta" : {
+		"totalCount" : 10,
+
+		"links" : [
+			/* offset reflects api user current request; offset 3 */
+			{ "name" : "prev", "method": "GET", "href" : "/v4/data/supercomputers?limit=1000&offset=0", "path" : "$.data" }
+		],
+
+		"etags" : [
+			{ "etag" : "9e913b5713774eb61d40d42dc37406a3", "path" : "$.data" },
+		]
+	}
+}
+```
 
 ## Cursor
 
