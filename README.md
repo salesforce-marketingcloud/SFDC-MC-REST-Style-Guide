@@ -789,20 +789,23 @@ resource past two nested levels, implementations SHOULD wrap and expose the
 sub-resource.
 
 Routes MUST NOT use reserve word(s) in resource name
-* "views"
-* "files"
+* views
+* files
 
-**Examples**
-{service}/{resources}
-{service}/{resources}/{id}
-{service}/{resources}/{id}/{sub-resources}
-{service}/{resources}/{id}/{sub-resources}/{id}
+### Examples
+
+    {service}/{resources}
+    {service}/{resources}/{id}
+    {service}/{resources}/{id}/{sub-resources}
+    {service}/{resources}/{id}/{sub-resources}/{id}
 
 Routes MUST NOT exceed
-{service}/{resources}/{id}/{sub-resources}/{id}
+   
+    {service}/{resources}/{id}/{sub-resources}/{id}
 
 Routes SHOULD additionally exist
-{service}/{**sub**-resources}/{id}
+
+    {service}/{**sub**-resources}/{id}
 
 ## Request Body
 
