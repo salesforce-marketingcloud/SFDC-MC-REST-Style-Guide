@@ -1826,6 +1826,137 @@ wildcard, *foo*) fashion
 
 See also [Querying](pattern/querying.md)
 
+```javascript
+/* search should be contains */
+// GET /v4/data/supercomputers?q=SC
+// 200 OK
+// Etag: W/"0cfe3bd15b4b15755a556513ee19d886"
+{
+	"data" : [
+		{
+			"id" : "2",
+			"name" : "DOE/SC/Oak Ridge National Laboratory",
+			"vendor" : "Cray Inc.",
+			"cores" : 560640,
+			"tflops" : 17590.0
+		},
+		{
+			"id" : "5",
+			"name" : "DOE/SC/Argonne National Laboratory",
+			"vendor" : "IBM",
+			"cores" : 786432,
+			"tflops" : 8586.6
+		}
+	],
+
+	"meta" : {
+		"totalCount" : 10,
+
+		"links" : [],
+
+		"etags" : [
+			{ "etag" : "0cfe3bd15b4b15755a556513ee19d886", "type" : "weak", "path" : "$.data" },
+			{ "etag" : "f2b97c46e1fd59e1ffd8770a4443e5fb", "type" : "weak", "path" : "$.data.[0]" },
+			{ "etag" : "7f0e65bc2c27133019910adfa417b06a", "type" : "weak", "path" : "$.data.[1]" },
+		]
+	}
+}
+```
+
+```javascript
+/* search should be case insensitive */
+// GET /v4/data/supercomputers?q=comp
+// 200 OK
+// Etag: W/"caf70db73cdd81db17cc1f3481a51bbd"
+{
+	"data" : [
+		{
+			"id" : "1",
+			"name" : "National Super Computer Center in Guangzhou",
+			"vendor" : "NUDT",
+			"cores" : 3120000,
+			"tflops" : 33862.7
+		},
+		{
+			"id" : "4",
+			"name" : "RIKEN Advanced Institute for Computational Science (AICS)",
+			"vendor" : "Fujitsu",
+			"cores" : 705024,
+			"tflops" : 10510.0
+		},
+		{
+			"id" : "6",
+			"name" : "Swiss National Supercomputing Centre (CSCS)",
+			"vendor" : "Cray Inc.",
+			"cores" : 115984,
+			"tflops" : 6271.0
+		},
+		{
+			"id" : "7",
+			"name" : "Texas Advanced Computing Center/Univ. of Texas",
+			"vendor" : "Dell",
+			"cores" : 462462,
+			"tflops" : 5168.1
+		}
+	],
+
+	"meta" : {
+		"totalCount" : 10,
+
+		"links" : [],
+
+		"etags" : [
+			{ "etag" : "caf70db73cdd81db17cc1f3481a51bbd", "type" : "weak", "path" : "$.data" },
+			{ "etag" : "a1642ed98e14ce6a38157c405e936c9a", "type" : "weak", "path" : "$.data.[0]" },
+			{ "etag" : "763dfaace31f258f5943e0bda6df3eff", "type" : "weak", "path" : "$.data.[1]" },
+			{ "etag" : "3512b84a84693263c0aa0b43aba56ad8", "type" : "weak", "path" : "$.data.[2]" },
+			{ "etag" : "19496405f44bd20931ba8d9f47ec2ba9", "type" : "weak", "path" : "$.data.[3]" },
+		]
+	}
+}
+```
+
+```javascript
+/* search can be multiple fields */
+// GET /v4/data/supercomputers?q=el
+// 200 OK
+// Etag: W/"ef73743762a35bfd7adab0f1a5f76a18"
+{
+	"data" : [
+		{
+			"id" : "7",
+			"name" : "Texas Advanced Computing Center/Univ. of Texas",
+			/* D_el_l */
+			"vendor" : "Dell",
+			"cores" : 462462,
+			"tflops" : 5168.1
+		},
+		{
+			"id" : "8",
+			/* Ju_el_ich */
+			"name" : "Forschungszentrum Juelich (FZJ)",
+			"vendor" : "IBM",
+			"cores" : 458752,
+			"tflops" : 5008.9
+		}
+	],
+
+	"meta" : {
+		"totalCount" : 10,
+
+		"links" : [],
+
+		"etags" : [
+			{ "etag" : "ef73743762a35bfd7adab0f1a5f76a18", "type" : "weak", "path" : "$.data" },
+			{ "etag" : "19496405f44bd20931ba8d9f47ec2ba9", "type" : "weak", "path" : "$.data.[0]" },
+			{ "etag" : "d5ffe9f8043a443eda470a7d2ef1f912", "type" : "weak", "path" : "$.data.[1]" },
+		]
+	}
+}
+```
+
+
+
 # Authentication
 
 Authentication MUST only be done with "Authorization" header. Routes bearer token usage MUST NOT accept Form-encoded body; routes MUST NOT accept URI Query parameter tokens. 
