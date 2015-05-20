@@ -1275,6 +1275,188 @@ f[color][eq]="""blue"""
 WHERE color = '"blue"'
 ```
 
+```javascript
+/* Filtering to one vendor */
+// GET /v4/data/supercomputers?filter[vendor][eq]=Cray%20Inc.
+// 200 OK
+// Etag: W/"764cfe1ae347004861290afd60ac651a"
+{
+	"data" : [
+		{
+			"id" : "2",
+			"name" : "DOE/SC/Oak Ridge National Laboratory",
+			"vendor" : "Cray Inc.",
+			"cores" : 560640,
+			"tflops" : 17590.0
+		},
+		{
+			"id" : "6",
+			"name" : "Swiss National Supercomputing Centre (CSCS)",
+			"vendor" : "Cray Inc.",
+			"cores" : 115984,
+			"tflops" : 6271.0
+		},
+		{
+			"id" : "10",
+			"name" : "Government",
+			"vendor" : "Cray Inc.",
+			"cores" : 72800,
+			"tflops" : 3577.0
+		}
+	],
+
+	"meta" : {
+		"totalCount" : 10,
+
+		"links" : [],
+
+		"etags" : [
+			{ "etag" : "764cfe1ae347004861290afd60ac651a", "type" : "weak", "path" : "$.data" },
+			{ "etag" : "f2b97c46e1fd59e1ffd8770a4443e5fb", "type" : "weak", "path" : "$.data.[0]" },
+			{ "etag" : "3512b84a84693263c0aa0b43aba56ad8", "type" : "weak", "path" : "$.data.[1]" },
+			{ "etag" : "e9e3658acab0e30691fac3c74df466ae", "type" : "weak", "path" : "$.data.[2]" }
+		]
+	}
+}
+```
+```javascript
+/* Filtering to two vendors */
+// GET /v4/data/supercomputers?filter[vendor][eq]=Cray%20Inc.,IBM
+// 200 OK
+// Etag: W/"eba6eba9b26e61aa3e0b22154f1dc2f4"
+{
+	"data" : [
+		{
+			"id" : "2",
+			"name" : "DOE/SC/Oak Ridge National Laboratory",
+			"vendor" : "Cray Inc.",
+			"cores" : 560640,
+			"tflops" : 17590.0
+		},
+		{
+			"id" : "3",
+			"name" : "DOE/NNSA/LLNL",
+			"vendor" : "IBM",
+			"cores" : 1572864,
+			"tflops" : 17173.2
+		},
+		{
+			"id" : "5",
+			"name" : "DOE/SC/Argonne National Laboratory",
+			"vendor" : "IBM",
+			"cores" : 786432,
+			"tflops" : 8586.6
+		},
+		{
+			"id" : "6",
+			"name" : "Swiss National Supercomputing Centre (CSCS)",
+			"vendor" : "Cray Inc.",
+			"cores" : 115984,
+			"tflops" : 6271.0
+		},
+		{
+			"id" : "8",
+			"name" : "Forschungszentrum Juelich (FZJ)",
+			"vendor" : "IBM",
+			"cores" : 458752,
+			"tflops" : 5008.9
+		},
+		{
+			"id" : "9",
+			"name" : "DOE/NNSA/LLNL",
+			"vendor" : "IBM",
+			"cores" : 393216,
+			"tflops" : 4293.3
+		},
+		{
+			"id" : "10",
+			"name" : "Government",
+			"vendor" : "Cray Inc.",
+			"cores" : 72800,
+			"tflops" : 3577.0
+		}
+	],
+
+	"meta" : {
+		"totalCount" : 10,
+
+		"links" : [],
+
+		"etags" : [
+			{ "etag" : "eba6eba9b26e61aa3e0b22154f1dc2f4", "type" : "weak", "path" : "$.data" },
+			{ "etag" : "f2b97c46e1fd59e1ffd8770a4443e5fb", "type" : "weak", "path" : "$.data.[0]" },
+			{ "etag" : "848aa6ee22420808a2f189ccf099890c", "type" : "weak", "path" : "$.data.[1]" },
+			{ "etag" : "7f0e65bc2c27133019910adfa417b06a", "type" : "weak", "path" : "$.data.[2]" },
+			{ "etag" : "3512b84a84693263c0aa0b43aba56ad8", "type" : "weak", "path" : "$.data.[3]" },
+			{ "etag" : "d5ffe9f8043a443eda470a7d2ef1f912", "type" : "weak", "path" : "$.data.[4]" },
+			{ "etag" : "94ff6b88e91b4751a6fecfd5a1803dee", "type" : "weak", "path" : "$.data.[5]" },
+			{ "etag" : "e9e3658acab0e30691fac3c74df466ae", "type" : "weak", "path" : "$.data.[6]" }
+		]
+	}
+}
+```
+
+```javascript
+/* Filtering to between 500,000 and 1,000,000 cores */
+// GET /v4/data/supercomputers?filter[cores][lt]=1000000&filter[cores][gt]=500000
+// 200 OK
+// Etag: W/"10fd07d71b1f549beb6b0c706a142479"
+{
+	"data" : [
+		{
+			"id" : "2",
+			"name" : "DOE/SC/Oak Ridge National Laboratory",
+			"vendor" : "Cray Inc.",
+			"cores" :  560,640,
+			"tflops" : 17590.0
+		},
+		{
+			"id" : "4",
+			"name" : "RIKEN Advanced Institute for Computational Science (AICS)",
+			"vendor" : "Fujitsu",
+			"cores" :  705,024,
+			"tflops" : 10510.0
+		},
+		{
+			"id" : "5",
+			"name" : "DOE/SC/Argonne National Laboratory",
+			"vendor" : "IBM",
+			"cores" : 786,432,
+			"tflops" : 8586.6
+		},
+	],
+
+	"meta" : {
+		"totalCount" : 10,
+
+		"links" : [],
+
+		"etags" : [
+			{ "etag" : "10fd07d71b1f549beb6b0c706a142479", "type" : "weak", "path" : "$.data" },
+			{ "etag" : "f2b97c46e1fd59e1ffd8770a4443e5fb", "type" : "weak", "path" : "$.data.[0]" },
+			{ "etag" : "763dfaace31f258f5943e0bda6df3eff", "type" : "weak", "path" : "$.data.[1]" },
+			{ "etag" : "7f0e65bc2c27133019910adfa417b06a", "type" : "weak", "path" : "$.data.[2]" },
+		]
+	}
+}
+```
+
+```javascript
+/* Invalid filter 400 error */
+// GET /v4/data/supercomputers?filter[id][lt]=10
+// 400 Invalid request
+{
+	"error" :
+		{
+			"documentationUrl" : "https://developer.salesforce.com/marketing_cloud/errors/filter.invalidoperation.string",
+			"statusCode" :  400,
+			"errorCode" : "filter.invalidoperation.string",
+			"message" : "id is type of string and only supports eq and not operations",
+			"details" : []
+		}
+}
+```
+
 
 # Pagination
 
