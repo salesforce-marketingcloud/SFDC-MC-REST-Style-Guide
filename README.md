@@ -354,15 +354,13 @@ Routes MUST NOT support a http body.
 	}
 	],
 	"meta" : {
+		"totalCount" : 2,
 		"etags" : [
 			{ "etag" : "c428d847ba365dcd2b10a995548857a2", "type" : "weak", "path" : "$.data" },
 			{ "etag" : "7393c891e51f6c4e9db10a27dd11dd05", "type" : "weak", "path" : "$.data[0]" },
 			{ "etag" : "bdfec487dfd57d7d68ad6955e3d67692", "type" : "weak", "path" : "$.data[1]" }
 		],
-		"links" : [
-			{ "name" : "prev", "method": "GET", "href" : null, "path" : "$.data" },
-			{ "name" : "next", "method": "GET", "href" : null, "path" : "$.data" }
-		]
+		"links" : [ ]
 	}
 }
 /* returns a collection of tags related to article 1 */
