@@ -479,7 +479,7 @@ In Version 4.0 of this Style Guide, A server must not support PUT against a coll
 Routes MUST NOT support creation through PUT.
 
 ### Examples
-```
+```javascript
 // GET /v4/data/articles/2
 // 200 OK
 // Etag : W/"putexample1"
@@ -573,8 +573,6 @@ Routes MUST NOT support creation through PUT.
 	}
 }
 /* PUT successfully updates article 2 while specificying which version of the document to modify */
-
-
 ```
 
 See also [Upserting](pattern/upserting.md)
