@@ -687,11 +687,21 @@ Routes MUST respond with error to
 * delete
 * etc other case variations
 
+### Examples
 ```
 POST {service}/{resources}?action={name}
 POST {service}/{resources}/{id}?action={name}
 POST {service}/{resources}/{id}/{sub-resources}?action={name}
 POST {service}/{resources}/{id}/{sub-resources}/{id}?action={name}
+
+// POST /v4/content/articles/1?action=DELETE 
+// Method Substitution for DELETE, must behave exactly the same as: 
+// DELETE /v4/content/articles/1
+
+// POST /v4/content/articles/1?action=delete
+// 400 Bad Request
+// Fails due to case sensitivity
+
 ```
 
 # HTTP Compression
