@@ -734,7 +734,7 @@ outside of the defined list.
 * If-None-Match
 	* Client MAY provide etag values on GET for cache behavior of HTTP code 304
 * Content-Type
-	* Client SHOULD provide "application/json"
+	* Client SHOULD provide "application/json; charset=utf-8"
 * Accept
 	* Client MAY provide an "accept" header. Routes MUST ignore the header.
 
@@ -766,7 +766,7 @@ outside of the defined list.
 	* MUST be back of Request's Original-Request-Id if provided.
 
 * Content-Type
-	* Responses MUST be "application/json"
+	* Responses MUST be "application/json; charset=utf-8"
 
 
 # Style
