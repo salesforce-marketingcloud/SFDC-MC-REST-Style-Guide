@@ -824,10 +824,13 @@ properties OR objects.
 
 ## Collections
 
-Routes that return multiple objects are collections.
-* Routes MUST have a plural named
-* Routes MUST return an empty array when not objects found
-* Routes MUST always be an array even when a single object
+Collections are Routes that return multiple objects. 
+
+* Routes MUST have a plural name
+    * e.g. `/v4/content/articles`
+    * NOT  `/v4/content/article`
+* Routes MUST return 200 OK and an empty array when no objects are found
+* Routes MUST always return an array even when only a single object is returned
 * Routes SHOULD be a set of fully hydrated objects
 
 ## Remote field expansion
