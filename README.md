@@ -841,6 +841,8 @@ Routes MUST NOT support a query string to expand relationship objects.
 
 When referencing an Enterprise, User or Business Unit, Routes MUST publish a relationship object.
 
+TODO: figure this stuff out
+
 * member - relationship - member, i.e. business unit, of the reference
 	* Example ` "member" : { "id" : "20720" } `
 	* Example ` "ownedBy" : [ { "id" : "20720" } ] `
