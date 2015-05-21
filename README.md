@@ -817,11 +817,13 @@ Routes SHOULD additionally exist
 properties OR objects.
 
 ## Query string
+
 * Servers MUST accept and ignore extra query string parameters
-* Query string parameters MUST be camelCase
-* Query string parameters MUST be case insensitive
+* Query string parameter names MUST be camelCase
+* Query string parameter names MUST be case insensitive
 
 ## Collections
+
 Routes that return multiple objects are collections.
 * Routes MUST have a plural named
 * Routes MUST return an empty array when not objects found
