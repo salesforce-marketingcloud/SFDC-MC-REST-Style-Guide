@@ -819,8 +819,8 @@ properties OR objects.
 ## Query string
 
 * Servers MUST accept and ignore extra query string parameters
-* Query string parameter names MUST be camelCase
-* Query string parameter names MUST be case insensitive
+* Query string parameters MUST be documented and communicated to API users as camelCase
+* Query string parameters MUST be interpreted as case insensitive
 
 ## Collections
 
