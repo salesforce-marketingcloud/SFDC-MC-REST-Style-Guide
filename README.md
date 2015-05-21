@@ -813,7 +813,7 @@ Routes SHOULD additionally exist
 	* MUST NOT include any other ISO 8601 date style
 	* requests MUST be in either 'Z' or plus/minus format
 
-Servers MUST reject requests if the body has unexpected or undocumented
+* Servers MUST reject requests if the body has unexpected or undocumented
 properties OR objects.
 
 ## Query string
