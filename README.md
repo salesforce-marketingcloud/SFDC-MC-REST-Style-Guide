@@ -856,28 +856,34 @@ TODO: figure this stuff out
 
 Routes SHOULD NOT reference "member" and/or "employee/user" without referencing the parent "enterprise".
 
-# Response
-Responses from a route MUST have the prescribed envelope format.
+# Response Format
 
-Routes MUST provide all properties even when value is "null".
-
-## Envelope
-Server response MUST correspond to the format
-* MUST "data" - array of data objects - contains response of route
-* MAY "meta" - metadata object - contains all meta data for the response
-
-**Data Object**
-* MUST "id" - string - identifier for resource
+Responses from a route MUST have the prescribed envelope format. Routes MUST provide all properties even when value is "null".
 
 ## Header
-Route MUST respond to a single resource request with an "etag" header.  The
+
+Routes MUST respond to resource requests with an "etag" header.  The
 "meta" section MUST contain the same "etag" value. Routes MUST use weak tags.
 
 Collection routes MUST respond with an "etag" header that is representative of
 their results. Collection routes MUST also respond with "etag" values for all
-included resources in the "meta". Route MUST only use weak tags.
+included resources in the "meta". Routes MUST only perform weak etag comparisons.
 
-Routes MUST respond with "location" header when a resource was created.
+Routes MUST respond with a "Location" header describing the location of the newly created resource when a resource is created.
+
+## Envelope
+
+Routes MUST respond with the following JSON envelope. 
+
+| Property Name | Type   | Cardinality | Description                                    |
+|---------------|--------|-------------|------------------------------------------------| 
+| Data          | Array  | 1 - 1       | A collection of data objects returned by the 
+                                         Route.  When no data is returned, an empty 
+					 array MUST be returned |
+| Meta          | Object | 0 - 1       | An object defining metadata about the response |
+
+### Data Object
+* MUST "id" - string - identifier for resource
 
 ## Property names
 * all MUST be camelCase
@@ -901,7 +907,11 @@ Routes MUST respond with "location" header when a resource was created.
 
 * MUST contain homogeneous values
 
-**Relationship**
+**Relationships**
+
+A relationship is a reference to an external object.  In this style guide, relationships are always represented as objects. 
+
+In Version 4.0 of this style guide, objects must only contain an Id.
 
 * For 1-1 relationship MUST be an relationship object
 * For \*-n relationship MUST be an array of relationship object
