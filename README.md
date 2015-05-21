@@ -877,20 +877,29 @@ Routes MUST respond with the following JSON envelope.
 
 | Property Name | Type   | Cardinality | Description                                    |
 |---------------|--------|-------------|------------------------------------------------| 
-| Data          | Array  | 1 - 1       | A collection of data objects returned by the 
-                                         Route.  When no data is returned, an empty 
-					 array MUST be returned |
-| Meta          | Object | 0 - 1       | An object defining metadata about the response |
+| Data          | Array  | 1 - 1       | A collection of Data objects, can be empty.    |
+| Meta          | Object | 0 - 1       | Object containing metadata about the response. |
 
 ### Data Object
-* MUST "id" - string - identifier for resource
 
-## Property names
-* all MUST be camelCase
-* properties containing a url MUST be suffixed with "Url"
-* dates MUST be suffixed with "Date"
+Routes that respond with data must contain that data in the Data Object.  Data objects 
+MUST contain an identifier, and any number of additional properties.  
 
-## Property types
+| Property Name | Type   | Cardinality | Description                                    |
+|---------------|--------|-------------|------------------------------------------------| 
+| Id            | String | 1 - 1       | An identifier for the resource.                |
+| *             | *      | *           | MAY have any number of additional properties.  |
+
+#### Data Property Naming
+
+* Property Names MUST be camelCase 
+* Properties containing a URL MUST be suffixed with "Url"
+    * `imageUrl : "http://i0.kym-cdn.com/photos/images/original/000/038/262/hahaguy.jpg"`
+* Properties containing a Date MUST be suffixed with "Date"
+    * `createdDate : "2015-05-21T00:00:00Z"`
+
+#### Data Property types
+
 **Date**
 
 * MUST always include date and time
@@ -934,7 +943,14 @@ See pattern [Recurring events](pattern/recurringevent.md)
 * Predefined and static list of options. All options MUST be listed in discovery 2
 * MUST be reference as string
 
-## Metadata object format
+
+#### Localization
+
+Routes adhering to Style Guide 4.0 MUST NOT provide localized values.
+
+
+
+### Meta Object 
 Servers MUST include a meta object at root level of the response envelope.
 
 **Meta Object**
@@ -963,9 +979,7 @@ Servers MUST include a meta object at root level of the response envelope.
 	* Routes MUST use only "weak" tags
 * MUST "path" - string - JSON path indicating the object link belongs to
 
-## Localization
 
-Routes adhering to Style Guide 4.0 MUST NOT provide localized values.
 
 ## Example
 ```javascript
