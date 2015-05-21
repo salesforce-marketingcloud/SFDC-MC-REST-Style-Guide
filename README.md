@@ -834,11 +834,12 @@ Collections are Routes that return multiple objects.
 * Routes SHOULD be a set of fully hydrated objects
 
 ## Remote field expansion
+
 Routes MUST NOT support a query string to expand relationship objects.
 
 ## Marketing Cloud Specific Properties
 
-Responses when referencing a user or business unit MUST reference with a relationship object.
+When referencing an Enterprise, User or Business Unit, Routes MUST publish a relationship object.
 
 * member - relationship - member, i.e. business unit, of the reference
 	* Example ` "member" : { "id" : "20720" } `
