@@ -898,9 +898,9 @@ MUST contain an identifier, and any number of additional properties.
 * Properties containing a Date MUST be suffixed with "Date"
     * `createdDate : "2015-05-21T00:00:00Z"`
 
-#### Data Property types
+#### Data Property Types
 
-**Date**
+##### Dates
 
 * MUST always include date and time
 * MUST be ISO 8601 style of 2015-05-04T15:39:03Z
@@ -908,15 +908,15 @@ MUST contain an identifier, and any number of additional properties.
 	* MUST NOT include any other ISO 8601 date style
 	* requests MUST be in either 'Z' or plus/minus format
 
-**Number**
+##### Numbers
 
 * SHOULD NOT be quoted
 
-**Array**
+##### Arrays
 
 * MUST contain homogeneous values
 
-**Relationships**
+##### Relationships
 
 A relationship is a reference to an external object.  In this style guide, relationships are always represented as objects. 
 
@@ -931,14 +931,14 @@ See also [Relationship definition](glossary.md)
 
 See also [Relationship object](justification/relationshipobject.md)
 
-**Relationship Object**
+###### Relationship Object 
 
 * MUST contain "id" - string - reference id by object
 * MUST NOT contain other object properties
 
 See pattern [Recurring events](pattern/recurringevent.md)
 
-**Enumerations**
+##### Enumerations
 
 * Predefined and static list of options. All options MUST be listed in discovery 2
 * MUST be reference as string
