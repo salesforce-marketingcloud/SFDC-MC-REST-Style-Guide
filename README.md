@@ -809,8 +809,8 @@ Routes SHOULD additionally exist
 
 ## Request Body
 
-* Dates MUST be ISO-8601 style of 2015-05-04T15:39:03Z
-	* MUST NOT include any other ISO-8601 date style
+* Dates MUST be ISO 8601 style of 2015-05-04T15:39:03Z
+	* MUST NOT include any other ISO 8601 date style
 	* requests MUST be in either 'Z' or plus/minus format
 
 Servers MUST reject requests if the body has unexpected or undocumented
@@ -880,9 +880,9 @@ Routes MUST respond with "location" header when a resource was created.
 **Date**
 
 * MUST always include date and time
-* MUST be ISO-8601 style of 2015-05-04T15:39:03Z
+* MUST be ISO 8601 style of 2015-05-04T15:39:03Z
 	* Server MAY lack timezone for **recurring** events
-	* MUST NOT include any other ISO-8601 date style
+	* MUST NOT include any other ISO 8601 date style
 	* requests MUST be in either 'Z' or plus/minus format
 
 **Number**
