@@ -922,6 +922,9 @@ MUST contain an identifier, and any number of additional properties.
 ##### Arrays
 
 * MUST contain homogeneous values
+    * `[1,2,3,4]`
+    * `["a", "b", "c", "d"]`
+    * NOT `[1, 'a', 2, 'b']`
 
 ##### Relationships
 
