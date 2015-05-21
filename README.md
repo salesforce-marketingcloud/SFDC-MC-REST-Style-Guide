@@ -914,6 +914,10 @@ MUST contain an identifier, and any number of additional properties.
 ##### Numbers
 
 * SHOULD NOT be quoted
+    * Decimal One Million SHOULD be represented as:
+        * `1000000.00`
+	* NOT `"1000000.00"`
+	* NOT `"1,000,000.00"`
 
 ##### Arrays
 
