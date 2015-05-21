@@ -712,17 +712,17 @@ Routes can make important performance gains by utilizing built-in compression in
 Servers MUST support "gzip" for requests, optional section of HTTP1.1. Requests with a body and header
 "Content-Encoding: gzip" are uncompressed before processing in accordance to [Content-Encoding RFC7231 Section 3.1.2.2](https://tools.ietf.org/html/rfc7231#section-3.1.2.2).
 
-See also [Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content RFC7231](https://tools.ietf.org/html/rfc7231)
-See also [Http2 Use of Compression](http://http2.github.io/http2-spec/#rfc.section.10.6)
-See also [Http1.1 rfc2616] (http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.3)
+See also [Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content RFC7231](https://tools.ietf.org/html/rfc7231)  
+See also [Http2 Use of Compression](http://http2.github.io/http2-spec/#rfc.section.10.6)  
+See also [Http1.1 rfc2616] (http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.3)  
 
 ## Response
 Servers MUST support "gzip" for responses, optional section of HTTP1.1. Requests with a header "Accept-Encoding: gzip" MUST be compresesed in accordance to 
 [Accept-Encoding RFC7231 Section 5.3.4](https://tools.ietf.org/html/rfc7231#section-5.3.4)
 
-See also [Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content RFC7231](https://tools.ietf.org/html/rfc7231)
-See also [Http2 Use of Compression](http://http2.github.io/http2-spec/#rfc.section.10.6)
-See also [Http1.1 Section 14.3 RFC2616] (http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.3)
+See also [Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content RFC7231](https://tools.ietf.org/html/rfc7231)  
+See also [Http2 Use of Compression](http://http2.github.io/http2-spec/#rfc.section.10.6)  
+See also [Http1.1 Section 14.3 RFC2616] (http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.3)  
 
 # Headers
 A specific set of headers are supported. A server MUST NOT respect any header
