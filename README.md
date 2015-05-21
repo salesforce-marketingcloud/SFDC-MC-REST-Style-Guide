@@ -827,8 +827,8 @@ properties OR objects.
 Collections are Routes that return multiple objects. 
 
 * Routes MUST have a plural name
-    * e.g. `/v4/content/articles`
-    * NOT  `/v4/content/article`
+    * `/v4/content/articles`
+    * *NOT*  `/v4/content/article`
 * Routes MUST return 200 OK and an empty array when no objects are found
 * Routes MUST always return an array even when only a single object is returned
 * Routes SHOULD be a set of fully hydrated objects
