@@ -913,6 +913,8 @@ MUST contain an identifier, and any number of additional properties.
 
 #### Data Property Types
 
+Basic types must correspond to [JSON RFC 7159](https://tools.ietf.org/html/rfc7159)
+
 ##### Dates
 
 * MUST include date, time and timezone.
