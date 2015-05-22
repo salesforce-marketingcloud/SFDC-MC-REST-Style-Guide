@@ -872,6 +872,10 @@ included resources in the "meta". Routes MUST only perform weak etag comparisons
 Routes MUST respond with a "Location" header describing the location of the
 newly created resource when a resource is created.
 
+## Localization
+
+Routes adhering to Style Guide 4.0 MUST NOT provide localized values.
+
 ## Envelope
 
 Routes MUST respond with the following JSON envelope. The envelope MUST contain at least 
@@ -929,6 +933,13 @@ MUST contain an identifier, and any number of additional properties.
     * `[1,2,3,4]`
     * `["a", "b", "c", "d"]`
     * NOT `[1, 'a', 2, 'b']`
+
+##### Enumerations
+
+TODO: Need to better understand what we're saying here.
+
+* Predefined and static list of options. All options MUST be listed in discovery 2
+* MUST be reference as string
 
 ##### Relationships
 
@@ -1000,24 +1011,8 @@ See also [Relationship definition](glossary.md)
 
 See also [Relationship object](justification/relationshipobject.md)
 
-
-
-
-##### Enumerations
-
-TODO: Need to better understand what we're saying here.
-
-* Predefined and static list of options. All options MUST be listed in discovery 2
-* MUST be reference as string
-
-
-#### Localization
-
-Routes adhering to Style Guide 4.0 MUST NOT provide localized values.
-
-
-
 ### Meta Object 
+
 Servers MUST include a meta object at root level of the response envelope.
 
 **Meta Object**
