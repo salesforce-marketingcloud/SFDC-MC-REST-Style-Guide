@@ -869,16 +869,19 @@ Collection routes MUST respond with an "etag" header that is representative of
 their results. Collection routes MUST also respond with "etag" values for all
 included resources in the "meta". Routes MUST only perform weak etag comparisons.
 
-Routes MUST respond with a "Location" header describing the location of the newly created resource when a resource is created.
+Routes MUST respond with a "Location" header describing the location of the
+newly created resource when a resource is created.
 
 ## Envelope
 
-Routes MUST respond with the following JSON envelope. 
+Routes MUST respond with the following JSON envelope. The envelope MUST contain at least 
+one Data or Error object.
 
 | Property Name | Type   | Cardinality | Description                                    |
 |---------------|--------|-------------|------------------------------------------------| 
-| Data          | Array  | 1 - 1       | A collection of Data objects, can be empty.    |
+| Data          | Array  | 0 - 1       | A collection of Data objects, can be empty.    |
 | Meta          | Object | 0 - 1       | Object containing metadata about the response. |
+| Error         | Object | 0 - 1       | Object containing information about an error.  |
 
 ### Data Object
 
