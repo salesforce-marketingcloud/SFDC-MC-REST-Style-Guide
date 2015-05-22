@@ -1127,9 +1127,7 @@ In Version 4.0, Routes MUST include a meta object at root level of the response 
 | Property Name | Type   | Cardinality | Description                                    |
 |---------------|--------|-------------|------------------------------------------------|
 | href          | String | 1 - 1       | A URI or URL to a state of the resource.       |
-| name          | String | 1 - 1       | Description of state being referenced.         |
-|               |        |             | MUST be one of: (prev, next, self, first, last)|
-|               |        |             | See also [HATEOAS](justerification/hateoas.md) |
+| name          | String | 1 - 1       | Description of state being referenced. MUST be one of: (prev, next, self, first, last). See also [HATEOAS](justerification/hateoas.md) |
 | path          | String | 1 - 1       | JSON Path of the object the link belongs to.   |
 | method        | String | 0 - 1       | HTTP method to use with `href`                 |
 
@@ -1139,8 +1137,7 @@ In Version 4.0, Routes MUST include a meta object at root level of the response 
 
 | Property Name | Type   | Cardinality | Description                                    |
 |---------------|--------|-------------|------------------------------------------------|
-| etag          | String | 1 - 1 | identifier for current state of resource             |
-|               |        |       | See also [Concurrency](justification/concurrency.md) |
+| etag          | String | 1 - 1 | identifier for current state of resource. See also [Concurrency](justification/concurrency.md) |
 | path          | String | 1 - 1 | JSON Path of the object the etag belongs to.         |
 
 ## Example
@@ -1206,13 +1203,8 @@ be in the prescribed error JSON format. If a Successful request to a route would
 |                  |        |             | site that describes the error that occurred.|
 | statusCode       | Integer| 1 - 1       | The HTTP response code that was returned.   |
 | errorCode        | String | 1 - 1       | MUST match errorCode format ABNF (i.e. error.code.snake\_casing). "errorCodes" are REQUIRED to be registered with Marketing Cloud Platform team. Example `validation.email.subject_empty` |
-| message          | String | 1 - 1       | String describing the error that occurred.  |
-|                  |        |             | MUST NOT contain user input. MAY be empty.  |
-|                  |        |             | MUST NOT be localized.                      |
-| details          | Array  | 1 - 1       | An array of Error Detail objects.           |
-|                  |        |             | Provides context for the error that occured.|
-|                  |        |             | Validation objects SHOULD have an Error     |
-|                  |        |             | Detail object for each validation error.    |
+| message          | String | 1 - 1       | String describing the error that occurred.  MUST NOT contain user input. MAY be empty.  MUST NOT be localized. |
+| details          | Array  | 1 - 1       | An array of Error Detail objects. Provides context for the error that occured.  Validation objects SHOULD have an Error.     Detail object for each validation error.    |
 
 
 "errorCode" MUST follow the ABNF grammar. See also [RFC2234 Augmented BNF syntax](https://tools.ietf.org/html/rfc2234)
@@ -1235,16 +1227,10 @@ LOWER = %x61-7A
 
 | Property Name    | Type   | Cardinality | Description                                 |
 |------------------|--------|-------------|---------------------------------------------|
-| documentationUrl | String | 1 - 1       | Fully qualified URL to a localized support  |
-|                  |        |             | site that describes the error that occurred.|
-| errorCode        | String | 1 - 1       | MUST be a English US-ASCII value.           |
-|                  |        |             | errorCodes MUST be registered with Marketing|
-|                  |        |             | Cloud Platform team.                        |
-| path             | String | 1 - 1       | JSON path that identifies the property that |
-|                  |        |             | caused the error. MAY be empty.             |
-| message          | String | 1 - 1       | String describing the error that occurred.  |
-|                  |        |             | MUST NOT contain user input. MAY be empty.  |
-|                  |        |             | MUST NOT be localized.                      |
+| documentationUrl | String | 1 - 1       | Fully qualified URL to a localized support  site that describes the error that occurred.|
+| errorCode        | String | 1 - 1       | MUST be a English US-ASCII value. errorCodes MUST be registered with Marketing.  Cloud Platform team.|
+| path             | String | 1 - 1       | JSON path that identifies the property that caused the error. MAY be empty. |
+| message          | String | 1 - 1       | String describing the error that occurred.  MUST NOT contain user input. MAY be empty.  MUST NOT be localized. |
 
 
 ## Validation Details
