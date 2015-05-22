@@ -1346,7 +1346,7 @@ A filter with a field specification wider than one property MUST return 400 erro
 
 ```
 /* error as it has one property */
-?filter[parent/*][eq]=1
+?f[parent/*][eq]=1
 ```
 
 ## Properties
@@ -1470,7 +1470,7 @@ WHERE color = '"blue"'
 
 ```javascript
 /* Filtering to one vendor */
-// GET /v4/data/supercomputers?filter[vendor][eq]=Cray%20Inc.
+// GET /v4/data/supercomputers?f[vendor][eq]=Cray%20Inc.
 // 200 OK
 // Etag: W/"764cfe1ae347004861290afd60ac651a"
 {
@@ -1514,7 +1514,7 @@ WHERE color = '"blue"'
 ```
 ```javascript
 /* Filtering to two vendors */
-// GET /v4/data/supercomputers?filter[vendor][eq]=Cray%20Inc.,IBM
+// GET /v4/data/supercomputers?f[vendor][eq]=Cray%20Inc.,IBM
 // 200 OK
 // Etag: W/"eba6eba9b26e61aa3e0b22154f1dc2f4"
 {
@@ -1591,7 +1591,7 @@ WHERE color = '"blue"'
 
 ```javascript
 /* Filtering to between 500,000 and 1,000,000 cores */
-// GET /v4/data/supercomputers?filter[cores][lt]=1000000&filter[cores][gt]=500000
+// GET /v4/data/supercomputers?f[cores][lt]=1000000&f[cores][gt]=500000
 // 200 OK
 // Etag: W/"10fd07d71b1f549beb6b0c706a142479"
 {
@@ -1636,7 +1636,7 @@ WHERE color = '"blue"'
 
 ```javascript
 /* Invalid filter 400 error */
-// GET /v4/data/supercomputers?filter[id][lt]=10
+// GET /v4/data/supercomputers?f[id][lt]=10
 // 400 Invalid request
 {
 	"error" :
