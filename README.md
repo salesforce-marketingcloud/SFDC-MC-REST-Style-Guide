@@ -1418,7 +1418,7 @@ on all valid properties with a leading "-" on the field specification format.
 ```
 
 ```javascript
-/* Sort by cores ascending */
+/* Sort by cores decending */
 // GET /v4/data/supercomputers?sort=-cores
 // 200 OK
 // Etag: W/"68ec25c669bcc6a2b5326b723885cc7f"
@@ -1529,7 +1529,7 @@ on all valid properties with a leading "-" on the field specification format.
 ```
 
 ```javascript
-/* Sort by cores ascending */
+/* Sort by first appearance and cores  */
 // GET /v4/data/supercomputers?sort=-firstAppearance,-cores
 // 200 OK
 // Etag: W/"773d2f209b482b58f48c24970c28c4c9"
