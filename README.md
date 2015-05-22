@@ -1634,6 +1634,56 @@ WHERE color = '"blue"'
 }
 ```
 
+
+```javascript
+/* Super computer centers added to the list in the ninties */
+// GET /v4/data/supercomputers?f[firstAppearance][gte]=1990-01-01T00:00:00Z&f[firstAppearance][lte]=2000-01-01T00:00:00Z
+// 200 OK
+// Etag: W/"c1c353fa20a853f36a038ce7f61c4d63"
+{
+	"data" : [
+		{
+			"id" : "2",
+			"name" : "DOE/SC/Oak Ridge National Laboratory",
+			"vendor" : "Cray Inc.",
+			"cores" : 560640,
+			"firstAppearance" : "1993-06-01T00:00:00Z",
+			"tflops" : 17590.0
+		},
+		{
+			"id" : "5",
+			"name" : "DOE/SC/Argonne National Laboratory",
+			"vendor" : "IBM",
+			"cores" : 786432,
+			"firstAppearance" : "1995-06-01T00:00:00Z",
+			"tflops" : 8586.6
+		},
+		{
+			"id" : "8",
+			"name" : "Forschungszentrum Juelich (FZJ)",
+			"vendor" : "IBM",
+			"cores" : 458752,
+			"firstAppearance" : "1993-06-01T00:00:00Z",
+			"tflops" : 5008.9
+		},
+	],
+
+	"meta" : {
+		"totalCount" : 3,
+
+		"links" : [],
+
+		"etags" : [
+			{ "etag" : "c1c353fa20a853f36a038ce7f61c4d63",  "path" : "$.data" },
+			{ "etag" : "dc2e0302fae3ed17ce753fd8a73371d5",  "path" : "$.data.[0]" },
+			{ "etag" : "4789647b72be508c7027d5d8921b2e75",  "path" : "$.data.[1]" },
+			{ "etag" : "cbd0dd679a7ce77acaa5059e101accdc",  "path" : "$.data.[2]" }
+		]
+	}
+}
+```
+
+
 ```javascript
 /* Invalid filter 400 error */
 // GET /v4/data/supercomputers?f[id][lt]=10
