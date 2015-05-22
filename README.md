@@ -1117,9 +1117,7 @@ be in the prescribed error JSON format. If a Successful request to a route would
 | documentationUrl | String | 1 - 1       | Fully qualified URL to a localized support  |
 |                  |        |             | site that describes the error that occurred.|
 | statusCode       | Integer| 1 - 1       | The HTTP response code that was returned.   |
-| errorCode        | String | 1 - 1       | MUST be a English US-ASCII value.           |
-|                  |        |             | errorCodes MUST be registered with Marketing|
-|                  |        |             | Cloud Platform team.                        |
+| errorCode        | String | 1 - 1       | MUST match errorCode format ABNF (i.e. error.code.snake\_casing). "errorCodes" are REQUIRED to be registered with Marketing Cloud Platform team. Example `validation.email.subject_empty` |
 | message          | String | 1 - 1       | String describing the error that occurred.  |
 |                  |        |             | MUST NOT contain user input. MAY be empty.  |
 |                  |        |             | MUST NOT be localized.                      |
@@ -1127,6 +1125,20 @@ be in the prescribed error JSON format. If a Successful request to a route would
 |                  |        |             | Provides context for the error that occured.|
 |                  |        |             | Validation objects SHOULD have an Error     |
 |                  |        |             | Detail object for each validation error.    |
+
+
+"errorCode" MUST follow the ABNF grammar. See also [RFC2234 Augmented BNF syntax](https://tools.ietf.org/html/rfc2234)
+
+```abnf
+error = category *(DOT category) DOT item
+
+category = 3*LOWER
+item = 3*( LOWER / LOWER UNDERSCORE LOWER )
+
+DOT = %x2E
+UNDERSCORE = %x5F
+LOWER = %x61-7A
+```
 
 
 ### Error Detail Object 
@@ -1188,7 +1200,7 @@ be in the prescribed error JSON format. If a Successful request to a route would
 			"details" : [
 				{
 					"documentationUrl" : "https://developer.salesforce.com/marketing_cloud/errors/validation.email.address",
-					"errorCode" : "validation.email.address.lackdomain",
+					"errorCode" : "validation.email.address_lackdomain",
 					"path" : "$.emailAddress",
 					"message" : "lacks domain name"
 				},
@@ -1200,7 +1212,7 @@ be in the prescribed error JSON format. If a Successful request to a route would
 				},
 				{
 					"documentationUrl" : "https://developer.salesforce.com/marketing_cloud/errors/validation.email.address",
-					"errorCode" : "validation.email.address.lackuser",
+					"errorCode" : "validation.email.address_lackuser",
 					"path" : "$.emailAddress2",
 					"message" : "Lacks user"
 				}
