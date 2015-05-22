@@ -1005,6 +1005,8 @@ See also [Relationship object](justification/relationshipobject.md)
 
 ##### Enumerations
 
+TODO: Need to better understand what we're saying here.
+
 * Predefined and static list of options. All options MUST be listed in discovery 2
 * MUST be reference as string
 
