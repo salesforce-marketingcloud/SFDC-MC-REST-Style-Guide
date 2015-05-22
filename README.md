@@ -184,7 +184,9 @@ several HTTP methods.
 
 ## POST
 
-A resource MAY support POST.  Routes supporting POST MUST support as a single
+### Default Create
+
+A resource MAY support POST create.  Routes supporting POST create MUST support as a single
 resource having the same JSON schema as an item in the collection of the data
 section of a GET. The resource contained in the request MUST be created, OR
 the server MUST respond with an error.
@@ -293,6 +295,10 @@ with a Location: header pointing to the newly created resource.
 }
 /* Article 1 is created with tag 2 relationship */
 ```
+
+### Method/action substitution
+
+Routes MUST instead follow rules for the requested method/action in lieu of POST create rules.
 
 ## GET
 
