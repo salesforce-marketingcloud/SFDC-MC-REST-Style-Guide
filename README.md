@@ -912,15 +912,15 @@ MUST contain an identifier, and any number of additional properties.
     * Routes MUST NOT accept any other ISO 8601 date style
     * Requests MUST be in either 'Z' or plus/minus format
         * `2015-05-21T00:00:00Z`
-	* `2015-05-21T08:00:00-08:00`
+        * `2015-05-21T08:00:00-08:00`
 
 ##### Numbers
 
 * SHOULD NOT be quoted
     * Decimal One Million SHOULD be represented as:
         * `1000000.00`
-	* NOT `"1000000.00"`
-	* NOT `"1,000,000.00"`
+        * NOT `"1000000.00"`
+        * NOT `"1,000,000.00"`
 
 ##### Arrays
 
