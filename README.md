@@ -740,7 +740,7 @@ outside of the defined list.
 	* Client MAY provide for request body compression. Supported value(s) are "gzip"
 * Origin, Access-Control-Request-Method, Access-Control-Request-Headers
 	* Support for CORS
-* Original-Request-ID
+* Original-Request-Id
 	* Client MAY provide a tracking identifier. MUST be less than 1024 characters. Characters
 	  MUST be within US-ASCII.
 * If-Match
@@ -773,10 +773,10 @@ outside of the defined list.
 	* Responses MUST respond to all requests with a "Etag" header that MUST be
 	  less than 1024 characters. Characters MUST be within US-ASCII.
 
-* Request-ID
+* Request-Id
 	* Responses MUST include. MUST be less than 1024 characters. Characters
 	  MUST be within US-ASCII.
-* Original-Request-ID
+* Original-Request-Id
 	* MUST be back of Request's Original-Request-Id if provided.
 
 * Content-Type
