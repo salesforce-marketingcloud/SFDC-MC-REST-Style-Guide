@@ -1653,10 +1653,6 @@ on all valid properties with a leading "-" on the field specification format.
 }
 ```
 
-
-
-
-
 # Partial Responses
 Routes SHOULD support partial responses. Properties to **include** MUST be
 specified by the query string "fields". The format MUST be "Field Specification format".
