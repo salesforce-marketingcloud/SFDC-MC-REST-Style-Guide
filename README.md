@@ -1142,9 +1142,11 @@ be in the prescribed error JSON format. If a Successful request to a route would
 
 
 ## Validation Details
-Validation errors SHOULD utilize JSON path
+
+* Validation errors SHOULD utilize JSON path
 
 ## Example
+
 ```json
 {
 	"error" : {
@@ -1159,18 +1161,17 @@ Validation errors SHOULD utilize JSON path
 ```
 
 ## Validation Example
-**Request POST**
-```json
+
+```javascript
+// POST /v4/data/fakeRoute
 {
 	"date" : "not valid date",
 	"date2" : "2015-06-02T00:00:00Z",
 	"emailAddress" : "foo_not_valid@",
 	"emailAddress2" : "@example.com",
 }
-```
 
-**Response**
-```json
+// 400 Bad Request
 {
 	"error" :
 		{
