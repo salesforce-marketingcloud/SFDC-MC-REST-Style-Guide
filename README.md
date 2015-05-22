@@ -929,11 +929,12 @@ Basic types must correspond to [JSON RFC 7159](https://tools.ietf.org/html/rfc71
 
 ##### Numbers
 
-* SHOULD NOT be quoted
-    * Decimal One Million SHOULD be represented as:
-        * `1000000.00`
-        * NOT `"1000000.00"`
-        * NOT `"1,000,000.00"`
+RECOMMENDED to be unquoted. Examples of exceptions are when exact precision must be maintained in access of double precision numbers [IEEE 754](http://grouper.ieee.org/groups/754/).
+
+* Decimal One Million SHOULD be represented as:
+	* `1000000.00`
+	* NOT `"1000000.00"`
+	* NOT `"1,000,000.00"`
 
 ##### Arrays
 
