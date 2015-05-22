@@ -209,7 +209,7 @@ with a Location: header pointing to the newly created resource.
 	}],
 	"meta" : {
 		"etags" : [
-			{ "etag" : "fd66fa03845ebcc44a0357641a1f99ef", "type" : "weak", "path" : "$.data[0]" }
+			{ "etag" : "fd66fa03845ebcc44a0357641a1f99ef",  "path" : "$.data[0]" }
 		]
 	}
 }
@@ -232,7 +232,7 @@ with a Location: header pointing to the newly created resource.
 	}],
 	"meta" : {
 		"etags" : [
-			{ "etag" : "d59c46e81cc47bddfbc0474557393886", "type" : "weak", "path" : "$.data[0]" }
+			{ "etag" : "d59c46e81cc47bddfbc0474557393886",  "path" : "$.data[0]" }
 		]
 	}
 }
@@ -258,7 +258,7 @@ with a Location: header pointing to the newly created resource.
 	}],
 	"meta" : {
 		"etags" : [
-			{ "etag" : "5053893c9d20cc2113264fcbf77b8377", "type" : "weak", "path" : "$.data[0]" }
+			{ "etag" : "5053893c9d20cc2113264fcbf77b8377",  "path" : "$.data[0]" }
 		]
 	}
 }
@@ -287,7 +287,7 @@ with a Location: header pointing to the newly created resource.
 	}],
 	"meta" : {
 		"etags" : [
-			{ "etag" : "5053893c9d20cc2113264fcbf77b8377", "type" : "weak", "path" : "$.data[0]" }
+			{ "etag" : "5053893c9d20cc2113264fcbf77b8377",  "path" : "$.data[0]" }
 		]
 	}
 }
@@ -315,7 +315,7 @@ Routes MUST NOT support a http body.
 	}],
 	"meta" : {
 		"etags" : [
-			{ "etag" : "0e39098733467763f2f4ee9ab29aa649", "type" : "weak", "path" : "$.data[0]" }
+			{ "etag" : "0e39098733467763f2f4ee9ab29aa649",  "path" : "$.data[0]" }
 		]
 	}
 }
@@ -332,7 +332,7 @@ Routes MUST NOT support a http body.
 	}],
 	"meta" : {
 		"etags" : [
-			{ "etag" : "d59c46e81cc47bddfbc0474557393886", "type" : "weak", "path" : "$.data[0]" }
+			{ "etag" : "d59c46e81cc47bddfbc0474557393886",  "path" : "$.data[0]" }
 		]
 	}
 }
@@ -356,9 +356,9 @@ Routes MUST NOT support a http body.
 	"meta" : {
 		"totalCount" : 2,
 		"etags" : [
-			{ "etag" : "c428d847ba365dcd2b10a995548857a2", "type" : "weak", "path" : "$.data" },
-			{ "etag" : "7393c891e51f6c4e9db10a27dd11dd05", "type" : "weak", "path" : "$.data[0]" },
-			{ "etag" : "bdfec487dfd57d7d68ad6955e3d67692", "type" : "weak", "path" : "$.data[1]" }
+			{ "etag" : "c428d847ba365dcd2b10a995548857a2",  "path" : "$.data" },
+			{ "etag" : "7393c891e51f6c4e9db10a27dd11dd05",  "path" : "$.data[0]" },
+			{ "etag" : "bdfec487dfd57d7d68ad6955e3d67692",  "path" : "$.data[1]" }
 		],
 		"links" : [ ]
 	}
@@ -406,7 +406,7 @@ In version 4.0 of the style guide, Collection routes MUST NOT support DELETE.
 	}],
 	"meta" : {
 		"etags" : [
-			{ "etag" : "9a7668f8e9b9b6685c0624f416ba69c4", "type" : "weak", "path" : "$.data[0]" }
+			{ "etag" : "9a7668f8e9b9b6685c0624f416ba69c4",  "path" : "$.data[0]" }
 		]
 	}
 }
@@ -431,7 +431,7 @@ In version 4.0 of the style guide, Collection routes MUST NOT support DELETE.
 	}],
 	"meta" : {
 		"etags" : [
-			{ "etag" : "4d8291e8196a6358b0e918e38ee4c0de", "type" : "weak", "path" : "$.data[0]" }
+			{ "etag" : "4d8291e8196a6358b0e918e38ee4c0de",  "path" : "$.data[0]" }
 		]
 	}
 }
@@ -446,7 +446,7 @@ In version 4.0 of the style guide, Collection routes MUST NOT support DELETE.
 	}],
 	"meta" : {
 		"etags" : [
-			{ "etag" : "f362309f1c74a38ef40cb600c04786cb", "type" : "weak", "path" : "$.data[0]" }
+			{ "etag" : "f362309f1c74a38ef40cb600c04786cb",  "path" : "$.data[0]" }
 		]
 	}
 }
@@ -491,7 +491,7 @@ Routes MUST NOT support creation through PUT.
 	}],
 	"meta" : {
 		"etags" : [
-			{ "etag" : "putexample1", "type" : "weak", "path" : "$.data[0]" }
+			{ "etag" : "putexample1",  "path" : "$.data[0]" }
 		]
 	}
 }
@@ -517,7 +517,7 @@ Routes MUST NOT support creation through PUT.
 	}],
 	"meta" : {
 		"etags" : [
-			{ "etag" : "putexample2", "type" : "weak", "path" : "$.data[0]" }
+			{ "etag" : "putexample2",  "path" : "$.data[0]" }
 		]
 	}
 }
@@ -566,7 +566,7 @@ Routes MUST NOT support creation through PUT.
 	}],
 	"meta" : {
 		"etags" : [
-			{ "etag" : "putexample3", "type" : "weak", "path" : "$.data[0]" }
+			{ "etag" : "putexample3",  "path" : "$.data[0]" }
 		]
 	}
 }
@@ -610,7 +610,7 @@ See also [Upserting](pattern/upserting.md)
 	}],
 	"meta" : {
 		"etags" : [
-			{ "etag" : "006b1b00e09eda9c9c95353ff1eb58f1", "type" : "weak", "path" : "$.data[0]" }
+			{ "etag" : "006b1b00e09eda9c9c95353ff1eb58f1",  "path" : "$.data[0]" }
 		]
 	}
 }
@@ -633,7 +633,7 @@ See also [Upserting](pattern/upserting.md)
 	}],
 	"meta" : {
 		"etags" : [
-			{ "etag" : "6ee3a8df40b4ed21287bbbb745794ed8", "type" : "weak", "path" : "$.data[0]" }
+			{ "etag" : "6ee3a8df40b4ed21287bbbb745794ed8",  "path" : "$.data[0]" }
 		]
 	}
 }
@@ -656,7 +656,7 @@ See also [Upserting](pattern/upserting.md)
 	}],
 	"meta" : {
 		"etags" : [
-			{ "etag" : "b8d93a92c87ff73dea1a9fb0d1721321", "type" : "weak", "path" : "$.data[0]" }
+			{ "etag" : "b8d93a92c87ff73dea1a9fb0d1721321",  "path" : "$.data[0]" }
 		]
 	}
 }
@@ -973,7 +973,7 @@ In Version 4.0 of this style guide, relationship objects MUST contain ONLY an id
 	}],
 	"meta" : {
 		"etags" : [
-			{ "etag" : "0e39098733467763f2f4ee9ab29aa649", "type" : "weak", "path" : "$.data[0]" }
+			{ "etag" : "0e39098733467763f2f4ee9ab29aa649",  "path" : "$.data[0]" }
 		]
 	}
 }
@@ -994,7 +994,7 @@ In Version 4.0 of this style guide, relationship objects MUST contain ONLY an id
 	}],
 	"meta" : {
 		"etags" : [
-			{ "etag" : "0e39098733467763f2f4ee9ab29aa649", "type" : "weak", "path" : "$.data[0]" }
+			{ "etag" : "0e39098733467763f2f4ee9ab29aa649",  "path" : "$.data[0]" }
 		]
 	}
 }
@@ -1087,9 +1087,9 @@ In Version 4.0, Routes MUST include a meta object at root level of the response 
 		],
 
 		"etags" : [
-			{ "etag" : "a95ffbe406a5e4fb76a4d1c25c4b2995", "type" : "weak", "path" : "$.data" },
-			{ "etag" : "a15e8ad4000684fdc8a04cd22ac835ca", "type" : "weak", "path" : "$.data.[0]" },
-			{ "etag" : "754bd3129114a6eab71374bb12492896", "type" : "weak", "path" : "$.data.[1]" }
+			{ "etag" : "a95ffbe406a5e4fb76a4d1c25c4b2995", "path" : "$.data" },
+			{ "etag" : "a15e8ad4000684fdc8a04cd22ac835ca", "path" : "$.data.[0]" },
+			{ "etag" : "754bd3129114a6eab71374bb12492896", "path" : "$.data.[1]" }
 		]
 	}
 }
@@ -1422,10 +1422,10 @@ WHERE color = '"blue"'
 		"links" : [],
 
 		"etags" : [
-			{ "etag" : "764cfe1ae347004861290afd60ac651a", "type" : "weak", "path" : "$.data" },
-			{ "etag" : "f2b97c46e1fd59e1ffd8770a4443e5fb", "type" : "weak", "path" : "$.data.[0]" },
-			{ "etag" : "3512b84a84693263c0aa0b43aba56ad8", "type" : "weak", "path" : "$.data.[1]" },
-			{ "etag" : "e9e3658acab0e30691fac3c74df466ae", "type" : "weak", "path" : "$.data.[2]" }
+			{ "etag" : "764cfe1ae347004861290afd60ac651a",  "path" : "$.data" },
+			{ "etag" : "f2b97c46e1fd59e1ffd8770a4443e5fb",  "path" : "$.data.[0]" },
+			{ "etag" : "3512b84a84693263c0aa0b43aba56ad8",  "path" : "$.data.[1]" },
+			{ "etag" : "e9e3658acab0e30691fac3c74df466ae",  "path" : "$.data.[2]" }
 		]
 	}
 }
@@ -1494,14 +1494,14 @@ WHERE color = '"blue"'
 		"links" : [],
 
 		"etags" : [
-			{ "etag" : "eba6eba9b26e61aa3e0b22154f1dc2f4", "type" : "weak", "path" : "$.data" },
-			{ "etag" : "f2b97c46e1fd59e1ffd8770a4443e5fb", "type" : "weak", "path" : "$.data.[0]" },
-			{ "etag" : "848aa6ee22420808a2f189ccf099890c", "type" : "weak", "path" : "$.data.[1]" },
-			{ "etag" : "7f0e65bc2c27133019910adfa417b06a", "type" : "weak", "path" : "$.data.[2]" },
-			{ "etag" : "3512b84a84693263c0aa0b43aba56ad8", "type" : "weak", "path" : "$.data.[3]" },
-			{ "etag" : "d5ffe9f8043a443eda470a7d2ef1f912", "type" : "weak", "path" : "$.data.[4]" },
-			{ "etag" : "94ff6b88e91b4751a6fecfd5a1803dee", "type" : "weak", "path" : "$.data.[5]" },
-			{ "etag" : "e9e3658acab0e30691fac3c74df466ae", "type" : "weak", "path" : "$.data.[6]" }
+			{ "etag" : "eba6eba9b26e61aa3e0b22154f1dc2f4",  "path" : "$.data" },
+			{ "etag" : "f2b97c46e1fd59e1ffd8770a4443e5fb",  "path" : "$.data.[0]" },
+			{ "etag" : "848aa6ee22420808a2f189ccf099890c",  "path" : "$.data.[1]" },
+			{ "etag" : "7f0e65bc2c27133019910adfa417b06a",  "path" : "$.data.[2]" },
+			{ "etag" : "3512b84a84693263c0aa0b43aba56ad8",  "path" : "$.data.[3]" },
+			{ "etag" : "d5ffe9f8043a443eda470a7d2ef1f912",  "path" : "$.data.[4]" },
+			{ "etag" : "94ff6b88e91b4751a6fecfd5a1803dee",  "path" : "$.data.[5]" },
+			{ "etag" : "e9e3658acab0e30691fac3c74df466ae",  "path" : "$.data.[6]" }
 		]
 	}
 }
@@ -1543,10 +1543,10 @@ WHERE color = '"blue"'
 		"links" : [],
 
 		"etags" : [
-			{ "etag" : "10fd07d71b1f549beb6b0c706a142479", "type" : "weak", "path" : "$.data" },
-			{ "etag" : "f2b97c46e1fd59e1ffd8770a4443e5fb", "type" : "weak", "path" : "$.data.[0]" },
-			{ "etag" : "763dfaace31f258f5943e0bda6df3eff", "type" : "weak", "path" : "$.data.[1]" },
-			{ "etag" : "7f0e65bc2c27133019910adfa417b06a", "type" : "weak", "path" : "$.data.[2]" },
+			{ "etag" : "10fd07d71b1f549beb6b0c706a142479",  "path" : "$.data" },
+			{ "etag" : "f2b97c46e1fd59e1ffd8770a4443e5fb",  "path" : "$.data.[0]" },
+			{ "etag" : "763dfaace31f258f5943e0bda6df3eff",  "path" : "$.data.[1]" },
+			{ "etag" : "7f0e65bc2c27133019910adfa417b06a",  "path" : "$.data.[2]" },
 		]
 	}
 }
@@ -1689,17 +1689,17 @@ Query string parameter "limit" MUST be the number of results to return
 		"links" : [],
 
 		"etags" : [
-			{ "etag" : "4f13206cc628c697b99db0b0e81360fe", "type" : "weak", "path" : "$.data" },
-			{ "etag" : "a1642ed98e14ce6a38157c405e936c9a", "type" : "weak", "path" : "$.data.[0]" },
-			{ "etag" : "f2b97c46e1fd59e1ffd8770a4443e5fb", "type" : "weak", "path" : "$.data.[1]" },
-			{ "etag" : "848aa6ee22420808a2f189ccf099890c", "type" : "weak", "path" : "$.data.[2]" },
-			{ "etag" : "763dfaace31f258f5943e0bda6df3eff", "type" : "weak", "path" : "$.data.[3]" },
-			{ "etag" : "7f0e65bc2c27133019910adfa417b06a", "type" : "weak", "path" : "$.data.[4]" },
-			{ "etag" : "3512b84a84693263c0aa0b43aba56ad8", "type" : "weak", "path" : "$.data.[5]" },
-			{ "etag" : "19496405f44bd20931ba8d9f47ec2ba9", "type" : "weak", "path" : "$.data.[6]" },
-			{ "etag" : "d5ffe9f8043a443eda470a7d2ef1f912", "type" : "weak", "path" : "$.data.[7]" },
-			{ "etag" : "94ff6b88e91b4751a6fecfd5a1803dee", "type" : "weak", "path" : "$.data.[8]" },
-			{ "etag" : "e9e3658acab0e30691fac3c74df466ae", "type" : "weak", "path" : "$.data.[9]" }
+			{ "etag" : "4f13206cc628c697b99db0b0e81360fe",  "path" : "$.data" },
+			{ "etag" : "a1642ed98e14ce6a38157c405e936c9a",  "path" : "$.data.[0]" },
+			{ "etag" : "f2b97c46e1fd59e1ffd8770a4443e5fb",  "path" : "$.data.[1]" },
+			{ "etag" : "848aa6ee22420808a2f189ccf099890c",  "path" : "$.data.[2]" },
+			{ "etag" : "763dfaace31f258f5943e0bda6df3eff",  "path" : "$.data.[3]" },
+			{ "etag" : "7f0e65bc2c27133019910adfa417b06a",  "path" : "$.data.[4]" },
+			{ "etag" : "3512b84a84693263c0aa0b43aba56ad8",  "path" : "$.data.[5]" },
+			{ "etag" : "19496405f44bd20931ba8d9f47ec2ba9",  "path" : "$.data.[6]" },
+			{ "etag" : "d5ffe9f8043a443eda470a7d2ef1f912",  "path" : "$.data.[7]" },
+			{ "etag" : "94ff6b88e91b4751a6fecfd5a1803dee",  "path" : "$.data.[8]" },
+			{ "etag" : "e9e3658acab0e30691fac3c74df466ae",  "path" : "$.data.[9]" }
 		]
 	}
 }
@@ -1736,9 +1736,9 @@ Query string parameter "limit" MUST be the number of results to return
 		],
 
 		"etags" : [
-			{ "etag" : "f544328e483547e8615b62e854c961a3", "type" : "weak", "path" : "$.data" },
-			{ "etag" : "a1642ed98e14ce6a38157c405e936c9a", "type" : "weak", "path" : "$.data.[0]" },
-			{ "etag" : "f2b97c46e1fd59e1ffd8770a4443e5fb", "type" : "weak", "path" : "$.data.[1]" },
+			{ "etag" : "f544328e483547e8615b62e854c961a3",  "path" : "$.data" },
+			{ "etag" : "a1642ed98e14ce6a38157c405e936c9a",  "path" : "$.data.[0]" },
+			{ "etag" : "f2b97c46e1fd59e1ffd8770a4443e5fb",  "path" : "$.data.[1]" },
 		]
 	}
 }
@@ -1776,10 +1776,10 @@ Query string parameter "limit" MUST be the number of results to return
 		],
 
 		"etags" : [
-			{ "etag" : "1e20c4d502f360146baa0b98ad040697", "type" : "weak", "path" : "$.data" },
+			{ "etag" : "1e20c4d502f360146baa0b98ad040697",  "path" : "$.data" },
 			/* etags of rows match previous values */
-			{ "etag" : "763dfaace31f258f5943e0bda6df3eff", "type" : "weak", "path" : "$.data.[0]" },
-			{ "etag" : "7f0e65bc2c27133019910adfa417b06a", "type" : "weak", "path" : "$.data.[1]" },
+			{ "etag" : "763dfaace31f258f5943e0bda6df3eff",  "path" : "$.data.[0]" },
+			{ "etag" : "7f0e65bc2c27133019910adfa417b06a",  "path" : "$.data.[1]" },
 		]
 	}
 }
@@ -1831,12 +1831,12 @@ Query string parameter "limit" MUST be the number of results to return
 		],
 
 		"etags" : [
-			{ "etag" : "5a3bb04baf2318afb62cfb18d5c674b5", "type" : "weak", "path" : "$.data" },
+			{ "etag" : "5a3bb04baf2318afb62cfb18d5c674b5",  "path" : "$.data" },
 			/* etags of rows match previous values */
-			{ "etag" : "19496405f44bd20931ba8d9f47ec2ba9", "type" : "weak", "path" : "$.data.[0]" },
-			{ "etag" : "d5ffe9f8043a443eda470a7d2ef1f912", "type" : "weak", "path" : "$.data.[1]" },
-			{ "etag" : "94ff6b88e91b4751a6fecfd5a1803dee", "type" : "weak", "path" : "$.data.[2]" },
-			{ "etag" : "e9e3658acab0e30691fac3c74df466ae", "type" : "weak", "path" : "$.data.[3]" }
+			{ "etag" : "19496405f44bd20931ba8d9f47ec2ba9",  "path" : "$.data.[0]" },
+			{ "etag" : "d5ffe9f8043a443eda470a7d2ef1f912",  "path" : "$.data.[1]" },
+			{ "etag" : "94ff6b88e91b4751a6fecfd5a1803dee",  "path" : "$.data.[2]" },
+			{ "etag" : "e9e3658acab0e30691fac3c74df466ae",  "path" : "$.data.[3]" }
 		]
 	}
 }
@@ -1867,9 +1867,9 @@ Query string parameter "limit" MUST be the number of results to return
 		],
 
 		"etags" : [
-			{ "etag" : "b5a571c0ad9a00dd7756824210c88461", "type" : "weak", "path" : "$.data" },
+			{ "etag" : "b5a571c0ad9a00dd7756824210c88461",  "path" : "$.data" },
 			/* etags of rows match previous values */
-			{ "etag" : "e9e3658acab0e30691fac3c74df466ae", "type" : "weak", "path" : "$.data.[0]" }
+			{ "etag" : "e9e3658acab0e30691fac3c74df466ae",  "path" : "$.data.[0]" }
 		]
 	}
 }
@@ -1892,7 +1892,7 @@ Query string parameter "limit" MUST be the number of results to return
 		],
 
 		"etags" : [
-			{ "etag" : "9e913b5713774eb61d40d42dc37406a3", "type" : "weak", "path" : "$.data" },
+			{ "etag" : "9e913b5713774eb61d40d42dc37406a3",  "path" : "$.data" },
 		]
 	}
 }
@@ -1966,9 +1966,9 @@ See also [Querying](pattern/querying.md)
 		"links" : [],
 
 		"etags" : [
-			{ "etag" : "0cfe3bd15b4b15755a556513ee19d886", "type" : "weak", "path" : "$.data" },
-			{ "etag" : "f2b97c46e1fd59e1ffd8770a4443e5fb", "type" : "weak", "path" : "$.data.[0]" },
-			{ "etag" : "7f0e65bc2c27133019910adfa417b06a", "type" : "weak", "path" : "$.data.[1]" },
+			{ "etag" : "0cfe3bd15b4b15755a556513ee19d886",  "path" : "$.data" },
+			{ "etag" : "f2b97c46e1fd59e1ffd8770a4443e5fb",  "path" : "$.data.[0]" },
+			{ "etag" : "7f0e65bc2c27133019910adfa417b06a",  "path" : "$.data.[1]" },
 		]
 	}
 }
@@ -2017,11 +2017,11 @@ See also [Querying](pattern/querying.md)
 		"links" : [],
 
 		"etags" : [
-			{ "etag" : "caf70db73cdd81db17cc1f3481a51bbd", "type" : "weak", "path" : "$.data" },
-			{ "etag" : "a1642ed98e14ce6a38157c405e936c9a", "type" : "weak", "path" : "$.data.[0]" },
-			{ "etag" : "763dfaace31f258f5943e0bda6df3eff", "type" : "weak", "path" : "$.data.[1]" },
-			{ "etag" : "3512b84a84693263c0aa0b43aba56ad8", "type" : "weak", "path" : "$.data.[2]" },
-			{ "etag" : "19496405f44bd20931ba8d9f47ec2ba9", "type" : "weak", "path" : "$.data.[3]" },
+			{ "etag" : "caf70db73cdd81db17cc1f3481a51bbd",  "path" : "$.data" },
+			{ "etag" : "a1642ed98e14ce6a38157c405e936c9a",  "path" : "$.data.[0]" },
+			{ "etag" : "763dfaace31f258f5943e0bda6df3eff",  "path" : "$.data.[1]" },
+			{ "etag" : "3512b84a84693263c0aa0b43aba56ad8",  "path" : "$.data.[2]" },
+			{ "etag" : "19496405f44bd20931ba8d9f47ec2ba9",  "path" : "$.data.[3]" },
 		]
 	}
 }
@@ -2058,9 +2058,9 @@ See also [Querying](pattern/querying.md)
 		"links" : [],
 
 		"etags" : [
-			{ "etag" : "ef73743762a35bfd7adab0f1a5f76a18", "type" : "weak", "path" : "$.data" },
-			{ "etag" : "19496405f44bd20931ba8d9f47ec2ba9", "type" : "weak", "path" : "$.data.[0]" },
-			{ "etag" : "d5ffe9f8043a443eda470a7d2ef1f912", "type" : "weak", "path" : "$.data.[1]" },
+			{ "etag" : "ef73743762a35bfd7adab0f1a5f76a18",  "path" : "$.data" },
+			{ "etag" : "19496405f44bd20931ba8d9f47ec2ba9",  "path" : "$.data.[0]" },
+			{ "etag" : "d5ffe9f8043a443eda470a7d2ef1f912",  "path" : "$.data.[1]" },
 		]
 	}
 }
