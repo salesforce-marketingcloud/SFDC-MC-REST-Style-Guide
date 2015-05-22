@@ -908,11 +908,12 @@ MUST contain an identifier, and any number of additional properties.
 * MUST include date, time and timezone.
 * Responses MUST always be returned in UTC
 * MUST be ISO 8601 style of 2015-05-04T15:39:03Z
-    * Server MAY accept no timezone for **recurring** events
     * Routes MUST NOT accept any other ISO 8601 date style
     * Requests MUST be in either 'Z' or plus/minus format
         * `2015-05-21T00:00:00Z`
         * `2015-05-21T08:00:00-08:00`
+    * Server MAY accept no timezone for **recurring** events
+        * See pattern [Recurring events](pattern/recurringevent.md)
 
 ##### Numbers
 
@@ -1000,8 +1001,7 @@ See also [Relationship definition](glossary.md)
 See also [Relationship object](justification/relationshipobject.md)
 
 
-TODO: Move this.
-See pattern [Recurring events](pattern/recurringevent.md)
+
 
 ##### Enumerations
 
