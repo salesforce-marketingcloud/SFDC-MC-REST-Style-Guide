@@ -1304,6 +1304,347 @@ MUST return 400 error.
 By default the sort order is ascending.  Routes MUST support a descending flag
 on all valid properties with a leading "-" on the field specification format.
 
+## Example
+
+```javascript
+/* Sort by cores ascending */
+// GET /v4/data/supercomputers?sort=cores
+// 200 OK
+// Etag: W/"185b27b1a0f81763fc88271e0524ea31"
+{
+	"data" : [
+		{
+			"id" : "10",
+			"name" : "Government",
+			"vendor" : "Cray Inc.",
+			"cores" : 72800,
+			"firstAppearance" : "2007-11-01T00:00:00Z",
+			"tflops" : 3577.0
+		},
+		{
+			"id" : "6",
+			"name" : "Swiss National Supercomputing Centre (CSCS)",
+			"vendor" : "Cray Inc.",
+			"cores" : 115984,
+			"firstAppearance" : "2011-11-01T00:00:00Z",
+			"tflops" : 6271.0
+		},
+		{
+			"id" : "9",
+			"name" : "DOE/NNSA/LLNL",
+			"vendor" : "IBM",
+			"cores" : 393216,
+			"firstAppearance" : "2005-11-01T00:00:00Z",
+			"tflops" : 4293.3
+		},
+		{
+			"id" : "8",
+			"name" : "Forschungszentrum Juelich (FZJ)",
+			"vendor" : "IBM",
+			"cores" : 458752,
+			"firstAppearance" : "1993-06-01T00:00:00Z",
+			"tflops" : 5008.9
+		},
+		{
+			"id" : "7",
+			"name" : "Texas Advanced Computing Center/Univ. of Texas",
+			"vendor" : "Dell",
+			"cores" : 462462,
+			"firstAppearance" : "2001-11-01T00:00:00Z",
+			"tflops" : 5168.1
+		},
+		{
+			"id" : "2",
+			"name" : "DOE/SC/Oak Ridge National Laboratory",
+			"vendor" : "Cray Inc.",
+			"cores" : 560640,
+			"firstAppearance" : "1993-06-01T00:00:00Z",
+			"tflops" : 17590.0
+		},
+		{
+			"id" : "4",
+			"name" : "RIKEN Advanced Institute for Computational Science (AICS)",
+			"vendor" : "Fujitsu",
+			"cores" : 705024,
+			"firstAppearance" : "2010-11-01T00:00:00Z",
+			"tflops" : 10510.0
+		},
+		{
+			"id" : "5",
+			"name" : "DOE/SC/Argonne National Laboratory",
+			"vendor" : "IBM",
+			"cores" : 786432,
+			"firstAppearance" : "1995-06-01T00:00:00Z",
+			"tflops" : 8586.6
+		},
+		{
+			"id" : "3",
+			"name" : "DOE/NNSA/LLNL",
+			"vendor" : "IBM",
+			"cores" : 1572864,
+			"firstAppearance" : "2005-11-01T00:00:00Z",
+			"tflops" : 17173.2
+		},
+		{
+			"id" : "1",
+			"name" : "National Super Computer Center in Guangzhou",
+			"vendor" : "NUDT",
+			"cores" : 3120000,
+			"firstAppearance" : "2012-06-01T00:00:00Z",
+			"tflops" : 33862.7
+		},
+	],
+
+	"meta" : {
+		"totalCount" : 10,
+
+		"links" : [],
+
+		"etags" : [
+			{ "etag" : "185b27b1a0f81763fc88271e0524ea31",  "path" : "$.data" },
+			{ "etag" : "ae1701637a41427410ddb839cc3fa1e2",  "path" : "$.data.[0]" },
+			{ "etag" : "5ba5b9d9648b1709a7996fbbe0091a2b",  "path" : "$.data.[1]" },
+			{ "etag" : "5e45d009514280229f8ea8dc982ac354",  "path" : "$.data.[2]" },
+			{ "etag" : "cbd0dd679a7ce77acaa5059e101accdc",  "path" : "$.data.[3]" },
+			{ "etag" : "53332c616504673196b953fc9d9ae194",  "path" : "$.data.[4]" },
+			{ "etag" : "dc2e0302fae3ed17ce753fd8a73371d5",  "path" : "$.data.[5]" },
+			{ "etag" : "26a96b47743ac2bb1822ed79753e15df",  "path" : "$.data.[6]" },
+			{ "etag" : "4789647b72be508c7027d5d8921b2e75",  "path" : "$.data.[7]" },
+			{ "etag" : "a9f739f2bb4735d9500259daa0e3a576",  "path" : "$.data.[8]" },
+			{ "etag" : "681604816754c297dbbb895cb1bd1c74",  "path" : "$.data.[9]" }
+		]
+	}
+}
+```
+
+```javascript
+/* Sort by cores ascending */
+// GET /v4/data/supercomputers?sort=-cores
+// 200 OK
+// Etag: W/"68ec25c669bcc6a2b5326b723885cc7f"
+{
+	"data" : [
+		{
+			"id" : "1",
+			"name" : "National Super Computer Center in Guangzhou",
+			"vendor" : "NUDT",
+			"cores" : 3120000,
+			"firstAppearance" : "2012-06-01T00:00:00Z",
+			"tflops" : 33862.7
+		},
+		{
+			"id" : "3",
+			"name" : "DOE/NNSA/LLNL",
+			"vendor" : "IBM",
+			"cores" : 1572864,
+			"firstAppearance" : "2005-11-01T00:00:00Z",
+			"tflops" : 17173.2
+		},
+		{
+			"id" : "5",
+			"name" : "DOE/SC/Argonne National Laboratory",
+			"vendor" : "IBM",
+			"cores" : 786432,
+			"firstAppearance" : "1995-06-01T00:00:00Z",
+			"tflops" : 8586.6
+		},
+		{
+			"id" : "4",
+			"name" : "RIKEN Advanced Institute for Computational Science (AICS)",
+			"vendor" : "Fujitsu",
+			"cores" : 705024,
+			"firstAppearance" : "2010-11-01T00:00:00Z",
+			"tflops" : 10510.0
+		},
+		{
+			"id" : "2",
+			"name" : "DOE/SC/Oak Ridge National Laboratory",
+			"vendor" : "Cray Inc.",
+			"cores" : 560640,
+			"firstAppearance" : "1993-06-01T00:00:00Z",
+			"tflops" : 17590.0
+		},
+		{
+			"id" : "7",
+			"name" : "Texas Advanced Computing Center/Univ. of Texas",
+			"vendor" : "Dell",
+			"cores" : 462462,
+			"firstAppearance" : "2001-11-01T00:00:00Z",
+			"tflops" : 5168.1
+		},
+		{
+			"id" : "8",
+			"name" : "Forschungszentrum Juelich (FZJ)",
+			"vendor" : "IBM",
+			"cores" : 458752,
+			"firstAppearance" : "1993-06-01T00:00:00Z",
+			"tflops" : 5008.9
+		},
+		{
+			"id" : "9",
+			"name" : "DOE/NNSA/LLNL",
+			"vendor" : "IBM",
+			"cores" : 393216,
+			"firstAppearance" : "2005-11-01T00:00:00Z",
+			"tflops" : 4293.3
+		},
+		{
+			"id" : "6",
+			"name" : "Swiss National Supercomputing Centre (CSCS)",
+			"vendor" : "Cray Inc.",
+			"cores" : 115984,
+			"firstAppearance" : "2011-11-01T00:00:00Z",
+			"tflops" : 6271.0
+		},
+		{
+			"id" : "10",
+			"name" : "Government",
+			"vendor" : "Cray Inc.",
+			"cores" : 72800,
+			"firstAppearance" : "2007-11-01T00:00:00Z",
+			"tflops" : 3577.0
+		}
+	],
+
+	"meta" : {
+		"totalCount" : 10,
+
+		"links" : [],
+
+		"etags" : [
+			{ "etag" : "68ec25c669bcc6a2b5326b723885cc7f",  "path" : "$.data" },
+			{ "etag" : "681604816754c297dbbb895cb1bd1c74",  "path" : "$.data.[0]" },
+			{ "etag" : "a9f739f2bb4735d9500259daa0e3a576",  "path" : "$.data.[1]" },
+			{ "etag" : "4789647b72be508c7027d5d8921b2e75",  "path" : "$.data.[2]" },
+			{ "etag" : "26a96b47743ac2bb1822ed79753e15df",  "path" : "$.data.[3]" },
+			{ "etag" : "dc2e0302fae3ed17ce753fd8a73371d5",  "path" : "$.data.[4]" },
+			{ "etag" : "53332c616504673196b953fc9d9ae194",  "path" : "$.data.[5]" },
+			{ "etag" : "cbd0dd679a7ce77acaa5059e101accdc",  "path" : "$.data.[6]" },
+			{ "etag" : "5e45d009514280229f8ea8dc982ac354",  "path" : "$.data.[7]" },
+			{ "etag" : "5ba5b9d9648b1709a7996fbbe0091a2b",  "path" : "$.data.[8]" },
+			{ "etag" : "ae1701637a41427410ddb839cc3fa1e2",  "path" : "$.data.[9]" }
+		]
+	}
+}
+```
+
+```javascript
+/* Sort by cores ascending */
+// GET /v4/data/supercomputers?sort=-firstAppearance,-cores
+// 200 OK
+// Etag: W/"773d2f209b482b58f48c24970c28c4c9"
+{
+	"data" : [
+		{
+			"id" : "1",
+			"name" : "National Super Computer Center in Guangzhou",
+			"vendor" : "NUDT",
+			"cores" : 3120000,
+			"firstAppearance" : "2012-06-01T00:00:00Z",
+			"tflops" : 33862.7
+		},
+		{
+			"id" : "6",
+			"name" : "Swiss National Supercomputing Centre (CSCS)",
+			"vendor" : "Cray Inc.",
+			"cores" : 115984,
+			"firstAppearance" : "2011-11-01T00:00:00Z",
+			"tflops" : 6271.0
+		},
+		{
+			"id" : "4",
+			"name" : "RIKEN Advanced Institute for Computational Science (AICS)",
+			"vendor" : "Fujitsu",
+			"cores" : 705024,
+			"firstAppearance" : "2010-11-01T00:00:00Z",
+			"tflops" : 10510.0
+		},
+		{
+			"id" : "10",
+			"name" : "Government",
+			"vendor" : "Cray Inc.",
+			"cores" : 72800,
+			"firstAppearance" : "2007-11-01T00:00:00Z",
+			"tflops" : 3577.0
+		},
+		{
+			"id" : "3",
+			"name" : "DOE/NNSA/LLNL",
+			"vendor" : "IBM",
+			/* The bigger amount of cores comes first from the subsort */
+			"cores" : 1572864,
+			"firstAppearance" : "2005-11-01T00:00:00Z",
+			"tflops" : 17173.2
+		},
+		{
+			"id" : "9",
+			"name" : "DOE/NNSA/LLNL",
+			"vendor" : "IBM",
+			"cores" : 393216,
+			"firstAppearance" : "2005-11-01T00:00:00Z",
+			"tflops" : 4293.3
+		},
+		{
+			"id" : "7",
+			"name" : "Texas Advanced Computing Center/Univ. of Texas",
+			"vendor" : "Dell",
+			"cores" : 462462,
+			"firstAppearance" : "2001-11-01T00:00:00Z",
+			"tflops" : 5168.1
+		},
+		{
+			"id" : "5",
+			"name" : "DOE/SC/Argonne National Laboratory",
+			"vendor" : "IBM",
+			"cores" : 786432,
+			"firstAppearance" : "1995-06-01T00:00:00Z",
+			"tflops" : 8586.6
+		},
+		{
+			"id" : "2",
+			"name" : "DOE/SC/Oak Ridge National Laboratory",
+			"vendor" : "Cray Inc.",
+			/* The bigger amount of cores comes first from the subsort */
+			"cores" : 560640,
+			"firstAppearance" : "1993-06-01T00:00:00Z",
+			"tflops" : 17590.0
+		},
+		{
+			"id" : "8",
+			"name" : "Forschungszentrum Juelich (FZJ)",
+			"vendor" : "IBM",
+			"cores" : 458752,
+			"firstAppearance" : "1993-06-01T00:00:00Z",
+			"tflops" : 5008.9
+		},
+	],
+
+	"meta" : {
+		"totalCount" : 10,
+
+		"links" : [],
+
+		"etags" : [
+			{ "etag" : "773d2f209b482b58f48c24970c28c4c9",  "path" : "$.data" },
+			{ "etag" : "681604816754c297dbbb895cb1bd1c74",  "path" : "$.data.[0]" },
+			{ "etag" : "5ba5b9d9648b1709a7996fbbe0091a2b",  "path" : "$.data.[1]" },
+			{ "etag" : "26a96b47743ac2bb1822ed79753e15df",  "path" : "$.data.[2]" },
+			{ "etag" : "ae1701637a41427410ddb839cc3fa1e2",  "path" : "$.data.[3]" },
+			{ "etag" : "a9f739f2bb4735d9500259daa0e3a576",  "path" : "$.data.[4]" },
+			{ "etag" : "5e45d009514280229f8ea8dc982ac354",  "path" : "$.data.[5]" },
+			{ "etag" : "53332c616504673196b953fc9d9ae194",  "path" : "$.data.[6]" },
+			{ "etag" : "4789647b72be508c7027d5d8921b2e75",  "path" : "$.data.[7]" },
+			{ "etag" : "dc2e0302fae3ed17ce753fd8a73371d5",  "path" : "$.data.[8]" },
+			{ "etag" : "cbd0dd679a7ce77acaa5059e101accdc",  "path" : "$.data.[9]" }
+		]
+	}
+}
+```
+
+
+
+
+
 # Partial Responses
 Routes SHOULD support partial responses. Properties to **include** MUST be
 specified by the query string "fields". The format MUST be "Field Specification format".
