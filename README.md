@@ -366,7 +366,10 @@ Routes MUST NOT support a http body.
 			{ "etag" : "7393c891e51f6c4e9db10a27dd11dd05",  "path" : "$.data[0]" },
 			{ "etag" : "bdfec487dfd57d7d68ad6955e3d67692",  "path" : "$.data[1]" }
 		],
-		"links" : [ ]
+		"links" : [
+			{ "href" : null, "name" : "prev", "path" : "$.data", "method" : "GET" },
+			{ "href" : null, "name" : "next", "path" : "$.data", "method" : "GET" }
+		]
 	}
 }
 /* returns a collection of tags related to article 1 */
@@ -1398,7 +1401,10 @@ on all valid properties with a leading "-" on the field specification format.
 	"meta" : {
 		"totalCount" : 10,
 
-		"links" : [],
+		"links" : [
+			{ "href" : null, "name" : "prev", "path" : "$.data", "method" : "GET" },
+			{ "href" : null, "name" : "next", "path" : "$.data", "method" : "GET" }
+		],
 
 		"etags" : [
 			{ "etag" : "185b27b1a0f81763fc88271e0524ea31",  "path" : "$.data" },
@@ -1509,7 +1515,10 @@ on all valid properties with a leading "-" on the field specification format.
 	"meta" : {
 		"totalCount" : 10,
 
-		"links" : [],
+		"links" : [
+			{ "href" : null, "name" : "prev", "path" : "$.data", "method" : "GET" },
+			{ "href" : null, "name" : "next", "path" : "$.data", "method" : "GET" }
+		],
 
 		"etags" : [
 			{ "etag" : "68ec25c669bcc6a2b5326b723885cc7f",  "path" : "$.data" },
@@ -1622,7 +1631,10 @@ on all valid properties with a leading "-" on the field specification format.
 	"meta" : {
 		"totalCount" : 10,
 
-		"links" : [],
+		"links" : [
+			{ "href" : null, "name" : "prev", "path" : "$.data", "method" : "GET" },
+			{ "href" : null, "name" : "next", "path" : "$.data", "method" : "GET" }
+		],
 
 		"etags" : [
 			{ "etag" : "773d2f209b482b58f48c24970c28c4c9",  "path" : "$.data" },
@@ -1840,7 +1852,10 @@ WHERE color = '"blue"'
 	"meta" : {
 		"totalCount" : 10,
 
-		"links" : [],
+		"links" : [
+			{ "href" : null, "name" : "prev", "path" : "$.data", "method" : "GET" },
+			{ "href" : null, "name" : "next", "path" : "$.data", "method" : "GET" }
+		],
 
 		"etags" : [
 			{ "etag" : "764cfe1ae347004861290afd60ac651a",  "path" : "$.data" },
@@ -1912,7 +1927,10 @@ WHERE color = '"blue"'
 	"meta" : {
 		"totalCount" : 10,
 
-		"links" : [],
+		"links" : [
+			{ "href" : null, "name" : "prev", "path" : "$.data", "method" : "GET" },
+			{ "href" : null, "name" : "next", "path" : "$.data", "method" : "GET" }
+		],
 
 		"etags" : [
 			{ "etag" : "eba6eba9b26e61aa3e0b22154f1dc2f4",  "path" : "$.data" },
@@ -1961,7 +1979,10 @@ WHERE color = '"blue"'
 	"meta" : {
 		"totalCount" : 10,
 
-		"links" : [],
+		"links" : [
+			{ "href" : null, "name" : "prev", "path" : "$.data", "method" : "GET" },
+			{ "href" : null, "name" : "next", "path" : "$.data", "method" : "GET" }
+		],
 
 		"etags" : [
 			{ "etag" : "10fd07d71b1f549beb6b0c706a142479",  "path" : "$.data" },
@@ -2010,7 +2031,10 @@ WHERE color = '"blue"'
 	"meta" : {
 		"totalCount" : 3,
 
-		"links" : [],
+		"links" : [
+			{ "href" : null, "name" : "prev", "path" : "$.data", "method" : "GET" },
+			{ "href" : null, "name" : "next", "path" : "$.data", "method" : "GET" }
+		],
 
 		"etags" : [
 			{ "etag" : "c1c353fa20a853f36a038ce7f61c4d63",  "path" : "$.data" },
@@ -2168,7 +2192,10 @@ Query string parameter "limit" MUST be the number of results to return
 	"meta" : {
 		"totalCount" : 10,
 
-		"links" : [],
+		"links" : [
+			{ "href" : null, "name" : "prev", "path" : "$.data", "method" : "GET" },
+			{ "href" : null, "name" : "next", "path" : "$.data", "method" : "GET" }
+		],
 
 		"etags" : [
 			{ "etag" : "aef61df0a4ce482c9c16c8cd477de256",  "path" : "$.data" },
@@ -2214,6 +2241,7 @@ Query string parameter "limit" MUST be the number of results to return
 		"totalCount" : 10,
 
 		"links" : [
+			{ "href" : null, "name" : "prev", "path" : "$.data", "method" : "GET" },
 			{ "name" : "next", "method": "GET", "href" : "/v4/data/supercomputers?limit=2&offset=2", "path" : "$.data" }
 		],
 
@@ -2310,6 +2338,7 @@ Query string parameter "limit" MUST be the number of results to return
 		"links" : [
 			/* offset reflects api user current request; offset 2 */
 			{ "name" : "prev", "method": "GET", "href" : "/v4/data/supercomputers?limit=4&offset=2", "path" : "$.data" }
+			{ "href" : null, "name" : "next", "path" : "$.data", "method" : "GET" }
 		],
 
 		"etags" : [
@@ -2345,7 +2374,8 @@ Query string parameter "limit" MUST be the number of results to return
 
 		"links" : [
 			/* offset reflects api user current request; offset 3 */
-			{ "name" : "prev", "method": "GET", "href" : "/v4/data/supercomputers?limit=6&offset=3", "path" : "$.data" }
+			{ "name" : "prev", "method": "GET", "href" : "/v4/data/supercomputers?limit=6&offset=3", "path" : "$.data" },
+			{ "href" : null, "name" : "next", "path" : "$.data", "method" : "GET" }
 		],
 
 		"etags" : [
@@ -2370,7 +2400,8 @@ Query string parameter "limit" MUST be the number of results to return
 
 		"links" : [
 			/* offset reflects api user current request; offset 3 */
-			{ "name" : "prev", "method": "GET", "href" : "/v4/data/supercomputers?limit=1000&offset=0", "path" : "$.data" }
+			{ "name" : "prev", "method": "GET", "href" : "/v4/data/supercomputers?limit=1000&offset=0", "path" : "$.data" },
+			{ "href" : null, "name" : "next", "path" : "$.data", "method" : "GET" }
 		],
 
 		"etags" : [
@@ -2445,7 +2476,10 @@ See also [Querying](pattern/querying.md)
 	"meta" : {
 		"totalCount" : 10,
 
-		"links" : [],
+		"links" : [
+			{ "href" : null, "name" : "prev", "path" : "$.data", "method" : "GET" },
+			{ "href" : null, "name" : "next", "path" : "$.data", "method" : "GET" }
+		],
 
 		"etags" : [
 			{ "etag" : "0cfe3bd15b4b15755a556513ee19d886",  "path" : "$.data" },
@@ -2496,7 +2530,10 @@ See also [Querying](pattern/querying.md)
 	"meta" : {
 		"totalCount" : 10,
 
-		"links" : [],
+		"links" : [
+			{ "href" : null, "name" : "prev", "path" : "$.data", "method" : "GET" },
+			{ "href" : null, "name" : "next", "path" : "$.data", "method" : "GET" }
+		],
 
 		"etags" : [
 			{ "etag" : "caf70db73cdd81db17cc1f3481a51bbd",  "path" : "$.data" },
@@ -2537,7 +2574,10 @@ See also [Querying](pattern/querying.md)
 	"meta" : {
 		"totalCount" : 10,
 
-		"links" : [],
+		"links" : [
+			{ "href" : null, "name" : "prev", "path" : "$.data", "method" : "GET" },
+			{ "href" : null, "name" : "next", "path" : "$.data", "method" : "GET" }
+		],
 
 		"etags" : [
 			{ "etag" : "ef73743762a35bfd7adab0f1a5f76a18",  "path" : "$.data" },
@@ -2547,8 +2587,6 @@ See also [Querying](pattern/querying.md)
 	}
 }
 ```
-
-
 
 # Authentication
 
