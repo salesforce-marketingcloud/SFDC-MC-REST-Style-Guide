@@ -1691,9 +1691,10 @@ WHERE color = '"blue"'
 {
 	"error" :
 		{
-			"documentationUrl" : "https://developer.salesforce.com/marketing_cloud/errors/filter.invalidoperation.string",
+			"requestId" : "74be80aa-31a0-453e-b2e3-a56e7bc1a468",
+			"documentationUrl" : "https://developer.salesforce.com/marketing_cloud/errors/filter.invalid_operation.string",
 			"statusCode" :  400,
-			"errorCode" : "filter.invalidoperation.string",
+			"errorCode" : "filter.invalid_operation.string",
 			"message" : "id is type of string and only supports eq and not operations",
 			"details" : []
 		}
