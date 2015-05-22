@@ -942,10 +942,44 @@ MUST contain an identifier, and any number of additional properties.
 
 ##### Enumerations
 
-TODO: Need to better understand what we're saying here.
+Enumerations are a fixed list of strings that represent the complete options for a property. That values are contained by the list is documented and enforced through the required API description document. Routes MAY have enumeration strings that new objects can not be set to, i.e. retired values.
 
-* Predefined and static list of options. All options MUST be listed in discovery 2
-* MUST be reference as string
+* REQUIRED for all values to be listed in API description document
+* Value MUST be a string that is short and provides meaning in English 
+	* `"EXAMPLE_1"` or `"Example2"`
+	* NOT `1` or
+
+```javascript
+// /v4/content/post
+{
+	"data" : [{
+		"id" : "1",
+		"name" : "Blog post",
+		"type" : "Blog"
+	}],
+	"meta" : {
+		"etags" : [
+			{ "etag" : "f8b8a65f4462ec4264959ac6e367c815",  "path" : "$.data[0]" }
+		]
+	}
+}
+
+// /v4/content/article
+{
+	"data" : [{
+		"id" : "2",
+		"name" : "An Article",
+		"type" : "Article"
+	}],
+	"meta" : {
+		"etags" : [
+			{ "etag" : "cfce3754f877c1d0f3672a195094a7ff",  "path" : "$.data[0]" }
+		]
+	}
+}
+```
+
+See also [API Description Document](#api-description-document)
 
 ##### Relationships
 
@@ -2098,4 +2132,8 @@ Authentication MUST only be done with "Authorization" header. Routes bearer toke
 
 See also [OAuth 2.0 (RFC6749)](http://tools.ietf.org/html/rfc6749) 
 See also [OAuth 2.0 Bearer Token Usage (RFC6750)](http://tools.ietf.org/html/rfc6750#section-2).
+
+# API Description Format
+
+TODO/FIXME reference section for a link
 
