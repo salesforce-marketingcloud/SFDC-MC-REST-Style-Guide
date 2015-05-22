@@ -928,24 +928,73 @@ MUST contain an identifier, and any number of additional properties.
 
 ##### Relationships
 
-A relationship is a reference to an external object.  In this style guide, relationships are always represented as objects. 
+A relationship is a reference to an external object.  In this style guide,
+relationships are always represented as objects. 
 
-In Version 4.0 of this style guide, objects must only contain an Id.
-
-* For 1-1 relationship MUST be an relationship object
-* For \*-n relationship MUST be an array of relationship object
-* Requests containing relationship objects MUST only modify relationship between the two resources
-	* Servers SHOULD error if properties outside of "id" are present in request
-
-See also [Relationship definition](glossary.md)
-
-See also [Relationship object](justification/relationshipobject.md)
+In Version 4.0 of this style guide, relationship objects MUST contain ONLY an id.
 
 ###### Relationship Object 
 
 * MUST contain "id" - string - reference id by object
 * MUST NOT contain other object properties
 
+###### Representing Relationships
+
+* To represent a 1-1 relationship, a single relationship object MUST be used.
+
+```javascript
+// Article has a 1-1 relationship to a single Author
+{
+	"data" : [{
+		"id" : "1",
+		"name" : "An Article",
+		"Author" : { 
+		    "id" : "6" 
+	        }
+		
+	}],
+	"meta" : {
+		"etags" : [
+			{ "etag" : "0e39098733467763f2f4ee9ab29aa649", "type" : "weak", "path" : "$.data[0]" }
+		]
+	}
+}
+```
+
+* To represent a 1-N or M-N relationship, an array of relationship objects MUST be used.
+
+```javascript
+// Articles have M-N relationships to Tags
+{
+	"data" : [{
+		"id" : "1",
+		"name" : "An Article",
+		"Tags" : [
+			{ "id" : "1" }
+			{ "id" : "2" }
+		]
+	}],
+	"meta" : {
+		"etags" : [
+			{ "etag" : "0e39098733467763f2f4ee9ab29aa649", "type" : "weak", "path" : "$.data[0]" }
+		]
+	}
+}
+```
+
+###### Relationships in Requests 
+
+    * Requests containing relationship objects MUST only modify relationship
+      between the two resources, and not the related objects themselves.
+    * Servers SHOULD respond with an error to requests containing any
+      properties besides "id" a relationship object. 
+
+See also [Relationship definition](glossary.md)
+
+See also [Relationship object](justification/relationshipobject.md)
+
+
+TODO: Move this.
 See pattern [Recurring events](pattern/recurringevent.md)
 
 ##### Enumerations
