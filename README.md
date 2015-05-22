@@ -100,7 +100,7 @@ type or the meaning of existing properties.
 
 Routes on a version MAY add new optional query string parameters. Routes on a
 version MUST NOT remove query string parameters. Routes on a version MUST NOT
-add new required query string parameters. 
+add new required query string parameters.
 
 # HTTP status codes
 The API uses the hyper text transfer protocol ("HTTP").
@@ -382,11 +382,11 @@ Routes supporting DELETE of a single resource MUST have the resource identified
 in the URI.  Routes supporting DELETE of a nested relationship MUST only delete
 the relationship not the nested resources.
 
-In version 4.0 of the style guide, Collection routes MUST NOT support DELETE. 
+In version 4.0 of the style guide, Collection routes MUST NOT support DELETE.
 
 ### Examples
 
-```javascript 
+```javascript
 /* Deleting a single resource */
 // DELETE /v4/data/articles/1
 // 200 OK
@@ -476,9 +476,9 @@ new values.
 
 Routes supporting PUT MUST support as a single resource having the same JSON
 schema as an item in the collection of the data section of a GET. The request
-MAY contain "If-Match" header.  
+MAY contain "If-Match" header.
 
-In Version 4.0 of this Style Guide, A server must not support PUT against a collection. 
+In Version 4.0 of this Style Guide, A server must not support PUT against a collection.
 
 Routes MUST NOT support creation through PUT.
 
@@ -584,7 +584,7 @@ See also [Upserting](pattern/upserting.md)
 
 ## PATCH
 
-A resource MAY support PATCH. Updates an existing resource in parts. 
+A resource MAY support PATCH. Updates an existing resource in parts.
 
 Routes supporting PATCH MUST support as a single resource having the same JSON
 schema as an item in the collection of the data section of a GET.  The request
@@ -700,8 +700,8 @@ POST {service}/{resources}/{id}?action={name}
 POST {service}/{resources}/{id}/{sub-resources}?action={name}
 POST {service}/{resources}/{id}/{sub-resources}/{id}?action={name}
 
-// POST /v4/content/articles/1?action=DELETE 
-// Method Substitution for DELETE, must behave exactly the same as: 
+// POST /v4/content/articles/1?action=DELETE
+// Method Substitution for DELETE, must behave exactly the same as:
 // DELETE /v4/content/articles/1
 
 // POST /v4/content/articles/1?action=delete
@@ -723,7 +723,7 @@ See also [Http2 Use of Compression](http://http2.github.io/http2-spec/#rfc.secti
 See also [Http1.1 rfc2616] (http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.3)  
 
 ## Response
-Servers MUST support "gzip" for responses, optional section of HTTP1.1. Requests with a header "Accept-Encoding: gzip" MUST be compresesed in accordance to 
+Servers MUST support "gzip" for responses, optional section of HTTP1.1. Requests with a header "Accept-Encoding: gzip" MUST be compresesed in accordance to
 [Accept-Encoding RFC7231 Section 5.3.4](https://tools.ietf.org/html/rfc7231#section-5.3.4)
 
 See also [Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content RFC7231](https://tools.ietf.org/html/rfc7231)  
@@ -806,7 +806,7 @@ Routes MUST NOT use reserve word(s) in resource name
     {service}/{resources}/{id}/{sub-resources}/{id}
 
 Routes MUST NOT exceed
-   
+
     {service}/{resources}/{id}/{sub-resources}/{id}
 
 Routes SHOULD additionally exist
@@ -830,7 +830,7 @@ properties OR objects.
 
 ## Collections
 
-Collections are Routes that return multiple objects. 
+Collections are Routes that return multiple objects.
 
 * Routes MUST have a plural name
     * `/v4/content/articles`
@@ -884,22 +884,22 @@ Routes adhering to Style Guide 4.0 MUST NOT provide localized values.
 
 ## Envelope
 
-Routes MUST respond with the following JSON envelope. The envelope MUST contain at least 
+Routes MUST respond with the following JSON envelope. The envelope MUST contain at least
 one Data or Error object.
 
 | Property Name | Type   | Cardinality | Description                                    |
-|---------------|--------|-------------|------------------------------------------------| 
+|---------------|--------|-------------|------------------------------------------------|
 | Data          | Array  | 0 - 1       | A collection of Data objects, can be empty.    |
 | Meta          | Object | 0 - 1       | Object containing metadata about the response. |
 | Error         | Object | 0 - 1       | Object containing information about an error.  |
 
 ### Data Object
 
-Routes that respond with data must contain that data in the Data Object.  Data objects 
-MUST contain an identifier, and any number of additional properties.  
+Routes that respond with data must contain that data in the Data Object.  Data objects
+MUST contain an identifier, and any number of additional properties.
 
 | Property Name | Type   | Cardinality | Description                                    |
-|---------------|--------|-------------|------------------------------------------------| 
+|---------------|--------|-------------|------------------------------------------------|
 | Id            | String | 1 - 1       | An identifier for the resource.                |
 | *             | *      | *           | MAY have any number of additional properties.  |
 
@@ -948,7 +948,7 @@ RECOMMENDED to be unquoted. Examples of exceptions are when exact precision must
 Enumerations are a fixed list of strings that represent the complete options for a property. That values are contained by the list is documented and enforced through the required API description document. Routes MAY have enumeration strings that new objects can not be set to, i.e. retired values.
 
 * REQUIRED for all values to be listed in API description document
-* Value MUST be a string that is short and provides meaning in English 
+* Value MUST be a string that is short and provides meaning in English
 	* `"EXAMPLE_1"` or `"Example2"`
 	* NOT `1` or
 
@@ -987,13 +987,13 @@ See also [API Description Document](#api-description-document)
 ##### Relationships
 
 A relationship is a reference to an external object.  In this style guide,
-relationships are always represented as objects. 
+relationships are always represented as objects.
 
 In Version 4.0 of this style guide, relationship objects MUST contain ONLY an id.
 
 ##### Boolean
 
-Boolean types must be represented by `true` or `false` in accordance to JSON 
+Boolean types must be represented by `true` or `false` in accordance to JSON
 
 ```javascript
 // a published article
@@ -1011,12 +1011,12 @@ Boolean types must be represented by `true` or `false` in accordance to JSON
 }
 ```
 
-###### Relationship Object 
+###### Relationship Object
 
 * MUST NOT contain properties other than Id.
 
 | Property Name | Type   | Cardinality | Description                                    |
-|---------------|--------|-------------|------------------------------------------------| 
+|---------------|--------|-------------|------------------------------------------------|
 | Id            | String | 1 - 1       | An identifier for the related resource.        |
 
 ###### Representing Relationships
@@ -1029,10 +1029,10 @@ Boolean types must be represented by `true` or `false` in accordance to JSON
 	"data" : [{
 		"id" : "1",
 		"name" : "An Article",
-		"Author" : { 
-		    "id" : "6" 
+		"Author" : {
+		    "id" : "6"
 	        }
-		
+
 	}],
 	"meta" : {
 		"etags" : [
@@ -1063,18 +1063,18 @@ Boolean types must be represented by `true` or `false` in accordance to JSON
 }
 ```
 
-###### Relationships in Requests 
+###### Relationships in Requests
 
 * Requests containing relationship objects MUST only modify relationship
   between the two resources, and not the related objects themselves.
 * Servers SHOULD respond with an error to requests containing any properties
-  besides "id" a relationship object. 
+  besides "id" a relationship object.
 
 See also [Relationship definition](glossary.md)
 
 See also [Relationship object](justification/relationshipobject.md)
 
-### Meta Object 
+### Meta Object
 
 In Version 4.0, Routes MUST include a meta object at root level of the response envelope.
 
@@ -1084,7 +1084,7 @@ In Version 4.0, Routes MUST include a meta object at root level of the response 
 * The Meta object MUST NOT include any properties outside of those defined below.
 
 | Property Name | Type   | Cardinality | Description                                    |
-|---------------|--------|-------------|------------------------------------------------| 
+|---------------|--------|-------------|------------------------------------------------|
 | totalCount    | Integer| 0 - 1       | Total # of records available in a collection.  |
 | etags         | Array  | 1 - 1       | An array of Etag objects.                      |
 | links         | Array  | 0 - 1       | An array of Link objects.                      |
@@ -1094,7 +1094,7 @@ In Version 4.0, Routes MUST include a meta object at root level of the response 
 * Link Objects MUST NOT include properties outside of those defined below.
 
 | Property Name | Type   | Cardinality | Description                                    |
-|---------------|--------|-------------|------------------------------------------------| 
+|---------------|--------|-------------|------------------------------------------------|
 | href          | String | 1 - 1       | A URI or URL to a state of the resource.       |
 | name          | String | 1 - 1       | Description of state being referenced.         |
 |               |        |             | MUST be one of: (prev, next, self, first, last)|
@@ -1107,7 +1107,7 @@ In Version 4.0, Routes MUST include a meta object at root level of the response 
 * Etag Objects MUST NOT include properties outside of those defined below.
 
 | Property Name | Type   | Cardinality | Description                                    |
-|---------------|--------|-------------|------------------------------------------------| 
+|---------------|--------|-------------|------------------------------------------------|
 | etag          | String | 1 - 1 | identifier for current state of resource             |
 |               |        |       | See also [Concurrency](justification/concurrency.md) |
 | path          | String | 1 - 1 | JSON Path of the object the etag belongs to.         |
@@ -1198,7 +1198,7 @@ LOWER = %x61-7A
 ```
 
 
-### Error Detail Object 
+### Error Detail Object
 
 * The Error Detail Object MUST NOT include any properties outside of those defined below.
 
@@ -1285,7 +1285,7 @@ Format](https://developers.google.com/custom-search/json-api/v1/performance#part
 See Also: [Google's Description of Partial Response Field](pattern/google_partial_responses.md)
 
 * **starts** at response `data` property
-* property1/property2 to select property2 that is nested within property1; the pattern can be continued 
+* property1/property2 to select property2 that is nested within property1; the pattern can be continued
 * a sub-selector to request a set of specific sub-properties of arrays or objects by placing expressions in parentheses "( )"
 	* For example: fields=items(id,author/email) returns only the item ID
 	  and author's email for each element in the items array. Can also
@@ -1339,7 +1339,7 @@ to limit the results in a structured and absolute way.
 
 Routes MAY support filtering. Routes supporting filtering MUST only use
 instances of the query string `f[{property}][{operation}]`.   A filter's
-property MUST be in the Field Specification Format. 
+property MUST be in the Field Specification Format.
 Routes MAY support a subset of those properties.
 
 A filter with a field specification wider than one property MUST return 400 error.
@@ -2054,7 +2054,7 @@ See also [Amazon cursor paging](http://docs.aws.amazon.com/cloudsearch/latest/de
 ## Traditional Paging
 
 Traditional paging allows the client to avoid math by taking a page number and
-page size value. 
+page size value.
 
 Routes following style guide 4.0 SHALL NOT support traditional paging.
 
@@ -2213,10 +2213,10 @@ See also [Querying](pattern/querying.md)
 
 # Authentication
 
-Authentication MUST only be done with "Authorization" header. Routes bearer token usage MUST NOT accept Form-encoded body; routes MUST NOT accept URI Query parameter tokens. 
+Authentication MUST only be done with "Authorization" header. Routes bearer token usage MUST NOT accept Form-encoded body; routes MUST NOT accept URI Query parameter tokens.
 
-See also [OAuth 2.0 (RFC6749)](http://tools.ietf.org/html/rfc6749) 
-See also [OAuth 2.0 Bearer Token Usage (RFC6750)](http://tools.ietf.org/html/rfc6750#section-2).
+See also [OAuth 2.0 (RFC6749)](http://tools.ietf.org/html/rfc6749)  
+See also [OAuth 2.0 Bearer Token Usage (RFC6750)](http://tools.ietf.org/html/rfc6750#section-2)  
 
 # API Description Format
 
