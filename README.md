@@ -938,8 +938,11 @@ In Version 4.0 of this style guide, relationship objects MUST contain ONLY an id
 
 ###### Relationship Object 
 
-* MUST contain "id" - string - reference id by object
-* MUST NOT contain other object properties
+* MUST NOT contain properties other than Id.
+
+| Property Name | Type   | Cardinality | Description                                    |
+|---------------|--------|-------------|------------------------------------------------| 
+| Id            | String | 1 - 1       | An identifier for the related resource.        |
 
 ###### Representing Relationships
 
