@@ -103,11 +103,11 @@ version MUST NOT remove query string parameters. Routes on a version MUST NOT
 add new required query string parameters. 
 
 # HTTP status codes
+The API uses the hyper text transfer protocol ("HTTP").
 
 ## Implicit
 
-The API uses the hyper text transfer protocol ("HTTP") and provides various
-implicit status codes. Implicit codes are framework level, and generally unused
+Implicit codes are framework level, and generally unused
 by Service and Route developers.
 
 * 100 Continue
@@ -154,18 +154,18 @@ used by Service and Route developers.
 * 200 OK
 	* SHOULD NOT be used with POST/create
 * 201 Created
-	* MUST only be used with POST
+	* SHOULD be used with POST/create
 * 202 Accepted
-	* MUST only be used with async requests
+	* REQUIRED to only be used with async requests
 * 204 No content
-	* SHOULD NOT be used. When used MUST indicate request was successful and state submitted was accepted with no modifications or defaults. Discouraged for consistency.
-		* Deletes SHOULD return helpful information like "id" with a 200
-		* PUT should return the replaced content with a 200
-		* POST/create should return the created content with implict defaults and generated "id" with a 200
+	* Usage NOT RECOMMENDED. When used MUST indicate request was successful and state submitted was accepted with no modifications or defaults. Discouraged for consistency e.g.
+		* Deletes MAY return helpful information like "id" with a 200
+		* PUT MAY return the replaced content with a 200
+		* POST/create MAY return the created content with implict defaults and generated "id" with a 200
 * 304 Not modified
-	* MUST only be used for freshness negotiation
+	* REQUIRED to only be used for freshness negotiation
 * 400 Bad Request
-	* generic validation errors
+	* Generic validation errors
 * 401 Unauthorized
 	* Request is not authenticated
 * 403 Forbidden
@@ -173,7 +173,7 @@ used by Service and Route developers.
 * 404 Not Found
 	* Routes SHOULD return 403 if resource exists but user lacks access
 * 412 Precondition Failed
-	* MUST be used for concurrency failure 
+	* REQUIRED to only be used for concurrency failure (i.e. If-Matches "etag")
 
 Routes MUST NOT return redirect status codes (3XX Codes excluding 304).
 
