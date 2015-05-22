@@ -991,6 +991,26 @@ relationships are always represented as objects.
 
 In Version 4.0 of this style guide, relationship objects MUST contain ONLY an id.
 
+##### Boolean
+
+Boolean types must be represented by `true` or `false` in accordance to JSON 
+
+```javascript
+// a published article
+{
+	"data" : [{
+		"id" : "1",
+		"name" : "An Article",
+		"published" : true
+	}],
+	"meta" : {
+		"etags" : [
+			{ "etag" : "ff494fb3fa996dfba5504c90f804bdc7",  "path" : "$.data[0]" }
+		]
+	}
+}
+```
+
 ###### Relationship Object 
 
 * MUST NOT contain properties other than Id.
