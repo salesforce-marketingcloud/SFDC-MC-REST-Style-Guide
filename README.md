@@ -905,7 +905,7 @@ MUST contain an identifier, and any number of additional properties.
 
 #### Data Property Naming
 
-* Property Names MUST be camelCase 
+* Property Names SHOULD be camelCase
 * Properties containing a URL MUST be suffixed with "Url"
     * `imageUrl : "http://i0.kym-cdn.com/photos/images/original/000/038/262/hahaguy.jpg"`
 * Properties containing a Date MUST be suffixed with "Date"
