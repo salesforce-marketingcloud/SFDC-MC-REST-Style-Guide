@@ -1372,14 +1372,15 @@ Multiple filters MUST be and'ed together.
 Values in the "eq" and "not" operations MUST be treaded in accordance to the following ABNF grammar adapted from  [RFC4180 i.e. "CSV Mime type format"](https://tools.ietf.org/html/rfc4180). See also [RFC2234 Augmented BNF syntax](https://tools.ietf.org/html/rfc2234)
 
 ```abnf
-value = atom *(COMMA atom)
-atom = (escaped / non-escaped)
-escaped = DQUOTE *(TEXTDATA / COMMA / 2DQUOTE) DQUOTE
-non-escaped = *TEXTDATA
+value = item *(COMMA item)
+item = (qd-item / text)
+qd-item = DQUOTE *(qdtext / 2DQUOTE) DQUOTE
+qdtext = text / COMMA / obs-text
+text = HTAB / SP / %x21 / %x23-2B / %x2D-5B / %x5D-7E
+obs-text = %x80-FF
 
 COMMA = %x2C
 DQUOTE = %x22
-TEXTDATA =  ALPHA / DIGIT / SP
 ```
 
 ## Values
