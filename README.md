@@ -990,10 +990,10 @@ In Version 4.0 of this style guide, relationship objects MUST contain ONLY an id
 
 ###### Relationships in Requests 
 
-    * Requests containing relationship objects MUST only modify relationship
-      between the two resources, and not the related objects themselves.
-    * Servers SHOULD respond with an error to requests containing any
-      properties besides "id" a relationship object. 
+* Requests containing relationship objects MUST only modify relationship
+  between the two resources, and not the related objects themselves.
+* Servers SHOULD respond with an error to requests containing any properties
+  besides "id" a relationship object. 
 
 See also [Relationship definition](glossary.md)
 
