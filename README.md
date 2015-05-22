@@ -9,8 +9,17 @@ Fuel API standards project aim is to normalize API interaction across public
 APIs of the Salesforce Marketing Cloud. Including the documenting of capability
 and input/output formats of APIs so SDks can be automatically constructed and used.
 
+API authors and framework developers should take careful note of
+[API Description Format](#api-description-format) as the requirements for schema information
+are very rigorous and are difficult to achieve without framework support.
+
 ## Table of contents
+
+* Fuel API Standards
+	* Introduction
+	* Table of contents
 * Versioning in the API
+	* Example
 	* Version numbering schema
 	* Allowed changes/updates to a Version
 * HTTP status codes
@@ -18,14 +27,17 @@ and input/output formats of APIs so SDks can be automatically constructed and us
 	* Explicit
 * HTTP Methods
 	* POST
+		* Default Create
+		* Method/action substitution
 	* GET
 	* DELETE
 	* PUT
 	* PATCH
 	* OPTIONS
-	* Querying
 	* HTTP method/action substitution
 * HTTP Compression
+	* Request
+	* Response
 * Headers
 	* Request
 	* Response
@@ -36,26 +48,41 @@ and input/output formats of APIs so SDks can be automatically constructed and us
 	* Collections
 	* Remote field expansion
 	* Marketing Cloud Specific Properties
-* Response
-	* Envelope
+* Response Format
 	* Header
-	* Property names
-	* Property types
-	* Metadata
 	* Localization
+	* Envelope
+		* Data Object
+			* Data Property Naming
+			* Data Property Types
+				* Dates
+				* Numbers
+				* Arrays
+				* Enumerations
+				* Boolean
+				* Relationships
+					* Relationship Object
+					* Representing Relationships
+					* Relationships in Requests
+		* Meta Object
+			* Meta Object Structure
+			* Link Object
+			* Etag Object
 	* Example
 * Errors
 	* Error Envelope
-	* Error object Format
+		* Error Detail Object
 	* Validation Details
 	* Example
 	* Validation Example
 * Field Specification Format
 * Sorting
+	* Example
 * Partial Responses
 * Filtering
 	* Properties
 	* Operations
+	* Comma Separated Values
 	* Values
 	* Examples
 * Pagination
@@ -64,6 +91,8 @@ and input/output formats of APIs so SDks can be automatically constructed and us
 	* Traditional Paging
 * Searching
 * Authentication
+* API Description Format
+
 
 # Versioning in the API
 
@@ -985,13 +1014,6 @@ Enumerations are a fixed list of strings that represent the complete options for
 
 See also [API Description Document](#api-description-document)
 
-##### Relationships
-
-A relationship is a reference to an external object.  In this style guide,
-relationships are always represented as objects.
-
-In Version 4.0 of this style guide, relationship objects MUST contain ONLY an id.
-
 ##### Boolean
 
 Boolean types must be represented by `true` or `false` in accordance to JSON
@@ -1011,6 +1033,14 @@ Boolean types must be represented by `true` or `false` in accordance to JSON
 	}
 }
 ```
+
+##### Relationships
+
+A relationship is a reference to an external object.  In this style guide,
+relationships are always represented as objects.
+
+In Version 4.0 of this style guide, relationship objects MUST contain ONLY an id.
+
 
 ###### Relationship Object
 
