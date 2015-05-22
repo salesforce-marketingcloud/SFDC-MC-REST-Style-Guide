@@ -1098,43 +1098,48 @@ In Version 4.0, Routes MUST include a meta object at root level of the response 
 
 # Errors
 
-Error requests to a server SHOULD be idempotent (no side effect). Errors MUST
-be in the prescribed the error JSON format if successful calls to the route
-would have responded with JSON.
-
+Requests resulting in an Error SHOULD be idempotent (no side effect). Errors MUST
+be in the prescribed error JSON format. If a Successful request to a route would NOT have responded with JSON, a different format MAY be used.
 
 ## Error Envelope
 
-Server response MUST correspond to the format
-* MUST "error" - Error object - contains encountered error
+* The Error object MUST NOT include any properties outside of those defined below.
 
-## Error object Format
+| Property Name    | Type   | Cardinality | Description                                 |
+|------------------|--------|-------------|---------------------------------------------|
+| requestId        | String | 0 - 1       | A unique id representing the failed request.|
+| documentationUrl | String | 1 - 1       | Fully qualified URL to a localized support  |
+|                  |        |             | site that describes the error that occurred.|
+| statusCode       | Integer| 1 - 1       | The HTTP response code that was returned.   |
+| errorCode        | String | 1 - 1       | MUST be a English US-ASCII value.           |
+|                  |        |             | errorCodes MUST be registered with Marketing|
+|                  |        |             | Cloud Platform team.                        |
+| message          | String | 1 - 1       | String describing the error that occurred.  |
+|                  |        |             | MUST NOT contain user input. MAY be empty.  |
+|                  |        |             | MUST NOT be localized.                      |
+| details          | Array  | 1 - 1       | An array of Error Detail objects.           |
+|                  |        |             | Provides context for the error that occured.|
+|                  |        |             | Validation objects SHOULD have an Error     |
+|                  |        |             | Detail object for each validation error.    |
 
-Error MUST NOT have anymore than following properties
-* SHOULD "requestId" - string - "requestId" of the request
-* MUST "documentationUrl" - string - fully qualified URL to support site
-	* Support site SHOULD be localized and the JSON is not localized
-* MUST "statusCode" - int - MUST be the HTTP response code
-* MUST "errorCode" - string - MUST be English US-ASCII dot separated value (no whitespace)
-	* Used codes MUST be registered with Salesforce API platform team process
-* MUST "message" - string
-	* MUST NOT contain user input
-	* Message can be empty
-	* Message will not be localized
-* MUST "details" - array of "error detail object"
-	* Provides context for the error
-	* Validation errors SHOULD have detail object for each validation error
 
-**Error Detail Object Format**
-* MUST NOT have any more than following properties
-* MUST "documentationUrl" - string - fully qualified URL to support site
-* MUST "errorCode" - string - MUST be English US-ASCII, lower case, dot separated value (no whitespace)
-* MUST "path" - JSON path format - definition of JSON path that caused issue
-	* Path can be empty
-* MUST "message" - string
-	* MUST NOT contain user input
-	* Message can be empty
-	* Message will not be localized
+### Error Detail Object 
+
+* The Error Detail Object MUST NOT include any properties outside of those defined below.
+
+| Property Name    | Type   | Cardinality | Description                                 |
+|------------------|--------|-------------|---------------------------------------------|
+| documentationUrl | String | 1 - 1       | Fully qualified URL to a localized support  |
+|                  |        |             | site that describes the error that occurred.|
+| errorCode        | String | 1 - 1       | MUST be a English US-ASCII value.           |
+|                  |        |             | errorCodes MUST be registered with Marketing|
+|                  |        |             | Cloud Platform team.                        |
+| path             | String | 1 - 1       | JSON path that identifies the property that |
+|                  |        |             | caused the error. MAY be empty.             |
+| message          | String | 1 - 1       | String describing the error that occurred.  |
+|                  |        |             | MUST NOT contain user input. MAY be empty.  |
+|                  |        |             | MUST NOT be localized.                      |
+
 
 ## Validation Details
 Validation errors SHOULD utilize JSON path
