@@ -1013,25 +1013,31 @@ See also [Relationship object](justification/relationshipobject.md)
 
 ### Meta Object 
 
-Servers MUST include a meta object at root level of the response envelope.
+In Version 4.0, Routes MUST include a meta object at root level of the response envelope.
 
-**Meta Object**
-* MUST NOT include properties outside of set
-* MUST "etags" - array of etag objects - object defining the version of returned resources
-* MAY "totalCount" - Number - the number of total records in a collection response
-* MAY "links" - array of link objects - object defining relationships such as paging
 
-**Link object**
-* MUST NOT include properties outside of set
-* MUST "href" - string - href to next state or page
-* MUST "name" - enum - description of href implying purpose
-	* valid standard names are "prev", "next", "self", "first", "last"
-	* Resource's custom action names are valid
-	* Resource's view names are valid
-	* MUST NOT use any other values
-	* See also [HATEOAS](justerification/hateoas.md)
-* MUST "path" - string - JSON path indicating the object link belongs to
-* MAY "method" - string - HTTP method to use with "href"
+#### Meta Object Structure
+
+* The Meta object MUST NOT include any properties outside of those defined below.
+
+| Property Name | Type   | Cardinality | Description                                    |
+|---------------|--------|-------------|------------------------------------------------| 
+| totalCount    | Integer| 0 - 1       | Total # of records available in a collection.  |
+| etags         | Array  | 1 - 1       | An array of Etag objects.                      |
+| links         | Array  | 0 - 1       | An array of Link objects.                      |
+
+#### Link object
+
+* Link Objects MUST NOT include properties outside of those defined below.
+
+| Property Name | Type   | Cardinality | Description                                    |
+|---------------|--------|-------------|------------------------------------------------| 
+| href          | String | 1 - 1       | A URI or URL to a state of the resource.       |
+| name          | String | 1 - 1       | Description of state being referenced.         |
+|               |        |             | MUST be one of: (prev, next, self, first, last)|
+|               |        |             | See also [HATEOAS](justerification/hateoas.md) |
+| path          | String | 1 - 1       | JSON Path of the object the link belongs to.   |
+| method        | String | 0 - 1       | HTTP method to use with `href`                 |
 
 **Etag object**
 * MUST NOT include properties outside of set
