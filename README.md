@@ -1741,7 +1741,7 @@ Query string parameter "limit" MUST be the number of results to return
 /* No prameters, defaults offset=0 limit=1000 but is limited to the 10 records that exist */
 // GET /v4/data/supercomputers
 // 200 OK
-// Etag: W/"4f13206cc628c697b99db0b0e81360fe"
+// Etag: W/"aef61df0a4ce482c9c16c8cd477de256"
 {
 	"data" : [
 		{
@@ -1749,6 +1749,7 @@ Query string parameter "limit" MUST be the number of results to return
 			"name" : "National Super Computer Center in Guangzhou",
 			"vendor" : "NUDT",
 			"cores" : 3120000,
+			"firstAppearance" : "2012-06-01T00:00:00Z",
 			"tflops" : 33862.7
 		},
 		{
@@ -1756,6 +1757,7 @@ Query string parameter "limit" MUST be the number of results to return
 			"name" : "DOE/SC/Oak Ridge National Laboratory",
 			"vendor" : "Cray Inc.",
 			"cores" : 560640,
+			"firstAppearance" : "1993-06-01T00:00:00Z",
 			"tflops" : 17590.0
 		},
 		{
@@ -1763,6 +1765,7 @@ Query string parameter "limit" MUST be the number of results to return
 			"name" : "DOE/NNSA/LLNL",
 			"vendor" : "IBM",
 			"cores" : 1572864,
+			"firstAppearance" : "2005-11-01T00:00:00Z",
 			"tflops" : 17173.2
 		},
 		{
@@ -1770,6 +1773,7 @@ Query string parameter "limit" MUST be the number of results to return
 			"name" : "RIKEN Advanced Institute for Computational Science (AICS)",
 			"vendor" : "Fujitsu",
 			"cores" : 705024,
+			"firstAppearance" : "2010-11-01T00:00:00Z",
 			"tflops" : 10510.0
 		},
 		{
@@ -1777,6 +1781,7 @@ Query string parameter "limit" MUST be the number of results to return
 			"name" : "DOE/SC/Argonne National Laboratory",
 			"vendor" : "IBM",
 			"cores" : 786432,
+			"firstAppearance" : "1995-06-01T00:00:00Z",
 			"tflops" : 8586.6
 		},
 		{
@@ -1784,6 +1789,7 @@ Query string parameter "limit" MUST be the number of results to return
 			"name" : "Swiss National Supercomputing Centre (CSCS)",
 			"vendor" : "Cray Inc.",
 			"cores" : 115984,
+			"firstAppearance" : "2011-11-01T00:00:00Z",
 			"tflops" : 6271.0
 		},
 		{
@@ -1791,6 +1797,7 @@ Query string parameter "limit" MUST be the number of results to return
 			"name" : "Texas Advanced Computing Center/Univ. of Texas",
 			"vendor" : "Dell",
 			"cores" : 462462,
+			"firstAppearance" : "2001-11-01T00:00:00Z",
 			"tflops" : 5168.1
 		},
 		{
@@ -1798,6 +1805,7 @@ Query string parameter "limit" MUST be the number of results to return
 			"name" : "Forschungszentrum Juelich (FZJ)",
 			"vendor" : "IBM",
 			"cores" : 458752,
+			"firstAppearance" : "1993-06-01T00:00:00Z",
 			"tflops" : 5008.9
 		},
 		{
@@ -1805,6 +1813,7 @@ Query string parameter "limit" MUST be the number of results to return
 			"name" : "DOE/NNSA/LLNL",
 			"vendor" : "IBM",
 			"cores" : 393216,
+			"firstAppearance" : "2005-11-01T00:00:00Z",
 			"tflops" : 4293.3
 		},
 		{
@@ -1812,6 +1821,7 @@ Query string parameter "limit" MUST be the number of results to return
 			"name" : "Government",
 			"vendor" : "Cray Inc.",
 			"cores" : 72800,
+			"firstAppearance" : "2007-11-01T00:00:00Z",
 			"tflops" : 3577.0
 		}
 	],
@@ -1822,17 +1832,17 @@ Query string parameter "limit" MUST be the number of results to return
 		"links" : [],
 
 		"etags" : [
-			{ "etag" : "4f13206cc628c697b99db0b0e81360fe",  "path" : "$.data" },
-			{ "etag" : "a1642ed98e14ce6a38157c405e936c9a",  "path" : "$.data.[0]" },
-			{ "etag" : "f2b97c46e1fd59e1ffd8770a4443e5fb",  "path" : "$.data.[1]" },
-			{ "etag" : "848aa6ee22420808a2f189ccf099890c",  "path" : "$.data.[2]" },
-			{ "etag" : "763dfaace31f258f5943e0bda6df3eff",  "path" : "$.data.[3]" },
-			{ "etag" : "7f0e65bc2c27133019910adfa417b06a",  "path" : "$.data.[4]" },
-			{ "etag" : "3512b84a84693263c0aa0b43aba56ad8",  "path" : "$.data.[5]" },
-			{ "etag" : "19496405f44bd20931ba8d9f47ec2ba9",  "path" : "$.data.[6]" },
-			{ "etag" : "d5ffe9f8043a443eda470a7d2ef1f912",  "path" : "$.data.[7]" },
-			{ "etag" : "94ff6b88e91b4751a6fecfd5a1803dee",  "path" : "$.data.[8]" },
-			{ "etag" : "e9e3658acab0e30691fac3c74df466ae",  "path" : "$.data.[9]" }
+			{ "etag" : "aef61df0a4ce482c9c16c8cd477de256",  "path" : "$.data" },
+			{ "etag" : "681604816754c297dbbb895cb1bd1c74",  "path" : "$.data.[0]" },
+			{ "etag" : "dc2e0302fae3ed17ce753fd8a73371d5",  "path" : "$.data.[1]" },
+			{ "etag" : "a9f739f2bb4735d9500259daa0e3a576",  "path" : "$.data.[2]" },
+			{ "etag" : "26a96b47743ac2bb1822ed79753e15df",  "path" : "$.data.[3]" },
+			{ "etag" : "4789647b72be508c7027d5d8921b2e75",  "path" : "$.data.[4]" },
+			{ "etag" : "5ba5b9d9648b1709a7996fbbe0091a2b",  "path" : "$.data.[5]" },
+			{ "etag" : "53332c616504673196b953fc9d9ae194",  "path" : "$.data.[6]" },
+			{ "etag" : "cbd0dd679a7ce77acaa5059e101accdc",  "path" : "$.data.[7]" },
+			{ "etag" : "5e45d009514280229f8ea8dc982ac354",  "path" : "$.data.[8]" },
+			{ "etag" : "ae1701637a41427410ddb839cc3fa1e2",  "path" : "$.data.[9]" }
 		]
 	}
 }
