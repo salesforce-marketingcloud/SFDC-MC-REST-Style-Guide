@@ -1036,7 +1036,7 @@ Boolean types must be represented by `true` or `false` in accordance to JSON
 	}],
 	"meta" : {
 		"etags" : [
-			{ "etag" : "0e39098733467763f2f4ee9ab29aa649",  "path" : "$.data[0]" }
+			{ "etag" : "b7d64d81f61111fcad2994c44f4af86c",  "path" : "$.data[0]" }
 		]
 	}
 }
@@ -1057,7 +1057,7 @@ Boolean types must be represented by `true` or `false` in accordance to JSON
 	}],
 	"meta" : {
 		"etags" : [
-			{ "etag" : "0e39098733467763f2f4ee9ab29aa649",  "path" : "$.data[0]" }
+			{ "etag" : "c42821663ef83bce19b57c90d5221e02",  "path" : "$.data[0]" }
 		]
 	}
 }
