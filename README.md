@@ -1026,7 +1026,7 @@ In Version 4.0, Routes MUST include a meta object at root level of the response 
 | etags         | Array  | 1 - 1       | An array of Etag objects.                      |
 | links         | Array  | 0 - 1       | An array of Link objects.                      |
 
-#### Link object
+#### Link Object
 
 * Link Objects MUST NOT include properties outside of those defined below.
 
@@ -1039,15 +1039,15 @@ In Version 4.0, Routes MUST include a meta object at root level of the response 
 | path          | String | 1 - 1       | JSON Path of the object the link belongs to.   |
 | method        | String | 0 - 1       | HTTP method to use with `href`                 |
 
-**Etag object**
-* MUST NOT include properties outside of set
-* MUST "etag" - string - identifier for current state of resource
-	* See also [currency justification](justification/currency.md)
-* MUST "type" - enumeration - type of etag either "strong" or "weak"
-	* Routes MUST use only "weak" tags
-* MUST "path" - string - JSON path indicating the object link belongs to
+#### Etag Object
 
+* Etag Objects MUST NOT include properties outside of those defined below.
 
+| Property Name | Type   | Cardinality | Description                                    |
+|---------------|--------|-------------|------------------------------------------------| 
+| etag          | String | 1 - 1 | identifier for current state of resource             |
+|               |        |       | See also [Concurrency](justification/concurrency.md) |
+| path          | String | 1 - 1 | JSON Path of the object the etag belongs to.         |
 
 ## Example
 ```javascript
