@@ -773,8 +773,8 @@ outside of the defined list.
 * Origin, Access-Control-Request-Method, Access-Control-Request-Headers
 	* Support for CORS
 * Original-Request-Id
-	* Client MAY provide a tracking identifier. MUST be less than 1024 characters. Characters
-	  MUST be within US-ASCII.
+	* Client MAY provide a tracking identifier. MUST be greater than 15 characters. 
+	  MUST be less than 1024 characters. Characters MUST be within US-ASCII.
 * If-Match
 	* Client MAY provide etag values on PUT/PATCH for concurrency problems
 * If-None-Match
@@ -806,8 +806,8 @@ outside of the defined list.
 	  less than 1024 characters. Characters MUST be within US-ASCII.
 
 * Request-Id
-	* Responses MUST include. MUST be less than 1024 characters. Characters
-	  MUST be within US-ASCII.
+	* Responses MUST include. MUST be greater than 15 characters. MUST be less 
+	  than 1024 characters. Characters MUST be within US-ASCII.
 * Original-Request-Id
 	* MUST be back of Request's Original-Request-Id if provided.
 
