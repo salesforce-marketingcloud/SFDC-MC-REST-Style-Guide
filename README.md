@@ -393,8 +393,8 @@ Routes MUST NOT support a http body.
 			{ "etag" : "bdfec487dfd57d7d68ad6955e3d67692",  "path" : "$.data[1]" }
 		],
 		"links" : [
-			{ "href" : null, "name" : "prev", "path" : "$.data", "method" : "GET" },
-			{ "href" : null, "name" : "next", "path" : "$.data", "method" : "GET" }
+			{ "href" : null, "name" : "prev", "path" : "$.data", "method" : null },
+			{ "href" : null, "name" : "next", "path" : "$.data", "method" : null }
 		]
 	}
 }
@@ -1105,10 +1105,11 @@ In Version 4.0, Routes MUST include a meta object at root level of the response 
 
 | Property Name | Type   | Cardinality | Description                                    |
 |---------------|--------|-------------|------------------------------------------------|
-| href          | String | 1 - 1       | A URI or URL to a state of the resource.       |
+| href          | String | 1 - 1       | A URI or URL to a state of the resource. MAY be 
+null                                                                                    |
 | name          | String | 1 - 1       | Description of state being referenced. MUST be one of: (prev, next, self, first, last). See also [HATEOAS](justerification/hateoas.md) |
 | path          | String | 1 - 1       | JSON Path of the object the link belongs to.   |
-| method        | String | 0 - 1       | HTTP method to use with `href`                 |
+| method        | String | 1 - 1       | HTTP method to use with `href`. If `href` is null, this value must be null                                                                         |
 
 #### Etag Object
 
@@ -1397,8 +1398,8 @@ on all valid properties with a leading "-" on the field specification format.
 		"totalCount" : 10,
 
 		"links" : [
-			{ "href" : null, "name" : "prev", "path" : "$.data", "method" : "GET" },
-			{ "href" : null, "name" : "next", "path" : "$.data", "method" : "GET" }
+			{ "href" : null, "name" : "prev", "path" : "$.data", "method" : null },
+			{ "href" : null, "name" : "next", "path" : "$.data", "method" : null }
 		],
 
 		"etags" : [
@@ -1511,8 +1512,8 @@ on all valid properties with a leading "-" on the field specification format.
 		"totalCount" : 10,
 
 		"links" : [
-			{ "href" : null, "name" : "prev", "path" : "$.data", "method" : "GET" },
-			{ "href" : null, "name" : "next", "path" : "$.data", "method" : "GET" }
+			{ "href" : null, "name" : "prev", "path" : "$.data", "method" : null },
+			{ "href" : null, "name" : "next", "path" : "$.data", "method" : null }
 		],
 
 		"etags" : [
@@ -1627,8 +1628,8 @@ on all valid properties with a leading "-" on the field specification format.
 		"totalCount" : 10,
 
 		"links" : [
-			{ "href" : null, "name" : "prev", "path" : "$.data", "method" : "GET" },
-			{ "href" : null, "name" : "next", "path" : "$.data", "method" : "GET" }
+			{ "href" : null, "name" : "prev", "path" : "$.data", "method" : null },
+			{ "href" : null, "name" : "next", "path" : "$.data", "method" : null }
 		],
 
 		"etags" : [
@@ -1844,8 +1845,8 @@ WHERE color = '"blue"'
 		"totalCount" : 10,
 
 		"links" : [
-			{ "href" : null, "name" : "prev", "path" : "$.data", "method" : "GET" },
-			{ "href" : null, "name" : "next", "path" : "$.data", "method" : "GET" }
+			{ "href" : null, "name" : "prev", "path" : "$.data", "method" : null },
+			{ "href" : null, "name" : "next", "path" : "$.data", "method" : null }
 		],
 
 		"etags" : [
@@ -1919,8 +1920,8 @@ WHERE color = '"blue"'
 		"totalCount" : 10,
 
 		"links" : [
-			{ "href" : null, "name" : "prev", "path" : "$.data", "method" : "GET" },
-			{ "href" : null, "name" : "next", "path" : "$.data", "method" : "GET" }
+			{ "href" : null, "name" : "prev", "path" : "$.data", "method" : null },
+			{ "href" : null, "name" : "next", "path" : "$.data", "method" : null }
 		],
 
 		"etags" : [
@@ -1971,8 +1972,8 @@ WHERE color = '"blue"'
 		"totalCount" : 10,
 
 		"links" : [
-			{ "href" : null, "name" : "prev", "path" : "$.data", "method" : "GET" },
-			{ "href" : null, "name" : "next", "path" : "$.data", "method" : "GET" }
+			{ "href" : null, "name" : "prev", "path" : "$.data", "method" : null },
+			{ "href" : null, "name" : "next", "path" : "$.data", "method" : null }
 		],
 
 		"etags" : [
@@ -2023,8 +2024,8 @@ WHERE color = '"blue"'
 		"totalCount" : 3,
 
 		"links" : [
-			{ "href" : null, "name" : "prev", "path" : "$.data", "method" : "GET" },
-			{ "href" : null, "name" : "next", "path" : "$.data", "method" : "GET" }
+			{ "href" : null, "name" : "prev", "path" : "$.data", "method" : null },
+			{ "href" : null, "name" : "next", "path" : "$.data", "method" : null }
 		],
 
 		"etags" : [
@@ -2184,8 +2185,8 @@ Query string parameter "limit" MUST be the number of results to return
 		"totalCount" : 10,
 
 		"links" : [
-			{ "href" : null, "name" : "prev", "path" : "$.data", "method" : "GET" },
-			{ "href" : null, "name" : "next", "path" : "$.data", "method" : "GET" }
+			{ "href" : null, "name" : "prev", "path" : "$.data", "method" : null },
+			{ "href" : null, "name" : "next", "path" : "$.data", "method" : null }
 		],
 
 		"etags" : [
@@ -2232,7 +2233,7 @@ Query string parameter "limit" MUST be the number of results to return
 		"totalCount" : 10,
 
 		"links" : [
-			{ "href" : null, "name" : "prev", "path" : "$.data", "method" : "GET" },
+			{ "href" : null, "name" : "prev", "path" : "$.data", "method" : null },
 			{ "name" : "next", "method": "GET", "href" : "/v4/data/supercomputers?limit=2&offset=2", "path" : "$.data" }
 		],
 
@@ -2329,7 +2330,7 @@ Query string parameter "limit" MUST be the number of results to return
 		"links" : [
 			/* offset reflects api user current request; offset 2 */
 			{ "name" : "prev", "method": "GET", "href" : "/v4/data/supercomputers?limit=4&offset=2", "path" : "$.data" }
-			{ "href" : null, "name" : "next", "path" : "$.data", "method" : "GET" }
+			{ "href" : null, "name" : "next", "path" : "$.data", "method" : null }
 		],
 
 		"etags" : [
@@ -2366,7 +2367,7 @@ Query string parameter "limit" MUST be the number of results to return
 		"links" : [
 			/* offset reflects api user current request; offset 3 */
 			{ "name" : "prev", "method": "GET", "href" : "/v4/data/supercomputers?limit=6&offset=3", "path" : "$.data" },
-			{ "href" : null, "name" : "next", "path" : "$.data", "method" : "GET" }
+			{ "href" : null, "name" : "next", "path" : "$.data", "method" : null }
 		],
 
 		"etags" : [
@@ -2392,7 +2393,7 @@ Query string parameter "limit" MUST be the number of results to return
 		"links" : [
 			/* offset reflects api user current request; offset 3 */
 			{ "name" : "prev", "method": "GET", "href" : "/v4/data/supercomputers?limit=1000&offset=0", "path" : "$.data" },
-			{ "href" : null, "name" : "next", "path" : "$.data", "method" : "GET" }
+			{ "href" : null, "name" : "next", "path" : "$.data", "method" : null }
 		],
 
 		"etags" : [
@@ -2468,8 +2469,8 @@ See also [Querying](pattern/querying.md)
 		"totalCount" : 10,
 
 		"links" : [
-			{ "href" : null, "name" : "prev", "path" : "$.data", "method" : "GET" },
-			{ "href" : null, "name" : "next", "path" : "$.data", "method" : "GET" }
+			{ "href" : null, "name" : "prev", "path" : "$.data", "method" : null },
+			{ "href" : null, "name" : "next", "path" : "$.data", "method" : null }
 		],
 
 		"etags" : [
@@ -2522,8 +2523,8 @@ See also [Querying](pattern/querying.md)
 		"totalCount" : 10,
 
 		"links" : [
-			{ "href" : null, "name" : "prev", "path" : "$.data", "method" : "GET" },
-			{ "href" : null, "name" : "next", "path" : "$.data", "method" : "GET" }
+			{ "href" : null, "name" : "prev", "path" : "$.data", "method" : null },
+			{ "href" : null, "name" : "next", "path" : "$.data", "method" : null }
 		],
 
 		"etags" : [
@@ -2566,8 +2567,8 @@ See also [Querying](pattern/querying.md)
 		"totalCount" : 10,
 
 		"links" : [
-			{ "href" : null, "name" : "prev", "path" : "$.data", "method" : "GET" },
-			{ "href" : null, "name" : "next", "path" : "$.data", "method" : "GET" }
+			{ "href" : null, "name" : "prev", "path" : "$.data", "method" : null },
+			{ "href" : null, "name" : "next", "path" : "$.data", "method" : null }
 		],
 
 		"etags" : [
