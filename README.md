@@ -1,13 +1,24 @@
-# Fuel API Standards
+# Salesforce Fuel 4.0 API Style Guide
 
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD",
 "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be
 interpreted as described in [RFC 2119](http://www.ietf.org/rfc/rfc2119.txt).
 
 ## Introduction
-Fuel API standards project aim is to normalize API interaction across public
-APIs of the Salesforce Marketing Cloud. Including the documenting of capability
-and input/output formats of APIs so SDks can be automatically constructed and used.
+
+The Fuel API Style Guide defines the standards which all REST APIs across the
+Salesforce Marketing Cloud MUST adhere to. 
+
+This document provides opinionated answers to developer questions surrounding
+development of RESTful APIs. It aims to align Marketing Cloud development
+organizations who want to expose RESTful APIs, both public and internal, under
+a common style.
+
+Consider this document a pragmatic, not dogmatic guide for RESTful APIs. It
+will make assertions that conflict with an academic definition of REST. It's
+goal is to provide developers with a predictable, simple and comprehensive
+interface into the Marketing Cloud - not to be the most RESTful REST that ever
+RESTed.
 
 API authors and framework developers should take careful note of
 [API Description Format](#api-description-format) as the requirements for schema information
@@ -15,7 +26,7 @@ are very rigorous and are difficult to achieve without framework support.
 
 ## Table of contents
 
-* Fuel API Standards
+* Salesforce Fuel 4.0 API Style Guide
 	* Introduction
 	* Table of contents
 * Versioning in the API
