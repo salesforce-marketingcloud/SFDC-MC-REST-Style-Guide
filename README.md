@@ -1440,7 +1440,7 @@ on all valid properties with a leading "-" on the field specification format.
 ```
 
 ```javascript
-/* Sort by cores decending */
+/* Sort by cores descending */
 // GET /v4/data/supercomputers?sort=-cores
 // 200 OK
 // Etag: W/"68ec25c669bcc6a2b5326b723885cc7f"
