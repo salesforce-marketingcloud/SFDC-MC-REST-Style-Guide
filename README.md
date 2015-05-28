@@ -811,8 +811,8 @@ outside of the defined list.
 Path SHOULD be case sensitive. Resource names MUST be plural nouns.
 
 Route SHOULD NOT exceed two resource names in the URI.  Routes MUST NOT expose
-resource past two nested levels, implementations SHOULD wrap and expose the
-sub-resource.
+resources beyond two nested levels. Implementations SHOULD wrap and expose the
+sub-resource as a root level resource.
 
 Routes MUST NOT use reserve word(s) in resource name
 * views
