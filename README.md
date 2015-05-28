@@ -755,7 +755,18 @@ POST {service}/{resources}/{id}/{sub-resources}/{id}?action={name}
 
 # HTTP Compression
 
-Routes can make important performance gains by utilizing built-in compression in HTTP.
+Routes can make important performance gains by utilizing built-in compression
+in HTTP. The guide includes both compression as a means for clients, especially SDKs, to
+know that compression is always available. Request compression is difficult to
+retro-actively add to an API so it is important to support within all routes in
+the first version at a framework level. Most frameworks and stacks support this
+as a configuration option.
+
+ * [Apache](http://httpd.apache.org/docs/2.4/mod/mod_deflate.html#input)
+ * [Tomcat](http://predic8.com/gzip-compression-filter.htm)
+ * [Ngix](http://nginx.com/resources/admin-guide/compression-and-decompression/)
+ * [Node.js](https://github.com/expressjs/compression)
+ * [IIS broken self roll it](http://stackoverflow.com/questions/16671216/how-do-i-enable-gzip-compression-for-post-upload-requests-to-a-soap-webservice)
 
 ## Request
 Servers MUST support "gzip" for requests, optional section of HTTP1.1. Requests with a body and header
