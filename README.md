@@ -104,7 +104,7 @@ are very rigorous and are difficult to achieve without framework support.
 
 # Versioning in the API
 
-The application protocol interface ("API") is published in multipleversions.
+The application protocol interface ("API") is published in multiple versions.
 Implementations MUST use an indicator in the uniform resource locator ("URL").
 This indicator applies to the entire API as a whole. Resources MUST NOT expose
 their own versions.
