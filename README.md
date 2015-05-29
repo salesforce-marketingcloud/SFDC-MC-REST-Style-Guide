@@ -7,18 +7,16 @@ interpreted as described in [RFC 2119](http://www.ietf.org/rfc/rfc2119.txt).
 ## Introduction
 
 The Fuel API Style Guide defines the standards which all REST APIs across the
-Salesforce Marketing Cloud MUST adhere to. 
+Salesforce Marketing Cloud MUST adhere to. The goal is to provide developers
+and API users with predictable, simple, and comprehensive interface.  Aligning
+Marketing Cloud development organizations in exposing RESTful APIs, both public
+and internal, under a common style.
 
-This document provides opinionated answers to developer questions surrounding
-development of RESTful APIs. It aims to align Marketing Cloud development
-organizations who want to expose RESTful APIs, both public and internal, under
-a common style.
-
-Consider this document a pragmatic, not dogmatic guide for RESTful APIs. It
-will make assertions that conflict with an academic definition of REST. It's
-goal is to provide developers with a predictable, simple and comprehensive
-interface into the Marketing Cloud - not to be the most RESTful REST that ever
-RESTed.
+Providing opinionated and pragmatic answers to choices surrounding development
+of RESTful APIs creates tension.  The pragmatic approach to RESTful APIs
+creates rules that conflict with [established definitions of
+REST](https://www.ics.uci.edu/%7Efielding/pubs/dissertation/rest_arch_style.htm).
+These conflicts are understood and done in good faith against cost vs benefit.
 
 API authors and framework developers should take careful note of
 [API Description Format](#api-description-format) as the requirements for schema information
