@@ -27,83 +27,76 @@ are very rigorous and are difficult to achieve without framework support.
 ## Table of contents
 
 * Salesforce Fuel 4.0 API Style Guide
-	* Introduction
-	* Table of contents
-* Versioning in the API
-	* Example
-	* Version numbering schema
-	* Allowed changes/updates to a Version
-* HTTP status codes
-	* Implicit
-	* Explicit
-* HTTP Methods
-	* POST
-		* Default Create
-		* Method/action substitution
-	* GET
-	* DELETE
-	* PUT
-	* PATCH
-	* OPTIONS
-	* HTTP method/action substitution
-* HTTP Compression
-	* Request
-	* Response
-* Headers
-	* Request
-	* Response
-* Style
-	* Path
-	* Request Body
-	* Query string
-	* Collections
-	* Remote field expansion
-	* Marketing Cloud Specific Properties
-* Response Format
-	* Header
-	* Localization
-	* Envelope
-		* Data Object
-			* Data Property Naming
-			* Data Property Types
-				* Dates
-				* Numbers
-				* Arrays
-				* Enumerations
-				* Boolean
-				* Relationships
-					* Relationship Object
-					* Representing Relationships
-					* Relationships in Requests
-		* Meta Object
-			* Meta Object Structure
-			* Link Object
-			* Etag Object
-	* Example
-* Errors
-	* Error Envelope
-		* Error Detail Object
-	* Validation Details
-	* Example
-	* Validation Example
-* Field Specification Format
-* Sorting
-	* Example
-* Partial Responses
-* Filtering
-	* Properties
-	* Operations
-	* Comma Separated Values
-	* Values
-	* Examples
-* Pagination
-	* Offset
-	* Cursor
-	* Traditional Paging
-* Searching
-* Authentication
-* API Description Format
-
+	* [Introduction](#introduction)
+	* [Table of contents](#table-of-contents)
+* [Versioning in the API](#versioning-in-the-api)
+	* [Version numbering schema](#version-numbering-schema)
+	* [Allowed changes/updates to a Version](#allowed-changesupdates-to-a-version)
+* [HTTP status codes](#http-status-codes)
+	* [Implicit](#implicit)
+	* [Explicit](#explicit)
+* [HTTP Methods](#http-methods)
+	* [POST](#post)
+		* [Default Create](#default-create)
+		* [Method/action substitution](#methodaction-substitution)
+	* [GET](#get)
+	* [DELETE](#delete)
+	* [PUT](#put)
+	* [PATCH](#patch)
+	* [OPTIONS](#options)
+	* [HTTP method/action substitution](#http-methodaction-substitution)
+* [HTTP Compression](#http-compression)
+	* [Compression Request](#compression-request)
+	* [Compression Response](#compression-response)
+* [Headers](#headers)
+	* [Request Headers](#request-headers)
+	* [Response Headers](#response-headers)
+* [Style](#style)
+	* [Path](#path)
+	* [Request Body](#request-body)
+	* [Query string](#query-string)
+	* [Collections](#collections)
+	* [Remote field expansion](#remote-field-expansion)
+	* [Marketing Cloud Specific Properties](#marketing-cloud-specific-properties)
+* [Response Format](#response-format)
+	* [Header](#header)
+	* [Localization](#localization)
+	* [Envelope](#envelope)
+		* [Data Object](#data-object)
+			* [Data Property Naming](#data-property-naming)
+			* [Data Property Types](#data-property-types)
+				* [Dates](#dates)
+				* [Numbers](#numbers)
+				* [Arrays](#arrays)
+				* [Enumerations](#enumerations)
+				* [Boolean](#boolean)
+				* [Relationships](#relationships)
+					* [Relationship Object](#relationship-object)
+					* [Representing Relationships](#representing-relationships)
+					* [Relationships in Requests](#relationships-in-requests)
+		* [Meta Object](#meta-object)
+			* [Meta Object Structure](#meta-object-structure)
+			* [Link Object](#link-object)
+			* [Etag Object](#etag-object)
+* [Errors](#errors)
+	* [Error Envelope](#error-envelope)
+		* [Error Detail Object](#error-detail-object)
+	* [Validation Details](#validation-details)
+	* [Validation Example](#validation-example)
+* [Field Specification Format](#field-specification-format)
+* [Sorting](#sorting)
+* [Partial Responses](#partial-responses)
+* [Filtering](#filtering)
+	* [Properties](#properties)
+	* [Operations](#operations)
+	* [Comma Separated Values](#comma-separated-values)
+	* [Values](#values)
+* [Pagination](#pagination)
+	* [Offset](#offset)
+	* [Cursor](#cursor)
+	* [Traditional Paging](#traditional-paging)
+* [Searching](#searching)
+* [Authentication](#authentication)
 
 # Versioning in the API
 
@@ -114,7 +107,7 @@ their own versions.
 
     GET /{version}/{service}/{+resource}
 
-## Example:
+## Example
 
     /v4/data/contacts
 
@@ -768,14 +761,14 @@ as a configuration option.
  * [Node.js](https://github.com/expressjs/compression)
  * [IIS broken self roll it](http://stackoverflow.com/questions/16671216/how-do-i-enable-gzip-compression-for-post-upload-requests-to-a-soap-webservice)
 
-## Request
+## Compression Request
 Servers MUST support "gzip" for requests, optional section of HTTP1.1. Requests with a body and header
 "Content-Encoding: gzip" are uncompressed before processing in accordance to [Content-Encoding RFC7231 Section 3.1.2.2](https://tools.ietf.org/html/rfc7231#section-3.1.2.2).
 
 See also [Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content RFC7231](https://tools.ietf.org/html/rfc7231)  
 See also [Http2 Use of Compression](http://http2.github.io/http2-spec/#rfc.section.10.6)  
 
-## Response
+## Compression Response
 Servers MUST support "gzip" for responses, optional section of HTTP1.1. Requests with a header "Accept-Encoding: gzip" MUST be compresesed in accordance to
 [Accept-Encoding RFC7231 Section 5.3.4](https://tools.ietf.org/html/rfc7231#section-5.3.4)
 
@@ -786,7 +779,7 @@ See also [Http2 Use of Compression](http://http2.github.io/http2-spec/#rfc.secti
 A specific set of headers are supported. A server MUST NOT respect any header
 outside of the defined list.
 
-## Request
+## Request Headers
 * Authorization
 * Accept-Encoding
 	* Client MAY provide for response body compression. Supported value(s) are "gzip"
@@ -806,7 +799,7 @@ outside of the defined list.
 * Accept
 	* Client MAY provide an "accept" header. Routes MUST ignore the header.
 
-## Response
+## Response Headers
 * Access-Control-Allow-Origin, Access-Control-Allow-Methods, Access-Control-Allow-Headers, Access-Control-Max-Age, Access-Control-Expose-Headers, Access-Control-Allow-Credentials
 	* Support for CORS
 * Location
