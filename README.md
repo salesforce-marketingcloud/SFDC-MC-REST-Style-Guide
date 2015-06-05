@@ -2246,17 +2246,26 @@ Collection routes SHOULD support pagination. Requests with no "limit" or "size"
 MUST always either return all items OR return 400 Bad Request regardless of
 the count of results.
 
-Routes supporting any pagination MUST support Offset.
+Routes supporting any pagination MUST support Offset based pagination.
 
 Results MUST be limited to no more than 1000 results.
 
-**Routes pages responses**
-* links MUST NOT change "limit" or "size" from the value in the request
-* links MUST include all other query string parameters in request
-* MUST include link "next". MUST provide "prev" href value of null
-* MUST include link "prev". MUST provide "prev" href value of null
-* MAY include link "first" where result MUST include first resource
-* MAY include link "last" where result MUST include last resource
+## Pagination Query String Parameters
+* links MUST NOT change `limit` or `size` from the value specified in the request.
+* `limit` and `size` should be set to the route's default page size
+
+## Pagination Metadata
+* Routes supporting pagination MUST include a collection, `links` within the
+  Response's Meta object.
+* Objects in `links` MUST include all query string parameters
+  that were specified in the request
+* `links` MUST include the `next` and `prev` objects. 
+    * the `href` attribute of `next` and `prev` MUST be null if there are no
+      further pages before or after the currently specified page
+* `links` MAY include an object `first` which MUST include a link to the first
+  page of results. 
+* `links` MAY include an object `last` which MUST include a link to the last 
+  page of results. 
 
 ## Offset
 
