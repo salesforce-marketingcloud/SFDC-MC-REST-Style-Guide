@@ -983,7 +983,9 @@ Basic types must correspond to [JSON RFC 7159](https://tools.ietf.org/html/rfc71
 
 ##### Numbers
 
-RECOMMENDED to be unquoted. Examples of exceptions are when exact precision must be maintained in access of double precision numbers [IEEE 754](http://grouper.ieee.org/groups/754/).
+RECOMMENDED to be unquoted. Examples of exceptions are when exact precision
+must be maintained in access of double precision numbers [IEEE
+754](http://grouper.ieee.org/groups/754/).
 
 * Decimal One Million SHOULD be represented as:
 	* `1000000.00`
@@ -999,20 +1001,27 @@ RECOMMENDED to be unquoted. Examples of exceptions are when exact precision must
 
 ##### Enumerations
 
-Enumerations are a fixed list of strings that represent the complete options for a property. That values are contained by the list is documented and enforced through the required API description document. Routes MAY have enumeration strings that new objects can not be set to, i.e. retired values.
+Enumerations are a fixed list of strings that represent the complete options
+for a property. Values contained by the list are documented and enforced
+through the required API description document. Routes MAY have enumerations
+that new objects can not be set to, i.e. retired values.
 
 * REQUIRED for all values to be listed in API description document
 * Value MUST be a string that is short and provides meaning in English
 	* `"EXAMPLE_1"` or `"Example2"`
-	* NOT `1` or
+	* NOT `1` or `2`
 
 ```javascript
-// /v4/content/post
+/* DON'T DO THIS - BAD EXAMPLES */
+
+// GET /v4/content/posts/1
+// 200 OK
 {
 	"data" : [{
 		"id" : "1",
 		"name" : "Blog post",
-		"type" : "Blog"
+		"type" : "1"
+		/* WTF is a '1'? */
 	}],
 	"meta" : {
 		"etags" : [
@@ -1021,7 +1030,42 @@ Enumerations are a fixed list of strings that represent the complete options for
 	}
 }
 
-// /v4/content/article
+// GET /v4/content/articles/1
+// 200 OK
+{
+	"data" : [{
+		"id" : "2",
+		"name" : "An Article",
+		"type" : "2"
+		/* WTF is a '2'? */
+	}],
+	"meta" : {
+		"etags" : [
+			{ "etag" : "cfce3754f877c1d0f3672a195094a7ff",  "path" : "$.data[0]" }
+		]
+	}
+}
+
+/* DO THIS, AND DESCRIBE THESE ENUMS IN YOUR SWAGGER DOCS - GOOD EXAMPLES */
+
+// GET /v4/content/posts/1
+// 200 OK
+{
+	"data" : [{
+		"id" : "1",
+		"name" : "Blog post",
+		"type" : "Blog"
+		/* Oh, it's a blog */
+	}],
+	"meta" : {
+		"etags" : [
+			{ "etag" : "f8b8a65f4462ec4264959ac6e367c815",  "path" : "$.data[0]" }
+		]
+	}
+}
+
+// GET /v4/content/articles/1
+// 200 OK
 {
 	"data" : [{
 		"id" : "2",
@@ -1036,7 +1080,7 @@ Enumerations are a fixed list of strings that represent the complete options for
 }
 ```
 
-See also [API Description Document](#api-description-document)
+See also [API Description Document](API_Description_format.md)
 
 ##### Boolean
 
