@@ -338,7 +338,7 @@ Routes MUST instead follow rules for the requested method/action in lieu of POST
 The identified resource MUST be retrieved and MUST be idempotent. i.e. MUST NOT
 produce any side-effects.
 
-Routes MUST NOT support a http body.
+GET requests MUST NOT support a request body.
 
 ```javascript
 // GET /v4/content/articles/1
