@@ -750,12 +750,12 @@ POST {service}/{resources}/{id}/{sub-resources}/{id}?action={name}
 
 # HTTP Compression
 
-Routes can make important performance gains by utilizing built-in compression
-in HTTP. The guide includes both compression as a means for clients, especially SDKs, to
-know that compression is always available. Request compression is difficult to
-retro-actively add to an API so it is important to support within all routes in
-the first version at a framework level. Most frameworks and stacks support this
-as a configuration option.
+Servers can make significant performance improvements by utilizing built-in
+compression in HTTP. The guide includes both compression as a means for
+clients, especially SDKs, to know that compression is always available. Request
+compression is difficult to retroactively add to an API so it is important to
+support within all routes in the first version at a framework level. Most
+frameworks and stacks support this as a configuration option.
 
  * [Apache](http://httpd.apache.org/docs/2.4/mod/mod_deflate.html#input)
  * [Tomcat](http://predic8.com/gzip-compression-filter.htm)
