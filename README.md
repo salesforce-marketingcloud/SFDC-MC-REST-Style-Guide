@@ -1205,6 +1205,7 @@ id 2, but instead removes the relationship between them.
 		]
 	}
 }
+/* The Author property is a Relationship Object */
 ```
 
 * To represent a 1-N or M-N relationship, an array of relationship objects MUST be used.
