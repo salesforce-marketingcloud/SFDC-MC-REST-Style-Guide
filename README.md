@@ -860,14 +860,7 @@ Routes SHOULD additionally exist
 
     {service}/{**sub**-resources}/{id}
 
-## Request Body
 
-* Dates MUST be ISO 8601 style of 2015-05-04T15:39:03Z
-	* MUST NOT include any other ISO 8601 date style
-	* requests MUST be in either 'Z' or plus/minus format
-
-* Servers MUST reject requests if the body has unexpected or undocumented
-properties OR objects.
 
 ## Query string
 
@@ -908,6 +901,15 @@ TODO: figure this stuff out
 	* Example ` "users" : [ { "id" : "20720" } ]`
 
 Routes SHOULD NOT reference "member" and/or "employee/user" without referencing the parent "enterprise".
+
+# Request Format 
+
+* Dates MUST be ISO 8601 style of 2015-05-04T15:39:03Z
+	* MUST NOT include any other ISO 8601 date style
+	* requests MUST be in either 'Z' or plus/minus format
+
+* Servers MUST reject requests if the body has unexpected or undocumented
+properties OR objects.
 
 # Response Format
 
