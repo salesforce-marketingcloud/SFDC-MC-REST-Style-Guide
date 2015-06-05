@@ -1867,18 +1867,18 @@ returned.
 
 # Filtering
 
-Filtering MUST be restricted to exposed properties. Clients and routes SHOULD use filtering
-to limit the results in a structured and absolute way.
+Filtering MUST be restricted to exposed properties. Clients and routes SHOULD
+use filtering to limit the results in a structured and absolute way.
 
 Routes MAY support filtering. Routes supporting filtering MUST only use
 instances of the query string `f[{property}][{operation}]`.   A filter's
-property MUST be in the Field Specification Format.
-Routes MAY support a subset of those properties.
+property MUST be in the Field Specification Format, whic MUST resolve to a
+single property.  Routes MAY support a subset of those properties.
 
 A filter with a field specification wider than one property MUST return 400 error.
 
 ```
-/* error as it has one property */
+/* error as it has more than one property */
 ?f[parent/*][eq]=1
 ```
 
