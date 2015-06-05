@@ -507,15 +507,16 @@ resource.  A server SHOULD respond with a 200 when updating an existing
 resource.
 
 Resources can have immutable or server-defined fields (e.g. id, createdDate, etc).
-A valid PUT payload SHOULD either omit the values or pass in the current ones.
+A valid PUT payload SHOULD either omit the values or specify the current values.
 A server SHOULD respond with a 400 when trying to replace immutable fields with
 new values.
 
-Routes supporting PUT MUST support as a single resource having the same JSON
-schema as an item in the collection of the data section of a GET. The request
-MAY contain "If-Match" header.
+Routes supporting PUT MUST accept a single object having the same JSON schema
+as an item in the collection of the data section of a GET on that resource. The
+request MAY contain "If-Match" header.
 
-In Version 4.0 of this Style Guide, A server must not support PUT against a collection.
+In Version 4.0 of this Style Guide, A server must not support PUT against a
+collection.
 
 Routes MUST NOT support creation through PUT.
 
