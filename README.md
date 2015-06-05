@@ -411,8 +411,9 @@ GET requests MUST NOT support a request body.
 
 ## DELETE
 
-A resource MAY support DELETE. The identified resource MUST be deleted.
-Routes MAY support a request body for DELETE requests.
+A resource MAY support DELETE. The identified resource MUST be deleted, unless
+it is a nested relationship to the resource.  Routes MAY support a request body
+for DELETE requests.
 
 Routes supporting DELETE of a single resource MUST have the resource identified
 in the URI.  Routes supporting DELETE of a nested relationship MUST only delete
@@ -1055,6 +1056,72 @@ A relationship is a reference to an external object.  In this style guide,
 relationships are always represented as objects.
 
 In Version 4.0 of this style guide, relationship objects MUST contain ONLY an id.
+
+###### Nested Relationships
+
+A nested relationship is a sub-resource on a root-level resource.  For Example:
+    
+    /v4/content/articles/1/authors/2
+
+The root-level resource is "Articles".  The sub-resource is "Authors" and the 
+entire URI represents a Nested Relationship between and Article and it's Author.
+Deleting the Nested Relationship in this example does not delete the Author with
+id 2, but instead removes the relationship between them.
+
+```javascript
+
+// GET /v4/content/articles/1
+// 200 OK
+{
+	"data" : [{
+		"id" : "1",
+		"name" : "An Article",
+		"published" : true,
+		"authors" : [
+			{ "id" : 1 },
+			{ "id" : 2 }
+		]
+	}],
+	"meta" : { }
+}
+/* An Article Objet with 2 nested relationships */
+
+// DELETE /v4/content/articles/1/authors/2
+// 200 OK
+/* Delete the relationship between author 2 and article 1 */
+
+// GET /v4/content/articles/1
+// 200 OK
+{
+	"data" : [{
+		"id" : "1",
+		"name" : "An Article",
+		"published" : true,
+		"authors" : [
+			{ "id" : 1 }
+		]
+	}],
+	"meta" : { }
+}
+/* The relationship is not reflected in the article */
+
+// GET /v4/content/articles/1/authors/2
+// 404 Not Found
+/* Error Object Response Omitted for brevity */
+/* The nested relationship does not exist. */
+
+// GET /v4/content/authors/2
+// 200 OK
+{
+	"data" : [{
+		"id" : "2",
+		"name" : "George R.R. Martin"
+	}],
+	"meta" : { }
+}
+/* But the Author still exists... at least until he finishes ASOIAF... */
+
+```
 
 
 ###### Relationship Object
