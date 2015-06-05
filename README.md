@@ -771,7 +771,7 @@ See also [Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content RFC7231]
 See also [Http2 Use of Compression](http://http2.github.io/http2-spec/#rfc.section.10.6)  
 
 ## Compression Response
-Servers MUST support "gzip" for responses, optional section of HTTP1.1. Requests with a header "Accept-Encoding: gzip" MUST be compresesed in accordance to
+Servers MUST support "gzip" for responses, optional section of HTTP1.1. Requests with a header "Accept-Encoding: gzip" MUST be compressed in accordance to
 [Accept-Encoding RFC7231 Section 5.3.4](https://tools.ietf.org/html/rfc7231#section-5.3.4)
 
 See also [Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content RFC7231](https://tools.ietf.org/html/rfc7231)  
