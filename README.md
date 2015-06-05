@@ -860,12 +860,11 @@ Routes SHOULD additionally exist
 
     {service}/{**sub**-resources}/{id}
 
-
-
 ## Query string
 
-* Servers MUST accept and ignore extra query string parameters
-* Query string parameters MUST be documented and communicated to API users as camelCase
+* Routes MUST accept and ignore unexpected query string parameters
+* Query string parameters MUST be documented and communicated to API users as
+  camelCase
 * Query string parameters MUST be interpreted as case insensitive
 
 ## Collections
@@ -885,14 +884,16 @@ Routes MUST NOT support a query string to expand relationship objects.
 
 ## Marketing Cloud Specific Properties
 
-When referencing an Enterprise, User or Business Unit, Routes MUST publish a relationship object.
+When referencing an Enterprise, User or Business Unit, Routes MUST publish a
+relationship object.
 
 TODO: figure this stuff out
 
 * member - relationship - member, i.e. business unit, of the reference
 	* Example ` "member" : { "id" : "20720" } `
 	* Example ` "ownedBy" : [ { "id" : "20720" } ] `
-* enterprise - relationship - enterprise that member sits under. For many customers this is the same as member
+* enterprise - relationship - enterprise that member sits under. For many
+  customers this is the same as member
 	* Example ` "enterprise" : { "id" : "20720" } `
 * employee/user - string - specific user being references
 	* Example ` "createdBy" : { "id" : "20720" } `
@@ -900,7 +901,8 @@ TODO: figure this stuff out
 	* Example ` "user" : { "id" : "20720" } `
 	* Example ` "users" : [ { "id" : "20720" } ]`
 
-Routes SHOULD NOT reference "member" and/or "employee/user" without referencing the parent "enterprise".
+Routes SHOULD NOT reference "member" and/or "employee/user" without referencing
+the parent "enterprise".
 
 # Request Format 
 
@@ -913,7 +915,9 @@ properties OR objects.
 
 # Response Format
 
-Responses from a route MUST have the prescribed envelope format. Routes MUST provide all properties even when value is "null".
+Responses from a route MUST be returned in the prescribed envelope format.
+Response objects MUST include all properties on a resource, even when value is
+"null".
 
 ## Header
 
