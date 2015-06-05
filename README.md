@@ -852,7 +852,7 @@ Routes MUST NOT use reserve word(s) in resource name
     {service}/{resources}/{id}/{sub-resources}
     {service}/{resources}/{id}/{sub-resources}/{id}
 
-Routes MUST NOT exceed
+Routes SHOULD NOT exceed
 
     {service}/{resources}/{id}/{sub-resources}/{id}
 
