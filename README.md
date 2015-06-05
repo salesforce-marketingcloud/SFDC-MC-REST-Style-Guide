@@ -1437,7 +1437,7 @@ Format](https://developers.google.com/custom-search/json-api/v1/performance#part
 
 See Also: [Google's Description of Partial Response Field](pattern/google_partial_responses.md)
 
-* **starts** at response `data` property
+* **starts** at response `data` property, e.g. Json Path `$.data`
 * property1/property2 to select property2 that is nested within property1; the pattern can be continued
 * a sub-selector to request a set of specific sub-properties of arrays or objects by placing expressions in parentheses "( )"
 	* For example: fields=items(id,author/email) returns only the item ID
