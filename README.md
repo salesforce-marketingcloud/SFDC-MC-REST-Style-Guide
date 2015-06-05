@@ -622,19 +622,23 @@ See also [Upserting](pattern/upserting.md)
 
 ## PATCH
 
-A resource MAY support PATCH. Updates an existing resource in parts.
+A resource MAY support PATCH. A PATCH request will update a portion of an existing
+resource.
 
-Routes supporting PATCH MUST support as a single resource having the same JSON
-schema as an item in the collection of the data section of a GET.  The request
-URI MUST uniquely identify the resource. The request MAY contain "If-Match" header.
-The request format MAY exclude properties that need not be updated. This
-includes omitting "id".
+Routes supporting PATCH MUST accept a single object having the same JSON schema
+as an item in the collection of the data section of a GET on that resource.
+The request URI MUST uniquely identify the resource. The request MAY contain
+an "If-Match" header.  The request format MAY exclude properties that need not be
+updated. This includes omitting "id".
 
-Routes SHOULD error if request attempts to update immutable properties with
-error 400 "Bad Request".
 
-API callers MAY clear values by providing the property with a null. If a
-property is not provided a route MUST NOT act on that property.
+PATCH requests SHOULD respond with error 400 "Bad Request" if the request
+attempts to update immutable properties of the resource.
+
+API consumers MAY set values to null by specifying the property with a null
+value. API consumers MUST specify an empty string `""` if the value of a property
+should be an empty string. If a property is not provided a route MUST NOT act
+on that property.
 
 See also [Upserting](pattern/upserting.md)
 
