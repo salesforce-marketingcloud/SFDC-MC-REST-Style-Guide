@@ -219,13 +219,13 @@ several HTTP methods.
 
 ### Default Create
 
-A resource MAY support POST create.  Routes supporting POST create MUST support as a single
-resource having the same JSON schema as an item in the collection of the data
-section of a GET. The resource contained in the request MUST be created, OR
-the server MUST respond with an error.
+A resource MAY support POST Create.  Routes supporting POST Create MUST accept 
+a single object having the same JSON schema as an item in the collection
+of the data section of a GET on that resource. The resource contained in the
+request MUST be created, OR the server MUST respond with an error.
 
-The server MUST respond with a 201 status and the created resource. The server
-MUST include the created identifier for the resource.  The server MUST respond
+The server MUST respond with a 201 status and the created resource. The route 
+MUST respond with the `id` of the created resource.  The server MUST respond
 with a Location: header pointing to the newly created resource.
 
 ```javascript
