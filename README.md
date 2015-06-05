@@ -1449,15 +1449,22 @@ See Also: [Google's Description of Partial Response Field](pattern/google_partia
 
 # Sorting
 
-Routes MAY support sorting. Routes supporting sorting MUST only use instances
-of the query string `sort`.  Properties MUST be defined with the Field Specification Format.
-Routes MAY support a subset of properties in the
-resource's data section.  A sort's property MUST be a comma separated list of
-valid properties.  A sort with a field specification wider than one property
-MUST return 400 error.
+Routes MAY support sorting. Routes supporting sorting MUST use the query string
+parameter `sort`.  Properties to be sorted MUST be specified in the Field
+Specification Format.   Routes MAY support a subset of all properties available
+on a resource.  
 
-By default the sort order is ascending.  Routes MUST support a descending flag
-on all valid properties with a leading "-" on the field specification format.
+By default, `sort` order MUST BE ascending.  Routes MUST support a descending
+flag on all valid properties with a leading minus "-" on the field
+specification format value.
+
+## Multiple Sort Values
+
+The `sort` QSP MAY accept multiple values. It MUST accept 1-and-only-1 property 
+per sort tuple specified. You cannot specify a single `sort` value that would
+resolve to multiple properties - However, you may specify multiple sort values that
+resolve to a single property each. A `sort` with a value that resolves to more
+than one property MUST return a 400 error.
 
 ## Example
 
