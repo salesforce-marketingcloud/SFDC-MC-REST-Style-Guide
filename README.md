@@ -724,16 +724,12 @@ In response to OPTIONS method servers
 A server MUST support the HTTP method "POST" to allow HTTP methods a client may
 not support.
 
-POST query string "action" MUST be a case sensitive value of
+Routes MUST ONLY accept the following case-sensitive values for the `action`
+query string parameter:
+
 * PUT
 * PATCH
 * DELETE
-
-Routes MUST respond with error to
-* PuT
-* Patch
-* delete
-* etc other case variations
 
 ### Examples
 ```
