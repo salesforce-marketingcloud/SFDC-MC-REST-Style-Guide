@@ -1875,7 +1875,7 @@ instances of the query string `f[{property}][{operation}]`.   A filter's
 property MUST be in the Field Specification Format, which MUST resolve to a
 single property.  Routes MAY support a subset of those properties.
 
-A filter with a field specification wider than one property MUST return 400 error.
+A filter with a field specification wider than one property MUST return a 400 error.
 
 ```
 /* error as it has more than one property */
@@ -1884,25 +1884,43 @@ A filter with a field specification wider than one property MUST return 400 erro
 
 ## Properties
 
-If filter property operates on a nested property structure the
-"fields" format specification applies.
+Filtered Properties MUST adhere ot the Field Specification Format.  
 
 See also [Partial Responses]("#Partial Responses")
 
 ## Operations
-Operation MUST be one of
-* eq  - MAY support comma separated values that support double quoted - Equals
-* not - MAY support comma separated values that support double quoted - Not Equals
-* gt  - MUST ONLY be numbers and dates - Greater than
-* gte - MUST ONLY be numbers and dates - Greater than or equals
-* lt  - MUST ONLY be numbers and dates - Lesser than
-* lte - MUST ONLY be numbers and dates - Lesser than or equals
 
-Multiple filters MUST be and'ed together.
+A Filter's Operation MUST be 1-and-only-1 of the following values. Multiple
+filters MAY be supported.  If Multiple filters are specified, the Filters MUST
+be combined as an "AND" operation.  If a route supports Filtering, it MUST support
+all operations.
+
+| Filter Operation | Operation                 | Additional Notes                       |
+|------------------|---------------------------|----------------------------------------|
+| eq               | =  Equals                 | MAY support comma separated values     | 
+| not              | != Not equal              | MAY support comma separated values     | 
+| gt               | >  Greater than           | MUST ONLY be a number or date          | 
+| gte              | >= Greater than or equals | MUST ONLY be a number or date          | 
+| lt               | <  Less than              | MUST ONLY be a number or date          | 
+| lte              | <= Less than or equals    | MUST ONLY be a number or date          | 
+
+## Values
+For the operations `eq` and `not` routes MAY support comma separated values.
+Operations `gt`, `gte`, `lt`, `lte` MUST support only a single value. Routes
+MUST treat all double quotes and commas as literals in these operations.
 
 ## Comma Separated Values
 
-Values in the "eq" and "not" operations MUST be treaded in accordance to the following ABNF grammar adapted from  [RFC4180 i.e. "CSV Mime type format"](https://tools.ietf.org/html/rfc4180). See also [RFC2234 Augmented BNF syntax](https://tools.ietf.org/html/rfc2234)
+If multiple values are specified in the "eq" or "not" operations , they MUST be
+in double quoted CSV format, as defined in the following ABNF grammar adapted
+from [RFC4180 i.e. "CSV Mime type
+format"](https://tools.ietf.org/html/rfc4180). See also [RFC2234 Augmented BNF
+syntax](https://tools.ietf.org/html/rfc2234)
+
+Multiple values MUST be combined with an "OR" operation, e.g. similar to 
+
+    SELECT id FROM items WHERE items.value IN (1,2,3)
+    SELECT id FROM items WHERE items.value = 1 OR items.value = 2 OR items.value = 3
 
 ```abnf
 value = item *(COMMA item)
@@ -1916,54 +1934,33 @@ COMMA = %x2C
 DQUOTE = %x22
 ```
 
-## Values
-For the operations "eq" and "not" routes MAY support comma separated values.
-Multiple values MUST be combined with an "or" operation, e.g.
-
-    SELECT id FROM items WHERE items.value IN (1,2,3)
-    SELECT id FROM items WHERE items.value = 1 OR items.value = 2 OR items.value = 3
-
-Operations gt, gte, lt, lte MUST support only a single value. Routes MUST
-treat all double quotes and commas as literals in these operations.
-
 ## Examples
 ```
 /* Pattern */
 f[{property}][{operation}]={value}
-```
 
-
-```
 /* numbers */
 f[cost][eq]=50
 WHERE cost = '50'
-```
 
-```
 /* sub-properties */
 f[content/locale][eq]=en
 WHERE locale = 'en'
-```
 
-```
 /* comparsion equality */
 f[cost][lte]=50
 WHERE cost <= 50
 
 f[cost][gte]=50
 WHERE cost >= 50
-```
 
-```
 /* not */
 f[color][not]=blue
 WHERE color <> 'blue'
 
 f[cost][not]=50
 WHERE cost <> 50
-```
 
-```
 /* multiple filters */
 f[cost][lte]=100&f[cost][gte]=50
 WHERE cost <= 100
@@ -1972,16 +1969,12 @@ AND   cost >= 50
 f[cost][gt]=50&f[cost][lt]=100
 WHERE cost < 100
 AND   cost > 50
-```
 
-```
 /* complex example */
 f[color][eq]=blue,"green","red"""&f[cost][lte]=50
 WHERE color IN ('blue', 'green', 'red"' )
 AND   cost <= 50
-```
 
-```
 /* Quote handling */
 
 /* no quotes */
