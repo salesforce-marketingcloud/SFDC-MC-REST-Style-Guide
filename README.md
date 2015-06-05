@@ -1822,28 +1822,47 @@ than one property MUST return a 400 error.
 
 # Partial Responses
 Routes SHOULD support partial responses. Properties to **include** MUST be
-specified by the query string "fields". The format MUST be "Field Specification format".
-
-* comma-separated list to select multiple properties
+specified by the query string parameter `fields`. The format MUST be in the
+"Field Specification format".
 
 See also [Salesforce Style](http://www.salesforce.com/us/developer/docs/api_rest/Content/dome_get_field_values.htm)
 
 **Example**
-Request for a partial response: This HTTP GET request for the above resource that uses the fields parameter significantly reduces the amount of data returned.
+Request for a partial response: This HTTP GET request for the above resource
+that uses the fields parameter significantly reduces the amount of data
+returned.  
 ```
-https://www.googleapis.com/plus/v1/activities/z12gtjhq3qn2xxl2o224exwiqruvtda0i?fields=url,object(content,attachments/url)
-
+// GET /v4/data/hydraProperties/1
+// 200 OK
 {
- "url": "https://plus.google.com/102817283354809142195/posts/F97fqZwJESL",
- "object": {
-  "content": "A picture... of a space ship... launched from earth 40 years ago.",
-  "attachments": [
-   {
-    "url": "http://apod.nasa.gov/apod/ap110908.html"
-   }
-  ]
- }
+	"data" : [{
+		"id" : 1,
+		"word1" : "cut",
+		"word2" : "off",
+		"word3" : "one",
+		"word4" : "head",
+		"word5" : "two",
+		"word6" : "more",
+		"word7" : "shall",
+		"word8" : "take",
+		"word9" : "its",
+		"word10" : "place"
+	}],
+	"meta" : {}
 }
+/* Full example of hydraProperty body */
+
+// GET /v4/data/hydraProperties/1?fields=word1,word6
+// 200 OK
+{
+	"data" : [{
+		"id" : 1,
+		"word1" : "cut",
+		"word6" : "more"
+	}],
+	"meta" : {}
+}
+/* Partial Response */
 ```
 
 # Filtering
