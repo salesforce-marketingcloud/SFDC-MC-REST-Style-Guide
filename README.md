@@ -1466,6 +1466,14 @@ resolve to multiple properties - However, you may specify multiple sort values t
 resolve to a single property each. A `sort` with a value that resolves to more
 than one property MUST return a 400 error.
 
+### Multiple Sort Values Examples
+```    
+    ?sort=articles(id),articles(author)  # GOOD
+    ?sort=articles(id, author)           # BAD
+    ?sort=-articles/id, -articles/author # GOOD
+    ?sort=articles/*                     # BAD
+
+```
 ## Example
 
 ```javascript
