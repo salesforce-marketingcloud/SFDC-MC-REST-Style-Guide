@@ -614,7 +614,7 @@ Routes MUST NOT support creation through PUT.
 		]
 	}
 }
-/* PUT successfully updates article 2 while specificying which version of the document to modify */
+/* PUT successfully updates article 2 while specifying which version of the document to modify */
 ```
 
 See also [Upserting](pattern/upserting.md)
