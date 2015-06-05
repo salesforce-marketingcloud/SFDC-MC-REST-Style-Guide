@@ -513,7 +513,7 @@ new values.
 
 Routes supporting PUT MUST accept a single object having the same JSON schema
 as an item in the collection of the data section of a GET on that resource. The
-request MAY contain "If-Match" header.
+request MAY contain an "If-Match" header.
 
 In Version 4.0 of this Style Guide, A server must not support PUT against a
 collection.
