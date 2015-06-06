@@ -147,6 +147,8 @@ by Service and Route developers.
 	* Large requests
 * 206 Partial Content
 	* Large requests
+* 401 Unauthorized
+	* Request is not authenticated
 * 404 Not Found
 	* Route not defined
 * 405 Method Not Allowed
@@ -199,8 +201,6 @@ used by Service and Route developers.
 	* REQUIRED to only be used for freshness negotiation
 * 400 Bad Request
 	* Generic validation errors
-* 401 Unauthorized
-	* Request is not authenticated
 * 403 Forbidden
 	* Authenticated but lack permission to resource/operation
 * 404 Not Found
