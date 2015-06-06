@@ -2297,7 +2297,7 @@ Query string parameter `limit` MUST be the number of results to return.
   return more than 1000 results. 
 
 ```javascript
-/* No prameters, defaults offset=0 limit=1000 but is limited to the 10 records that exist */
+/* No parameters, defaults offset=0 limit=1000 but is limited to the 10 records that exist */
 // GET /v4/data/supercomputers
 // 200 OK
 // Etag: W/"aef61df0a4ce482c9c16c8cd477de256"
