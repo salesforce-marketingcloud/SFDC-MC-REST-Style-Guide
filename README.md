@@ -2619,8 +2619,8 @@ See also [Amazon cursor paging](http://docs.aws.amazon.com/cloudsearch/latest/de
 
 ## Traditional Paging
 
-Traditional paging allows the client to avoid math by taking a page number and
-page size value.
+Traditional pagination allows clients to browse data sets by specifying a page
+number and a page size.
 
 Routes following style guide 4.0 SHALL NOT support traditional paging.
 
