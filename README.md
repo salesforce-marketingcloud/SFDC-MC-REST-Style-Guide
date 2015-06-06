@@ -2242,11 +2242,12 @@ WHERE color = '"blue"'
 
 # Pagination
 
-Collection routes SHOULD support pagination. Requests with no "limit" or "size"
-MUST always either return all items OR return 400 Bad Request regardless of
-the count of results.
+Collection routes SHOULD support pagination.  Routes that do not support
+pagination MUST return all items, regardless of the total number of results, or 400
+Bad Request.  Requests without a `limit` or `size` query string parameter MUST
+return the first page of results or 400 Bad Request.
 
-Routes supporting any pagination MUST support Offset based pagination.
+Routes supporting any form of pagination MUST support Offset based pagination.
 
 Results MUST be limited to no more than 1000 results.
 
