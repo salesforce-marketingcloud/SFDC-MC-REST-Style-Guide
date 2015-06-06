@@ -2609,8 +2609,8 @@ Query string parameter `limit` MUST be the number of results to return.
 
 ## Cursor
 
-Cursor paging allows clients to browse large and dynamic datasets without
-invalidating data.
+Cursor based pagination allows clients to browse large, dynamic datasets
+without missing results.
 
 Routes following style guide 4.0 SHALL NOT support cursor paging.
 
