@@ -2270,20 +2270,31 @@ Results MUST be limited to no more than 1000 results.
 
 ## Offset
 
-Offset paging allows request to specify number of rows to skip and number of
-rows to return after the skipped amount.
+Offset based pagination allows a request to specify a number of results to skip
+in a result set, as well as a total number of results to return, after the
+skipped amount.
 
-Routes supporting any pagination MUST support Offset. Requests MUST require both
-"offset" and "limit".
+Routes supporting any form pagination MUST also support Offset based pagination. 
 
-Query string parameter "offset" MUST be the number of results to skip
+Offset based pagination routes MUST support both `offset` and `limit` query string
+parameters.
 
-Query string parameter "limit" MUST be the number of results to return
+Query string parameter `offset` MUST be the number of results to skip.
+
+Query string parameter `limit` MUST be the number of results to return.
 
 **Examples**
-* ?limit=50&offset=50 would begin with the 51st object in a collection
-* ?limit=50&offset=0 would begin with the 1st object in a collection
-* ?limit=50&offset=11 would begin with the 12th object in a collection
+* ?limit=50&offset=50 would begin with the 51st object in a collection, and
+  would return no more than 50 results.
+* ?limit=25&offset=0 would begin with the 1st object in a collection, would
+  return 25 results.
+* ?limit=1000&offset=11 would begin with the 12th object in a collection, and
+  would return 1000 results.
+
+** Bad Examples **
+
+* ?limit=1001&offset=0 would return 400 Bad Request, because routes cannot
+  return more than 1000 results. 
 
 ```javascript
 /* No prameters, defaults offset=0 limit=1000 but is limited to the 10 records that exist */
