@@ -2626,7 +2626,7 @@ Routes following style guide 4.0 SHALL NOT support traditional paging.
 
 # Searching
 
-Searching is to find results based on one or many properties.
+Searching is to find resources based on one or many properties of that resource.
 
 Routes MAY support a search.  Routes MUST return 400 when searching is
 requested but not available.  Routes SHOULD use search as a means to find
