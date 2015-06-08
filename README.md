@@ -471,7 +471,8 @@ new values.
 
 Routes supporting PUT MUST accept a single object having the same JSON schema
 as an item in the collection of the data section of a GET on that resource. The
-request MAY contain an "If-Match" header.
+request MAY contain an "If-Match" header, but in 4.0 of this style guide, this
+MUST NOT affect behavior.
 
 In Version 4.0 of this Style Guide, A server must not support PUT against a
 collection.
@@ -532,7 +533,6 @@ The request URI MUST uniquely identify the resource. The request MAY contain
 an "If-Match" header. In version 4.0 of this document, the If-Match header MUST
 not affect behavior of the route.  The request format MAY exclude properties that need not
 be updated. This includes omitting "id".
-
 
 PATCH requests SHOULD respond with error 400 "Bad Request" if the request
 attempts to update immutable properties of the resource.
