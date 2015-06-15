@@ -1008,7 +1008,7 @@ Boolean types must be represented by `true` or `false` in accordance to JSON
 A relationship is a reference to an external object.  In this style guide,
 relationships are always represented as objects.
 
-In Version 4.0 of this style guide, relationship objects MUST contain ONLY an id.
+In Version 4.0 of this style guide, relationship objects SHOULD contain ONLY an id.
 
 ###### Nested Relationships
 
@@ -1079,7 +1079,7 @@ id 2, but instead removes the relationship between them.
 
 ###### Relationship Object
 
-* MUST NOT contain properties other than Id.
+* SHOULD NOT contain properties other than Id.
 
 | Property Name | Type   | Cardinality | Description                                    |
 |---------------|--------|-------------|------------------------------------------------|
