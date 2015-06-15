@@ -320,7 +320,9 @@ Routes MUST instead follow rules for the requested method/action in lieu of POST
 ## GET
 
 The identified resource MUST be retrieved and MUST be idempotent. i.e. MUST NOT
-produce any side-effects.
+produce any side-effects.  A resource supporting GET SHOULD return the full representation
+of the requested resource.  Related objects SHOULD NOT be returned unless those objects
+are the minimum viable representation of the requested resource.  
 
 GET requests MUST NOT support a request body.
 
