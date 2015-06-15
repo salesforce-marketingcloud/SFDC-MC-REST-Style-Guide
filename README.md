@@ -20,10 +20,9 @@ goal is to provide developers with a predictable, simple and comprehensive
 interface into the Marketing Cloud - not to be the most RESTful REST that ever
 RESTed.
 
-API authors and framework developers should take careful note of [API
-Description Format](#api-description-format) as the requirements for
-schema information are very rigorous and are difficult to achieve without
-framework support.
+API authors and framework developers should take careful note of
+[API Description Format](#api-description-format) as the requirements for schema information
+are very rigorous and are difficult to achieve without framework support.
 
 ## Table of contents
 
@@ -54,11 +53,11 @@ framework support.
 	* [Response Headers](#response-headers)
 * [Style](#style)
 	* [Path](#path)
+	* [Request Body](#request-body)
 	* [Query string](#query-string)
 	* [Collections](#collections)
 	* [Remote field expansion](#remote-field-expansion)
 	* [Marketing Cloud Specific Properties](#marketing-cloud-specific-properties)
-* [Request Format](#request-format)
 * [Response Format](#response-format)
 	* [Header](#header)
 	* [Localization](#localization)
@@ -78,6 +77,7 @@ framework support.
 		* [Meta Object](#meta-object)
 			* [Meta Object Structure](#meta-object-structure)
 			* [Link Object](#link-object)
+			* [Etag Object](#etag-object)
 * [Errors](#errors)
 	* [Error Envelope](#error-envelope)
 		* [Error Detail Object](#error-detail-object)
@@ -89,8 +89,8 @@ framework support.
 * [Filtering](#filtering)
 	* [Properties](#properties)
 	* [Operations](#operations)
-	* [Values](#values)
 	* [Comma Separated Values](#comma-separated-values)
+	* [Values](#values)
 * [Pagination](#pagination)
 	* [Offset](#offset)
 	* [Cursor](#cursor)
@@ -471,8 +471,7 @@ new values.
 
 Routes supporting PUT MUST accept a single object having the same JSON schema
 as an item in the collection of the data section of a GET on that resource. The
-request MAY contain an "If-Match" header, but in 4.0 of this style guide, this
-MUST NOT affect behavior.
+request MAY contain an "If-Match" header.
 
 In Version 4.0 of this Style Guide, A server must not support PUT against a
 collection.
@@ -534,6 +533,7 @@ an "If-Match" header. In version 4.0 of this document, the If-Match header MUST
 not affect behavior of the route.  The request format MAY exclude properties that need not
 be updated. This includes omitting "id".
 
+
 PATCH requests SHOULD respond with error 400 "Bad Request" if the request
 attempts to update immutable properties of the resource.
 
@@ -558,6 +558,9 @@ See also [Upserting](pattern/upserting.md)
 		]
 	}],
 	"meta" : {
+		"etags" : [
+			{ "etag" : "006b1b00e09eda9c9c95353ff1eb58f1",  "path" : "$.data[0]" }
+		]
 	}
 }
 /* A tag exists on article id 2, with tag id 1 */
@@ -567,6 +570,7 @@ See also [Upserting](pattern/upserting.md)
 	"name" : "A Renamed Article"
 }
 // 200 OK
+// Etag: W/"6ee3a8df40b4ed21287bbbb745794ed8"
 {
 	"data" : [{
 		"id" : "2",
@@ -577,6 +581,9 @@ See also [Upserting](pattern/upserting.md)
 		]
 	}],
 	"meta" : {
+		"etags" : [
+			{ "etag" : "6ee3a8df40b4ed21287bbbb745794ed8",  "path" : "$.data[0]" }
+		]
 	}
 }
 /* Update article id 2 */
@@ -586,6 +593,7 @@ See also [Upserting](pattern/upserting.md)
 	"description" : null
 }
 // 200 OK
+// Etag: W/"b8d93a92c87ff73dea1a9fb0d1721321"
 {
 	"data" : [{
 		"id" : "2",
@@ -596,6 +604,9 @@ See also [Upserting](pattern/upserting.md)
 		]
 	}],
 	"meta" : {
+		"etags" : [
+			{ "etag" : "b8d93a92c87ff73dea1a9fb0d1721321",  "path" : "$.data[0]" }
+		]
 	}
 }
 /* Sets description (and only description) field to null */
@@ -623,16 +634,16 @@ query string parameter:
 
 ### Examples
 ```
-POST {service}/{resources}?action={name}
-POST {service}/{resources}/{id}?action={name}
-POST {service}/{resources}/{id}/{sub-resources}?action={name}
-POST {service}/{resources}/{id}/{sub-resources}/{id}?action={name}
+POST {service}/{resources}/action/{name}
+POST {service}/{resources}/{id}/action/{name}
+POST {service}/{resources}/{id}/{sub-resources}/action/{name}
+POST {service}/{resources}/{id}/{sub-resources}/{id}/action/{name}
 
-// POST /v4/content/articles/1?action=DELETE
+// POST /v4/content/articles/1/actions/DELETE
 // Method Substitution for DELETE, must behave exactly the same as:
 // DELETE /v4/content/articles/1
 
-// POST /v4/content/articles/1?action=delete
+// POST /v4/content/articles/1/actions/delete
 // 400 Bad Request
 // Fails due to case sensitivity
 
@@ -683,9 +694,9 @@ outside of the defined list.
 	* Client MAY provide a tracking identifier. 
 	* MUST be less than 1024 characters. Characters MUST be within US-ASCII.
 * If-Match
-	* Reserved
+	* Client MAY provide etag values on PUT/PATCH for concurrency problems
 * If-None-Match
-	* Reserved
+	* Client MAY provide etag values on GET for cache behavior of HTTP code 304
 * Content-Type
 	* Client SHOULD provide "application/json; charset=utf-8"
 * Accept
@@ -707,8 +718,11 @@ outside of the defined list.
 * RateLimit-Reset
 	* Rate limiting - When window is reset. Value MUST be a specific time in
 	  UTC epoch seconds.
+
 * Etag
-	* Reserved
+	* Responses MUST respond to all requests with a "Etag" header that MUST be
+	  less than 1024 characters. Characters MUST be within US-ASCII.
+
 * Request-Id
 	* MUST be included in all responses. MUST be less than 1024 characters.
 	  Characters MUST be within US-ASCII.
@@ -808,7 +822,12 @@ Response objects MUST include all properties on a resource, even when value is
 
 ## Header
 
-Use of the Etag header MUST NOT be used in 4.0 of the style guide.  
+Routes MUST respond to resource requests with an "etag" header.  The
+"meta" section MUST contain the same "etag" value. Routes MUST use weak tags.
+
+Collection routes MUST respond with an "etag" header that is representative of
+their results. Collection routes MUST also respond with "etag" values for all
+included resources in the "meta". Routes MUST only perform weak etag comparisons.
 
 Routes MUST respond with a "Location" header describing the location of the
 newly created resource when a resource is created.
@@ -906,6 +925,9 @@ that new objects can not be set to, i.e. retired values.
 		/* WTF is a '1'? */
 	}],
 	"meta" : {
+		"etags" : [
+			{ "etag" : "f8b8a65f4462ec4264959ac6e367c815",  "path" : "$.data[0]" }
+		]
 	}
 }
 
@@ -919,6 +941,9 @@ that new objects can not be set to, i.e. retired values.
 		/* WTF is a '2'? */
 	}],
 	"meta" : {
+		"etags" : [
+			{ "etag" : "cfce3754f877c1d0f3672a195094a7ff",  "path" : "$.data[0]" }
+		]
 	}
 }
 
@@ -934,6 +959,9 @@ that new objects can not be set to, i.e. retired values.
 		/* Oh, it's a blog */
 	}],
 	"meta" : {
+		"etags" : [
+			{ "etag" : "f8b8a65f4462ec4264959ac6e367c815",  "path" : "$.data[0]" }
+		]
 	}
 }
 
@@ -946,6 +974,9 @@ that new objects can not be set to, i.e. retired values.
 		"type" : "Article"
 	}],
 	"meta" : {
+		"etags" : [
+			{ "etag" : "cfce3754f877c1d0f3672a195094a7ff",  "path" : "$.data[0]" }
+		]
 	}
 }
 ```
@@ -965,6 +996,9 @@ Boolean types must be represented by `true` or `false` in accordance to JSON
 		"published" : true
 	}],
 	"meta" : {
+		"etags" : [
+			{ "etag" : "ff494fb3fa996dfba5504c90f804bdc7",  "path" : "$.data[0]" }
+		]
 	}
 }
 ```
@@ -1067,6 +1101,9 @@ id 2, but instead removes the relationship between them.
 
 	}],
 	"meta" : {
+		"etags" : [
+			{ "etag" : "b7d64d81f61111fcad2994c44f4af86c",  "path" : "$.data[0]" }
+		]
 	}
 }
 /* The Author property is a Relationship Object */
@@ -1086,6 +1123,9 @@ id 2, but instead removes the relationship between them.
 		]
 	}],
 	"meta" : {
+		"etags" : [
+			{ "etag" : "c42821663ef83bce19b57c90d5221e02",  "path" : "$.data[0]" }
+		]
 	}
 }
 ```
@@ -1113,6 +1153,7 @@ In Version 4.0, Routes MUST include a meta object at root level of the response 
 | Property Name | Type   | Cardinality | Description                                    |
 |---------------|--------|-------------|------------------------------------------------|
 | totalCount    | Integer| 0 - 1       | Total # of records available in a collection.  |
+| etags         | Array  | 1 - 1       | An array of Etag objects.                      |
 | links         | Array  | 0 - 1       | An array of Link objects.                      |
 
 #### Link Object
@@ -1126,6 +1167,62 @@ null                                                                            
 | name          | String | 1 - 1       | Description of state being referenced. MUST be one of: (prev, next, self, first, last). See also [HATEOAS](justerification/hateoas.md) |
 | path          | String | 1 - 1       | JSON Path of the object the link belongs to.   |
 | method        | String | 1 - 1       | HTTP method to use with `href`. If `href` is null, this value must be null                                                                         |
+
+#### Etag Object
+
+* Etag Objects MUST NOT include properties outside of those defined below.
+
+| Property Name | Type   | Cardinality | Description                                    |
+|---------------|--------|-------------|------------------------------------------------|
+| etag          | String | 1 - 1 | identifier for current state of resource. See also [Concurrency](justification/concurrency.md) |
+| path          | String | 1 - 1 | JSON Path of the object the etag belongs to.         |
+
+## Example
+```javascript
+// GET /v4/data/foos?offset=1&limit=2
+// Etag: W/"a95ffbe406a5e4fb76a4d1c25c4b2995"
+{
+	"data" : [
+		{
+			"id" : "1",
+			"fooString" : "bar",
+			"fooDate" : "2015-06-02T12:00:00Z",
+			"fooArray" : [
+				"2015-06-02T12:00:00Z",
+				"2016-06-02T12:00:00Z",
+				"2017-06-02T12:00:00Z"
+			]
+		},
+		{
+			"id" : "2",
+			"fooString" : "bar2",
+			"fooDate" : "2015-06-02T12:00:00Z",
+			"fooArray" : [
+				"2015-06-02T12:00:00Z",
+				"2016-06-02T12:00:00Z",
+				"2017-06-02T12:00:00Z"
+			]
+		}
+	],
+
+
+	"meta" : {
+		"totalCount" : 20,
+
+		"links" : [
+			{ "name" : "prev", "method": "GET", "href" : "/v4/data/foos?offset=0&limit=2", "path" : "$.data" },
+			{ "name" : "next", "method": "GET", "href" : "/v4/data/foos?offset=3&limit=2", "path" : "$.data" }
+		],
+
+		"etags" : [
+			{ "etag" : "a95ffbe406a5e4fb76a4d1c25c4b2995", "path" : "$.data" },
+			{ "etag" : "a15e8ad4000684fdc8a04cd22ac835ca", "path" : "$.data.[0]" },
+			{ "etag" : "754bd3129114a6eab71374bb12492896", "path" : "$.data.[1]" }
+		]
+	}
+}
+```
+
 
 # Errors
 
@@ -1284,6 +1381,7 @@ than one property MUST return a 400 error.
 /* Sort by cores ascending */
 // GET /v4/data/supercomputers?sort=cores
 // 200 OK
+// Etag: W/"185b27b1a0f81763fc88271e0524ea31"
 {
 	"data" : [
 		{
@@ -1374,8 +1472,21 @@ than one property MUST return a 400 error.
 		"links" : [
 			{ "href" : null, "name" : "prev", "path" : "$.data", "method" : null },
 			{ "href" : null, "name" : "next", "path" : "$.data", "method" : null }
-		]
+		],
 
+		"etags" : [
+			{ "etag" : "185b27b1a0f81763fc88271e0524ea31",  "path" : "$.data" },
+			{ "etag" : "ae1701637a41427410ddb839cc3fa1e2",  "path" : "$.data.[0]" },
+			{ "etag" : "5ba5b9d9648b1709a7996fbbe0091a2b",  "path" : "$.data.[1]" },
+			{ "etag" : "5e45d009514280229f8ea8dc982ac354",  "path" : "$.data.[2]" },
+			{ "etag" : "cbd0dd679a7ce77acaa5059e101accdc",  "path" : "$.data.[3]" },
+			{ "etag" : "53332c616504673196b953fc9d9ae194",  "path" : "$.data.[4]" },
+			{ "etag" : "dc2e0302fae3ed17ce753fd8a73371d5",  "path" : "$.data.[5]" },
+			{ "etag" : "26a96b47743ac2bb1822ed79753e15df",  "path" : "$.data.[6]" },
+			{ "etag" : "4789647b72be508c7027d5d8921b2e75",  "path" : "$.data.[7]" },
+			{ "etag" : "a9f739f2bb4735d9500259daa0e3a576",  "path" : "$.data.[8]" },
+			{ "etag" : "681604816754c297dbbb895cb1bd1c74",  "path" : "$.data.[9]" }
+		]
 	}
 }
 ```
@@ -1384,6 +1495,7 @@ than one property MUST return a 400 error.
 /* Sort by cores descending */
 // GET /v4/data/supercomputers?sort=-cores
 // 200 OK
+// Etag: W/"68ec25c669bcc6a2b5326b723885cc7f"
 {
 	"data" : [
 		{
@@ -1474,8 +1586,21 @@ than one property MUST return a 400 error.
 		"links" : [
 			{ "href" : null, "name" : "prev", "path" : "$.data", "method" : null },
 			{ "href" : null, "name" : "next", "path" : "$.data", "method" : null }
-		]
+		],
 
+		"etags" : [
+			{ "etag" : "68ec25c669bcc6a2b5326b723885cc7f",  "path" : "$.data" },
+			{ "etag" : "681604816754c297dbbb895cb1bd1c74",  "path" : "$.data.[0]" },
+			{ "etag" : "a9f739f2bb4735d9500259daa0e3a576",  "path" : "$.data.[1]" },
+			{ "etag" : "4789647b72be508c7027d5d8921b2e75",  "path" : "$.data.[2]" },
+			{ "etag" : "26a96b47743ac2bb1822ed79753e15df",  "path" : "$.data.[3]" },
+			{ "etag" : "dc2e0302fae3ed17ce753fd8a73371d5",  "path" : "$.data.[4]" },
+			{ "etag" : "53332c616504673196b953fc9d9ae194",  "path" : "$.data.[5]" },
+			{ "etag" : "cbd0dd679a7ce77acaa5059e101accdc",  "path" : "$.data.[6]" },
+			{ "etag" : "5e45d009514280229f8ea8dc982ac354",  "path" : "$.data.[7]" },
+			{ "etag" : "5ba5b9d9648b1709a7996fbbe0091a2b",  "path" : "$.data.[8]" },
+			{ "etag" : "ae1701637a41427410ddb839cc3fa1e2",  "path" : "$.data.[9]" }
+		]
 	}
 }
 ```
@@ -1484,6 +1609,7 @@ than one property MUST return a 400 error.
 /* Sort by first appearance and cores  */
 // GET /v4/data/supercomputers?sort=-firstAppearance,-cores
 // 200 OK
+// Etag: W/"773d2f209b482b58f48c24970c28c4c9"
 {
 	"data" : [
 		{
@@ -1576,6 +1702,20 @@ than one property MUST return a 400 error.
 		"links" : [
 			{ "href" : null, "name" : "prev", "path" : "$.data", "method" : null },
 			{ "href" : null, "name" : "next", "path" : "$.data", "method" : null }
+		],
+
+		"etags" : [
+			{ "etag" : "773d2f209b482b58f48c24970c28c4c9",  "path" : "$.data" },
+			{ "etag" : "681604816754c297dbbb895cb1bd1c74",  "path" : "$.data.[0]" },
+			{ "etag" : "5ba5b9d9648b1709a7996fbbe0091a2b",  "path" : "$.data.[1]" },
+			{ "etag" : "26a96b47743ac2bb1822ed79753e15df",  "path" : "$.data.[2]" },
+			{ "etag" : "ae1701637a41427410ddb839cc3fa1e2",  "path" : "$.data.[3]" },
+			{ "etag" : "a9f739f2bb4735d9500259daa0e3a576",  "path" : "$.data.[4]" },
+			{ "etag" : "5e45d009514280229f8ea8dc982ac354",  "path" : "$.data.[5]" },
+			{ "etag" : "53332c616504673196b953fc9d9ae194",  "path" : "$.data.[6]" },
+			{ "etag" : "4789647b72be508c7027d5d8921b2e75",  "path" : "$.data.[7]" },
+			{ "etag" : "dc2e0302fae3ed17ce753fd8a73371d5",  "path" : "$.data.[8]" },
+			{ "etag" : "cbd0dd679a7ce77acaa5059e101accdc",  "path" : "$.data.[9]" }
 		]
 	}
 }
@@ -1759,6 +1899,7 @@ WHERE color = '"blue"'
 /* Filtering to one vendor */
 // GET /v4/data/supercomputers?f[vendor][eq]=Cray%20Inc.
 // 200 OK
+// Etag: W/"764cfe1ae347004861290afd60ac651a"
 {
 	"data" : [
 		{
@@ -1790,6 +1931,13 @@ WHERE color = '"blue"'
 		"links" : [
 			{ "href" : null, "name" : "prev", "path" : "$.data", "method" : null },
 			{ "href" : null, "name" : "next", "path" : "$.data", "method" : null }
+		],
+
+		"etags" : [
+			{ "etag" : "764cfe1ae347004861290afd60ac651a",  "path" : "$.data" },
+			{ "etag" : "f2b97c46e1fd59e1ffd8770a4443e5fb",  "path" : "$.data.[0]" },
+			{ "etag" : "3512b84a84693263c0aa0b43aba56ad8",  "path" : "$.data.[1]" },
+			{ "etag" : "e9e3658acab0e30691fac3c74df466ae",  "path" : "$.data.[2]" }
 		]
 	}
 }
@@ -1798,6 +1946,7 @@ WHERE color = '"blue"'
 /* Filtering to two vendors */
 // GET /v4/data/supercomputers?f[vendor][eq]=Cray%20Inc.,IBM
 // 200 OK
+// Etag: W/"eba6eba9b26e61aa3e0b22154f1dc2f4"
 {
 	"data" : [
 		{
@@ -1857,6 +2006,17 @@ WHERE color = '"blue"'
 		"links" : [
 			{ "href" : null, "name" : "prev", "path" : "$.data", "method" : null },
 			{ "href" : null, "name" : "next", "path" : "$.data", "method" : null }
+		],
+
+		"etags" : [
+			{ "etag" : "eba6eba9b26e61aa3e0b22154f1dc2f4",  "path" : "$.data" },
+			{ "etag" : "f2b97c46e1fd59e1ffd8770a4443e5fb",  "path" : "$.data.[0]" },
+			{ "etag" : "848aa6ee22420808a2f189ccf099890c",  "path" : "$.data.[1]" },
+			{ "etag" : "7f0e65bc2c27133019910adfa417b06a",  "path" : "$.data.[2]" },
+			{ "etag" : "3512b84a84693263c0aa0b43aba56ad8",  "path" : "$.data.[3]" },
+			{ "etag" : "d5ffe9f8043a443eda470a7d2ef1f912",  "path" : "$.data.[4]" },
+			{ "etag" : "94ff6b88e91b4751a6fecfd5a1803dee",  "path" : "$.data.[5]" },
+			{ "etag" : "e9e3658acab0e30691fac3c74df466ae",  "path" : "$.data.[6]" }
 		]
 	}
 }
@@ -1866,6 +2026,7 @@ WHERE color = '"blue"'
 /* Filtering to between 500,000 and 1,000,000 cores */
 // GET /v4/data/supercomputers?f[cores][lt]=1000000&f[cores][gt]=500000
 // 200 OK
+// Etag: W/"10fd07d71b1f549beb6b0c706a142479"
 {
 	"data" : [
 		{
@@ -1897,6 +2058,13 @@ WHERE color = '"blue"'
 		"links" : [
 			{ "href" : null, "name" : "prev", "path" : "$.data", "method" : null },
 			{ "href" : null, "name" : "next", "path" : "$.data", "method" : null }
+		],
+
+		"etags" : [
+			{ "etag" : "10fd07d71b1f549beb6b0c706a142479",  "path" : "$.data" },
+			{ "etag" : "f2b97c46e1fd59e1ffd8770a4443e5fb",  "path" : "$.data.[0]" },
+			{ "etag" : "763dfaace31f258f5943e0bda6df3eff",  "path" : "$.data.[1]" },
+			{ "etag" : "7f0e65bc2c27133019910adfa417b06a",  "path" : "$.data.[2]" },
 		]
 	}
 }
@@ -1907,6 +2075,7 @@ WHERE color = '"blue"'
 /* Super computer centers added to the list in the ninties */
 // GET /v4/data/supercomputers?f[firstAppearance][gte]=1990-01-01T00:00:00Z&f[firstAppearance][lte]=2000-01-01T00:00:00Z
 // 200 OK
+// Etag: W/"c1c353fa20a853f36a038ce7f61c4d63"
 {
 	"data" : [
 		{
@@ -1941,6 +2110,13 @@ WHERE color = '"blue"'
 		"links" : [
 			{ "href" : null, "name" : "prev", "path" : "$.data", "method" : null },
 			{ "href" : null, "name" : "next", "path" : "$.data", "method" : null }
+		],
+
+		"etags" : [
+			{ "etag" : "c1c353fa20a853f36a038ce7f61c4d63",  "path" : "$.data" },
+			{ "etag" : "dc2e0302fae3ed17ce753fd8a73371d5",  "path" : "$.data.[0]" },
+			{ "etag" : "4789647b72be508c7027d5d8921b2e75",  "path" : "$.data.[1]" },
+			{ "etag" : "cbd0dd679a7ce77acaa5059e101accdc",  "path" : "$.data.[2]" }
 		]
 	}
 }
@@ -2025,6 +2201,7 @@ Query string parameter `limit` MUST be the number of results to return.
 /* No parameters, defaults offset=0 limit=1000 but is limited to the 10 records that exist */
 // GET /v4/data/supercomputers
 // 200 OK
+// Etag: W/"aef61df0a4ce482c9c16c8cd477de256"
 {
 	"data" : [
 		{
@@ -2115,6 +2292,20 @@ Query string parameter `limit` MUST be the number of results to return.
 		"links" : [
 			{ "href" : null, "name" : "prev", "path" : "$.data", "method" : null },
 			{ "href" : null, "name" : "next", "path" : "$.data", "method" : null }
+		],
+
+		"etags" : [
+			{ "etag" : "aef61df0a4ce482c9c16c8cd477de256",  "path" : "$.data" },
+			{ "etag" : "681604816754c297dbbb895cb1bd1c74",  "path" : "$.data.[0]" },
+			{ "etag" : "dc2e0302fae3ed17ce753fd8a73371d5",  "path" : "$.data.[1]" },
+			{ "etag" : "a9f739f2bb4735d9500259daa0e3a576",  "path" : "$.data.[2]" },
+			{ "etag" : "26a96b47743ac2bb1822ed79753e15df",  "path" : "$.data.[3]" },
+			{ "etag" : "4789647b72be508c7027d5d8921b2e75",  "path" : "$.data.[4]" },
+			{ "etag" : "5ba5b9d9648b1709a7996fbbe0091a2b",  "path" : "$.data.[5]" },
+			{ "etag" : "53332c616504673196b953fc9d9ae194",  "path" : "$.data.[6]" },
+			{ "etag" : "cbd0dd679a7ce77acaa5059e101accdc",  "path" : "$.data.[7]" },
+			{ "etag" : "5e45d009514280229f8ea8dc982ac354",  "path" : "$.data.[8]" },
+			{ "etag" : "ae1701637a41427410ddb839cc3fa1e2",  "path" : "$.data.[9]" }
 		]
 	}
 }
@@ -2124,6 +2315,7 @@ Query string parameter `limit` MUST be the number of results to return.
 /* Limit returns that count of rows, defaults offset=0  */
 // GET /v4/data/supercomputers?limit=2
 // 200 OK
+// Etag: W/"f544328e483547e8615b62e854c961a3"
 {
 	"data" : [
 		{
@@ -2148,6 +2340,12 @@ Query string parameter `limit` MUST be the number of results to return.
 		"links" : [
 			{ "href" : null, "name" : "prev", "path" : "$.data", "method" : null },
 			{ "name" : "next", "method": "GET", "href" : "/v4/data/supercomputers?limit=2&offset=2", "path" : "$.data" }
+		],
+
+		"etags" : [
+			{ "etag" : "f544328e483547e8615b62e854c961a3",  "path" : "$.data" },
+			{ "etag" : "a1642ed98e14ce6a38157c405e936c9a",  "path" : "$.data.[0]" },
+			{ "etag" : "f2b97c46e1fd59e1ffd8770a4443e5fb",  "path" : "$.data.[1]" },
 		]
 	}
 }
@@ -2157,6 +2355,7 @@ Query string parameter `limit` MUST be the number of results to return.
 /* Next page */
 // GET /v4/data/supercomputers?limit=2&offset=2
 // 200 OK
+// Etag: W/"1e20c4d502f360146baa0b98ad040697"
 {
 	"data" : [
 		{
@@ -2181,6 +2380,13 @@ Query string parameter `limit` MUST be the number of results to return.
 		"links" : [
 			{ "name" : "next", "method": "GET", "href" : "/v4/data/supercomputers?limit=2&offset=4", "path" : "$.data" }
 			{ "name" : "prev", "method": "GET", "href" : "/v4/data/supercomputers?limit=2&offset=0", "path" : "$.data" }
+		],
+
+		"etags" : [
+			{ "etag" : "1e20c4d502f360146baa0b98ad040697",  "path" : "$.data" },
+			/* etags of rows match previous values */
+			{ "etag" : "763dfaace31f258f5943e0bda6df3eff",  "path" : "$.data.[0]" },
+			{ "etag" : "7f0e65bc2c27133019910adfa417b06a",  "path" : "$.data.[1]" },
 		]
 	}
 }
@@ -2190,6 +2396,7 @@ Query string parameter `limit` MUST be the number of results to return.
 /* Last page, non-starting offset */
 // GET /v4/data/supercomputers?limit=4&offset=6
 // 200 OK
+// Etag: W/"5a3bb04baf2318afb62cfb18d5c674b5"
 {
 	"data" : [
 		{
@@ -2229,6 +2436,15 @@ Query string parameter `limit` MUST be the number of results to return.
 			/* offset reflects api user current request; offset 2 */
 			{ "name" : "prev", "method": "GET", "href" : "/v4/data/supercomputers?limit=4&offset=2", "path" : "$.data" }
 			{ "href" : null, "name" : "next", "path" : "$.data", "method" : null }
+		],
+
+		"etags" : [
+			{ "etag" : "5a3bb04baf2318afb62cfb18d5c674b5",  "path" : "$.data" },
+			/* etags of rows match previous values */
+			{ "etag" : "19496405f44bd20931ba8d9f47ec2ba9",  "path" : "$.data.[0]" },
+			{ "etag" : "d5ffe9f8043a443eda470a7d2ef1f912",  "path" : "$.data.[1]" },
+			{ "etag" : "94ff6b88e91b4751a6fecfd5a1803dee",  "path" : "$.data.[2]" },
+			{ "etag" : "e9e3658acab0e30691fac3c74df466ae",  "path" : "$.data.[3]" }
 		]
 	}
 }
@@ -2238,6 +2454,7 @@ Query string parameter `limit` MUST be the number of results to return.
 /* Last page with over hanging offset just returns possible rows */
 // GET /v4/data/supercomputers?limit=6&offset=9
 // 200 OK
+// Etag: W/"b5a571c0ad9a00dd7756824210c88461"
 {
 	"data" : [
 		{
@@ -2256,6 +2473,12 @@ Query string parameter `limit` MUST be the number of results to return.
 			/* offset reflects api user current request; offset 3 */
 			{ "name" : "prev", "method": "GET", "href" : "/v4/data/supercomputers?limit=6&offset=3", "path" : "$.data" },
 			{ "href" : null, "name" : "next", "path" : "$.data", "method" : null }
+		],
+
+		"etags" : [
+			{ "etag" : "b5a571c0ad9a00dd7756824210c88461",  "path" : "$.data" },
+			/* etags of rows match previous values */
+			{ "etag" : "e9e3658acab0e30691fac3c74df466ae",  "path" : "$.data.[0]" }
 		]
 	}
 }
@@ -2265,6 +2488,7 @@ Query string parameter `limit` MUST be the number of results to return.
 /* empty results are not an error */
 // GET /v4/data/supercomputers?limit=1000&offset=1000
 // 200 OK
+// Etag: W/"9e913b5713774eb61d40d42dc37406a3"
 {
 	"data" : [],
 
@@ -2275,6 +2499,10 @@ Query string parameter `limit` MUST be the number of results to return.
 			/* offset reflects api user current request; offset 3 */
 			{ "name" : "prev", "method": "GET", "href" : "/v4/data/supercomputers?limit=1000&offset=0", "path" : "$.data" },
 			{ "href" : null, "name" : "next", "path" : "$.data", "method" : null }
+		],
+
+		"etags" : [
+			{ "etag" : "9e913b5713774eb61d40d42dc37406a3",  "path" : "$.data" },
 		]
 	}
 }
@@ -2323,6 +2551,7 @@ See also [Querying](pattern/querying.md)
 /* search should be contains */
 // GET /v4/data/supercomputers?q=SC
 // 200 OK
+// Etag: W/"0cfe3bd15b4b15755a556513ee19d886"
 {
 	"data" : [
 		{
@@ -2347,6 +2576,12 @@ See also [Querying](pattern/querying.md)
 		"links" : [
 			{ "href" : null, "name" : "prev", "path" : "$.data", "method" : null },
 			{ "href" : null, "name" : "next", "path" : "$.data", "method" : null }
+		],
+
+		"etags" : [
+			{ "etag" : "0cfe3bd15b4b15755a556513ee19d886",  "path" : "$.data" },
+			{ "etag" : "f2b97c46e1fd59e1ffd8770a4443e5fb",  "path" : "$.data.[0]" },
+			{ "etag" : "7f0e65bc2c27133019910adfa417b06a",  "path" : "$.data.[1]" },
 		]
 	}
 }
@@ -2356,6 +2591,7 @@ See also [Querying](pattern/querying.md)
 /* search should be case insensitive */
 // GET /v4/data/supercomputers?q=comp
 // 200 OK
+// Etag: W/"caf70db73cdd81db17cc1f3481a51bbd"
 {
 	"data" : [
 		{
@@ -2394,6 +2630,14 @@ See also [Querying](pattern/querying.md)
 		"links" : [
 			{ "href" : null, "name" : "prev", "path" : "$.data", "method" : null },
 			{ "href" : null, "name" : "next", "path" : "$.data", "method" : null }
+		],
+
+		"etags" : [
+			{ "etag" : "caf70db73cdd81db17cc1f3481a51bbd",  "path" : "$.data" },
+			{ "etag" : "a1642ed98e14ce6a38157c405e936c9a",  "path" : "$.data.[0]" },
+			{ "etag" : "763dfaace31f258f5943e0bda6df3eff",  "path" : "$.data.[1]" },
+			{ "etag" : "3512b84a84693263c0aa0b43aba56ad8",  "path" : "$.data.[2]" },
+			{ "etag" : "19496405f44bd20931ba8d9f47ec2ba9",  "path" : "$.data.[3]" },
 		]
 	}
 }
@@ -2403,6 +2647,7 @@ See also [Querying](pattern/querying.md)
 /* search can be multiple fields */
 // GET /v4/data/supercomputers?q=el
 // 200 OK
+// Etag: W/"ef73743762a35bfd7adab0f1a5f76a18"
 {
 	"data" : [
 		{
@@ -2429,6 +2674,12 @@ See also [Querying](pattern/querying.md)
 		"links" : [
 			{ "href" : null, "name" : "prev", "path" : "$.data", "method" : null },
 			{ "href" : null, "name" : "next", "path" : "$.data", "method" : null }
+		],
+
+		"etags" : [
+			{ "etag" : "ef73743762a35bfd7adab0f1a5f76a18",  "path" : "$.data" },
+			{ "etag" : "19496405f44bd20931ba8d9f47ec2ba9",  "path" : "$.data.[0]" },
+			{ "etag" : "d5ffe9f8043a443eda470a7d2ef1f912",  "path" : "$.data.[1]" },
 		]
 	}
 }
