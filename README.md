@@ -326,6 +326,9 @@ are the minimum viable representation of the requested resource.
 
 GET requests MUST NOT support a request body.
 
+See also [Relationships](#relationships)
+
+
 ```javascript
 // GET /v4/content/articles/1
 // 200 OK
