@@ -53,11 +53,11 @@ are very rigorous and are difficult to achieve without framework support.
 	* [Response Headers](#response-headers)
 * [Style](#style)
 	* [Path](#path)
-	* [Request Body](#request-body)
 	* [Query string](#query-string)
 	* [Collections](#collections)
 	* [Remote field expansion](#remote-field-expansion)
 	* [Marketing Cloud Specific Properties](#marketing-cloud-specific-properties)
+* [Request Format](#request-format)
 * [Response Format](#response-format)
 	* [Header](#header)
 	* [Localization](#localization)
@@ -790,7 +790,7 @@ Routes MUST NOT support a query string to expand relationship objects.
 
 ## Marketing Cloud Specific Properties
 
-When referencing an Enterprise, User or Business Unit, Routes MUST publish a
+When referencing an Enterprise, User or Business Unit, Routes MUST expose a
 relationship object.
 
 TODO: figure this stuff out
