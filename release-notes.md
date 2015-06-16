@@ -77,7 +77,7 @@ future versions of the REST API.
     * Localized Formatting
     * Localized Content
 * Querying
-* Async Interaction
+* Asynchronous Operations
 * Batching Requests
     * Operations on Collections
     * Multiple Requests
