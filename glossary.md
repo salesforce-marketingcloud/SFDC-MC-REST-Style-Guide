@@ -63,3 +63,6 @@ the number of results to skip, and number of results to display.
 ## Pagination, Traditional
 A simple form of pagination that allows a consumer to navigate a collection, specifying
 the number of pages to skip, and number of results to display per page. 
+
+## Batching
+A technique to operate on multiple resources.
