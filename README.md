@@ -204,7 +204,9 @@ used by Service and Route developers.
 * 403 Forbidden
 	* Authenticated but lack permission to resource/operation
 * 404 Not Found
-	* Routes SHOULD return 403 if resource exists but user lacks access
+	* Routes SHOULD return 403 if resource exists in the user's tenant, but user lacks access
+* 409 Conflict
+	* Indicates that the request could not be processed because of conflict in the request, such as an edit conflict in the case of multiple updates.
 * 412 Precondition Failed
 	* REQUIRED to only be used for concurrency failure (i.e. If-Matches "etag")
 
