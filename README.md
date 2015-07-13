@@ -717,13 +717,12 @@ outside of the defined list.
 	* Resource creation MUST respond with location of created resource
 
 * RateLimit-Limit
-	* Rate limiting - Ceiling for the given resource. Value MUST start from
+	* Rate Limit Ceiling for the given resource. Value MUST start from
 	  one(1).
 * RateLimit-Remaining
-	* Rate limiting - Number of requests left for the window. Value MUST be
-	  "RateLimit-Limit" - requests made in window.
+	* Number of requests remaining within the Rate Limit window. 
 * RateLimit-Reset
-	* Rate limiting - When window is reset. Value MUST be a specific time in
+	* When Rate Limit window is reset. Value MUST be a specific time in
 	  UTC epoch seconds.
 
 * Etag
