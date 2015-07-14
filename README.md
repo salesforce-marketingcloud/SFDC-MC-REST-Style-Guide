@@ -1327,6 +1327,14 @@ LOWER = %x61-7A
 ## Validation Details
 
 * Validation errors SHOULD utilize JSON path
+* Implementations SHOULD NOT attempt to aggregate errors that relate to  the
+  syntax of the request. E.g. 
+    * Only one missing comma at a time
+    * Don't go beyond validating an invalid JSON payload
+* Implementations SHOULD attempt to aggregate data validation errors within a
+valid request. e.g. 
+    * Validate that all email address are a valid syntax 
+    * Validate that all numbers are within the predefined range.
 
 ## Example
 
