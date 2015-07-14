@@ -1216,9 +1216,11 @@ In Version 4.0, Routes MUST include a meta object at root level of the response 
 |---------------|--------|-------------|------------------------------------------------|
 | href          | String | 1 - 1       | A URI or URL to a state of the resource. MAY be 
 null                                                                                    |
-| name          | String | 1 - 1       | Description of state being referenced. MUST be one of: (prev, next, self, first, last). See also [HATEOAS](justerification/hateoas.md) |
+| name          | String | 1 - 1       | Description of state being referenced. MUST be 
+one of: (prev, next, self, first, last). See also [HATEOAS](justerification/hateoas.md) |
 | path          | String | 1 - 1       | JSON Path of the object the link belongs to.   |
-| method        | String | 1 - 1       | HTTP method to use with `href`. If `href` is null, this value must be null                                                                         |
+| method        | String | 1 - 1       | HTTP method to use with `href`. If `href` is 
+null, this value must be null                                                           |
 
 #### Etag Object
 
