@@ -741,6 +741,9 @@ outside of the defined list.
 
 # Style
 
+## Request and Response Bodies
+JSON Requests and Responses to the API MUST be in UTF-8.  
+
 ## Identifiers
 All resources with Identifiers MUST return a property called `id`. `id` MUST
 be a string, with a maximum length of 128 bytes. `id` MUST be treated
