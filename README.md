@@ -969,7 +969,7 @@ that new objects can not be set to, i.e. retired values.
 		"id" : "1",
 		"name" : "Blog post",
 		"type" : "1"
-		/* WTF is a '1'? */
+		/* What is a '1'? */
 	}],
 	"meta" : {
 		"etags" : [
@@ -985,7 +985,7 @@ that new objects can not be set to, i.e. retired values.
 		"id" : "2",
 		"name" : "An Article",
 		"type" : "2"
-		/* WTF is a '2'? */
+		/* What is a '2'? */
 	}],
 	"meta" : {
 		"etags" : [
