@@ -800,25 +800,68 @@ Routes MUST NOT support a query string to expand relationship objects.
 
 ## Marketing Cloud Specific Properties
 
-When referencing an Enterprise, User or Business Unit, Routes MUST expose a
-relationship object.
+When including information about a Resource's Enterprise, Business Unit/Member,
+Routes MUST include a relationship object.  These relationships must be objects
+called `member` or `enterprise`.  Routes SHOULD NOT reference "member" without
+referencing the parent "enterprise".
 
-TODO: figure this stuff out
+```javascript
+/* Example where an Article Object is related to Enterprise abc123 */
+{
+	"data" : [{
+		"id" : "1",
+		"name" : "An Article",
+		"published" : true,
+		"enterprise" : {
+			"id" : "abc123"
+		},
+		"authors" : [
+			{ "id" : 1 },
+			{ "id" : 2 }
+		]
+	}],
+	"meta" : { }
+}
+	
+/* Example where an Article Object is related to a Business Unit/Member xyz456 */
+{
+	"data" : [{
+		"id" : "1",
+		"name" : "An Article",
+		"published" : true,
+		"member" : {
+			"id" : "xyz456"
+		},
+		"authors" : [
+			{ "id" : 1 },
+			{ "id" : 2 }
+		]
+	}],
+	"meta" : { }
+}
 
-* member - relationship - member, i.e. business unit, of the reference
-	* Example ` "member" : { "id" : "20720" } `
-	* Example ` "ownedBy" : [ { "id" : "20720" } ] `
-* enterprise - relationship - enterprise that member sits under. For many
-  customers this is the same as member
-	* Example ` "enterprise" : { "id" : "20720" } `
-* employee/user - string - specific user being references
-	* Example ` "createdBy" : { "id" : "20720" } `
-	* Example ` "employees" : [ { "id" : "20720" } ] `
-	* Example ` "user" : { "id" : "20720" } `
-	* Example ` "users" : [ { "id" : "20720" } ]`
+/* Example where an Article Object is related to a BU and an Enterprise */
+{
+	"data" : [{
+		"id" : "1",
+		"name" : "An Article",
+		"published" : true,
+		"member" : {
+			"id" : "xyz456"
+		},
+		"enterprise" : {
+			"id" : "abc123"
+		},
+		"authors" : [
+			{ "id" : 1 },
+			{ "id" : 2 }
+		]
+	}],
+	"meta" : { }
+}
 
-Routes SHOULD NOT reference "member" and/or "employee/user" without referencing
-the parent "enterprise".
+```
+
 
 # Request Format 
 
