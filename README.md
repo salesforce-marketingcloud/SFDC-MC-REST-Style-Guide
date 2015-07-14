@@ -741,6 +741,11 @@ outside of the defined list.
 
 # Style
 
+## Identifiers
+All resources with Identifiers MUST return a property called `id`. `id` MUST
+be a string, with a maximum length of 128 bytes. `id` MUST be treated
+as opaque by clients of the API.
+
 ## Path
 Path SHOULD be case sensitive. Resource names MUST be plural nouns, even if 
 a returned resource will always be a single result.
