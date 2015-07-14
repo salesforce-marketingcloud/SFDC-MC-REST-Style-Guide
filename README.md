@@ -742,7 +742,8 @@ outside of the defined list.
 # Style
 
 ## Path
-Path SHOULD be case sensitive. Resource names MUST be plural nouns.
+Path SHOULD be case sensitive. Resource names MUST be plural nouns, even if 
+a returned resource will always be a single result.
 
 Route SHOULD NOT exceed two resource names in the URI.  Routes MUST NOT expose
 resources beyond two nested levels. Implementations SHOULD wrap and expose the
