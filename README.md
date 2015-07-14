@@ -902,9 +902,50 @@ must be maintained in access of double precision numbers [IEEE
 ##### Arrays
 
 * MUST contain homogeneous values
-    * `[1,2,3,4]`
-    * `["a", "b", "c", "d"]`
-    * NOT `[1, 'a', 2, 'b']`
+    * Scalar values:
+        * `[1,2,3,4]`
+        * `["a", "b", "c", "d"]`
+        * NOT `[1, 'a', 2, 'b']`
+    * Objects MUST be arrays of the same type, e.g.
+
+```javascript
+/* array of Authors */
+    [ 
+        { 
+	    "id" : 1, 
+	    "name" : "George R.R. Martin" 
+	}, 
+	{ 
+	    "id" : 2, 
+	    "name" : "Isaac Asimov"
+	}
+    ]
+```
+    * Object arrays MUST not contain mixed objects, e.g.
+
+```javascript
+/* BAD : array of Authors mixed with Books */
+    [ 
+        { 
+	    "id" : 1, 
+	    "name" : "George R.R. Martin" 
+	}, 
+	{  
+	    "id" : 1,
+	    "title" : "Winds of Winter",
+	    "releaseDate" : "2016-05-17T00:00:00Z"
+	},
+	{ 
+	    "id" : 2, 
+	    "name" : "Isaac Asimov"
+	},
+	{
+	    "id" : 2,
+	    "title" : "I, Robot.",
+	    "releaseDate" : "1950-12-02T00:00:00Z"
+	}
+    ]
+```
 
 ##### Enumerations
 
