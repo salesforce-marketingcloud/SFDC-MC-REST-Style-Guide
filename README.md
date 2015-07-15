@@ -779,7 +779,7 @@ Collections are Routes that return multiple objects.
 
 ## Remote field expansion
 
-Routes MUST NOT support a query string to expand relationship objects.
+Routes MUST NOT support a query string to expand relationship objects.  
 
 ## Marketing Cloud Specific Properties
 
