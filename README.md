@@ -730,9 +730,31 @@ All resources with Identifiers MUST return a property called `id`. `id` MUST
 be a string, with a maximum length of 128 bytes. `id` MUST be treated
 as opaque by clients of the API.
 
+## Plural Nouns
+Resources and Sub-Resources MUST be referenced as plural nouns.  Resources that
+will always be singular MUST be plural nouns.  Plural nouns MUST end in either
+the `-s` or `-es` suffix.
+
+### Examples
+```javascript 
+
+// BAD 
+   // Needs `-s` suffix
+   /v4/data/extenstion
+   /v4/content/article
+
+   // needs `-es` suffix, not `-s`
+   /v4/engagement/boxs
+
+// GOOD  
+   /v4/data/extensions
+   /v4/content/articles/
+   /v4/engagement/boxes
+
+```
+
 ## Path
-Path SHOULD be case sensitive. Resource names MUST be plural nouns, even if 
-a returned resource will always be a single result.
+Path SHOULD be case sensitive. 
 
 Route SHOULD NOT exceed two resource names in the URI.  Routes MUST NOT expose
 resources beyond two nested levels. Implementations SHOULD wrap and expose the
