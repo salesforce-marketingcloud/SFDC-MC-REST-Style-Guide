@@ -134,6 +134,101 @@ Routes on a version MAY add new optional query string parameters. Routes on a
 version MUST NOT remove query string parameters. Routes on a version MUST NOT
 add new required query string parameters.
 
+### Examples
+
+```javascript
+
+/* Allowed Changes within a version */
+
+// original, name is required
+// POST /v4/content/articles
+{
+    "name" : "An Article Name",
+}
+
+// changed, length is optional 
+// POST /v4/content/articles
+// ! would NOT be allowed if length was required
+{
+    "name" : "An Article Name",
+    "length" : 100
+}
+
+// original
+// GET /v4/content/articles/1
+{
+    "data" : [{
+    	"id" : "1",
+	"name" : "An Article Name"
+    }],
+    "meta" : {}
+}
+
+// new, now returns optional parameter length 
+// GET /v4/content/articles/1
+{
+    "data" : [{
+    	"id" : "1",
+	"name" : "An Article Name",
+	"length" : 100
+    }],
+    "meta" : {}
+}
+
+// GET /v4/content/articles/?q=Article
+// original, returns anything with "article" in the name
+
+// GET /v4/content/articles/?q=Article&f[length][gte]=50
+// added length filter, returns articles with word "Article" in name, and 
+// length >= 50
+
+/* Forbidden Changes within a Version */
+
+// original
+// GET /v4/content/authors/1
+{
+    "data" : [{
+    	"id" : "1",
+	"fname" : "George",
+	"lname" : "Martin",
+	"age"   : 76
+    }],
+    "meta" : {}
+}
+
+// breaking change, removed existing properties 
+// GET /v4/content/authors/1
+{
+    "data" : [{
+    	"id"   : "1",
+	"name" : "George R.R. Martin",
+	"age"  : 76
+    }],
+    "meta" : {}
+}
+
+// breaking change, changed type of properties (age)
+// GET /v4/content/authors/1
+{
+    "data" : [{
+    	"id"   : "1",
+	"fname" : "George",
+	"lname" : "Martin",
+	"age"  : "76"
+    }],
+    "meta" : {}
+}
+
+// original
+// GET /v4/content/authors/1?aFakeQSP=true
+// aFakeQSP is an existing query string parameter
+
+// breaking change
+// GET /v4/content/authors/1?fakeQSP=1
+// Cannot rename QSPs.  Cannot change Type of QSPs.
+
+```
+
 # HTTP status codes
 
 ## Implicit
