@@ -135,7 +135,6 @@ version MUST NOT remove query string parameters. Routes on a version MUST NOT
 add new required query string parameters.
 
 # HTTP status codes
-The API uses the hyper text transfer protocol ("HTTP").
 
 ## Implicit
 
@@ -213,8 +212,7 @@ Routes MUST NOT return redirect status codes (3XX Codes excluding 304).
 
 # HTTP Methods
 
-The API uses the hyper text transfer protocol ("HTTP"). Resources accept
-several HTTP methods.
+Resources accept several HTTP methods.
 
 ## POST
 
