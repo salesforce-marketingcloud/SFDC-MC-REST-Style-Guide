@@ -1,4 +1,4 @@
-# Salesforce Fuel 4.0 API Style Guide
+# Salesforce Fuel 4.0 API REST Definition
 
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD",
 "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be
@@ -6,7 +6,7 @@ interpreted as described in [RFC 2119](http://www.ietf.org/rfc/rfc2119.txt).
 
 ## Introduction
 
-The Fuel API Style Guide defines the standards which all REST APIs across the
+The Fuel API REST Definition defines the standards which all REST APIs across the
 Salesforce Marketing Cloud MUST adhere to. 
 
 This document provides opinionated answers to developer questions surrounding
@@ -26,7 +26,7 @@ are very rigorous and are difficult to achieve without framework support.
 
 ## Table of contents
 
-* Salesforce Fuel 4.0 API Style Guide
+* Salesforce Fuel 4.0 API REST Definition
 	* [Introduction](#introduction)
 	* [Table of contents](#table-of-contents)
 * [Versioning in the API](#versioning-in-the-api)
@@ -488,7 +488,7 @@ Routes supporting DELETE of a single resource MUST have the resource identified
 in the URI.  Routes supporting DELETE of a nested relationship MUST only delete
 the relationship not the nested resources.
 
-In version 4.0 of the style guide, Collection routes MUST NOT support DELETE.
+In version 4.0 of the REST Definition, Collection routes MUST NOT support DELETE.
 
 ### Examples
 
@@ -572,7 +572,7 @@ Routes supporting PUT MUST accept a single object having the same JSON schema
 as an item in the collection of the data section of a GET on that resource. The
 request MAY contain an "If-Match" header.
 
-In Version 4.0 of this Style Guide, A server must not support PUT against a
+In Version 4.0 of this REST Definition, A server must not support PUT against a
 collection.
 
 Routes MUST NOT support creation through PUT.
@@ -983,7 +983,7 @@ newly created resource when a resource is created.
 
 ## Localization
 
-Routes adhering to Style Guide 4.0 MUST NOT provide localized values.
+Routes adhering to REST Definition 4.0 MUST NOT provide localized values.
 
 ## Envelope
 
@@ -1180,7 +1180,7 @@ Boolean types must be represented by `true` or `false` in accordance to JSON
 
 ##### Relationships
 
-A relationship is a reference to an external object.  In this style guide,
+A relationship is a reference to an external object.  In this REST Definition,
 relationships are always represented as objects.
 
 Relationship objects SHOULD ONLY contain an id.  Relationship objects SHOULD
@@ -2547,7 +2547,7 @@ Query string parameter `limit` MUST be the number of results to return.
 Cursor based pagination allows clients to browse large, dynamic datasets
 without missing results.
 
-Routes following style guide 4.0 SHALL NOT support cursor paging.
+Routes following REST Definition 4.0 SHALL NOT support cursor paging.
 
 See also [Facebook cursor paging](http://api-portal.anypoint.mulesoft.com/facebook/api/facebook-graph-api/docs/reference/pagination)
 See also [Amazon cursor paging](http://docs.aws.amazon.com/cloudsearch/latest/developerguide/paginating-results.html#deep-paging)
@@ -2557,7 +2557,7 @@ See also [Amazon cursor paging](http://docs.aws.amazon.com/cloudsearch/latest/de
 Traditional pagination allows clients to browse data sets by specifying a page
 number and a page size.
 
-Routes following style guide 4.0 SHALL NOT support traditional paging.
+Routes following REST Definition 4.0 SHALL NOT support traditional paging.
 
 # Searching
 
