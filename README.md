@@ -344,7 +344,7 @@ with a Location: header pointing to the newly created resource.
 // Location: /v4/content/articles/1
 {
 	"data" : [{
-		"id" : 1,
+		"id" : "1",
 		"name" : "A new Article"
 	}],
 	"meta" : {
@@ -961,11 +961,11 @@ must be maintained in access of double precision numbers [IEEE
 /* array of Authors */
     [ 
         { 
-	    "id" : 1, 
+	    "id" : "1", 
 	    "name" : "George R.R. Martin" 
 	}, 
 	{ 
-	    "id" : 2, 
+	    "id" : "2", 
 	    "name" : "Isaac Asimov"
 	}
     ]
@@ -976,20 +976,20 @@ must be maintained in access of double precision numbers [IEEE
 /* BAD : array of Authors mixed with Books */
     [ 
         { 
-	    "id" : 1, 
+	    "id" : "1", 
 	    "name" : "George R.R. Martin" 
 	}, 
 	{  
-	    "id" : 1,
+	    "id" : "1",
 	    "title" : "Winds of Winter",
 	    "releaseDate" : "2016-05-17T00:00:00Z"
 	},
 	{ 
-	    "id" : 2, 
+	    "id" : "2", 
 	    "name" : "Isaac Asimov"
 	},
 	{
-	    "id" : 2,
+	    "id" : "2",
 	    "title" : "I, Robot.",
 	    "releaseDate" : "1950-12-02T00:00:00Z"
 	}
@@ -1120,8 +1120,8 @@ referencing the parent "enterprise".
 			"id" : "abc123"
 		},
 		"authors" : [
-			{ "id" : 1 },
-			{ "id" : 2 }
+			{ "id" : "1" },
+			{ "id" : "2" }
 		]
 	}],
 	"meta" : { }
@@ -1137,8 +1137,8 @@ referencing the parent "enterprise".
 			"id" : "xyz456"
 		},
 		"authors" : [
-			{ "id" : 1 },
-			{ "id" : 2 }
+			{ "id" : "1" },
+			{ "id" : "2" }
 		]
 	}],
 	"meta" : { }
@@ -1157,8 +1157,8 @@ referencing the parent "enterprise".
 			"id" : "abc123"
 		},
 		"authors" : [
-			{ "id" : 1 },
-			{ "id" : 2 }
+			{ "id" : "1" },
+			{ "id" : "2" }
 		]
 	}],
 	"meta" : { }
@@ -1199,8 +1199,8 @@ id 2, but instead removes the relationship between them.
 		"name" : "An Article",
 		"published" : true,
 		"authors" : [
-			{ "id" : 1 },
-			{ "id" : 2 }
+			{ "id" : "1" },
+			{ "id" : "2" }
 		]
 	}],
 	"meta" : { }
@@ -1219,7 +1219,7 @@ id 2, but instead removes the relationship between them.
 		"name" : "An Article",
 		"published" : true,
 		"authors" : [
-			{ "id" : 1 }
+			{ "id" : "1" }
 		]
 	}],
 	"meta" : { }
