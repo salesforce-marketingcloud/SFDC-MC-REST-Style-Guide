@@ -1136,51 +1136,7 @@ referencing the parent "enterprise".
 
 ```
 
-
-# Request Format 
-
-* Servers MUST reject requests if the body has unexpected or undocumented
-properties OR objects.
-
-# Response Format
-
-Responses from a route MUST be returned in the prescribed envelope format.
-Response objects MUST include all properties on a resource, even when value is
-"null".
-
-## Header
-
-Routes MUST respond with a "Location" header describing the location of the
-newly created resource when a resource is created.
-
-## Localization
-
-Routes adhering to REST Definition 4.0 MUST NOT provide localized values.
-
-## Envelope
-
-Routes MUST respond with the following JSON envelope. The envelope MUST contain at least
-one Data or Error object.
-
-| Property Name | Type   | Cardinality | Description                                    |
-|---------------|--------|-------------|------------------------------------------------|
-| Data          | Array  | 0 - 1       | A collection of Data objects, can be empty. MUST
-be an array, even if there are 1 or fewer objects being returned.                       |
-| Meta          | Object | 0 - 1       | Object containing metadata about the response. |
-| Error         | Object | 0 - 1       | Object containing information about an error.  |
-
-### Data Object
-
-Routes that respond with data must contain that data in the Data Object.  Data objects
-MUST contain an identifier, and any number of additional properties.
-
-| Property Name | Type   | Cardinality | Description                                    |
-|---------------|--------|-------------|------------------------------------------------|
-| Id            | String | 1 - 1       | An identifier for the resource.                |
-| *             | *      | *           | MAY have any number of additional properties.  |
-
-
-#### Relationships
+## Relationships
 
 A relationship is a reference to an external object.  In this REST Definition,
 relationships are always represented as objects.
@@ -1192,7 +1148,7 @@ with approval from the Platform team, to determine the appropiate minimum
 viable resource to return.
 
 
-##### Nested Relationships
+### Nested Relationships
 
 A nested relationship is a sub-resource on a root-level resource.  For Example:
     
@@ -1259,7 +1215,7 @@ id 2, but instead removes the relationship between them.
 ```
 
 
-##### Relationship Object
+### Relationship Object
 
 * SHOULD NOT contain properties other than Id.
 
@@ -1267,7 +1223,7 @@ id 2, but instead removes the relationship between them.
 |---------------|--------|-------------|------------------------------------------------|
 | Id            | String | 1 - 1       | An identifier for the related resource.        |
 
-##### Representing Relationships
+### Representing Relationships
 
 * To represent a 1-1 relationship, a single relationship object MUST be used.
 
@@ -1306,7 +1262,7 @@ id 2, but instead removes the relationship between them.
 }
 ```
 
-##### Relationships in Requests
+### Relationships in Requests
 
 * Requests containing relationship objects MUST only modify relationship
   between the two resources, and not the related objects themselves.
@@ -1316,6 +1272,50 @@ id 2, but instead removes the relationship between them.
 See also [Relationship definition](glossary.md)
 
 See also [Relationship object](justification/relationshipobject.md)
+
+
+# Request Format 
+
+* Servers MUST reject requests if the body has unexpected or undocumented
+properties OR objects.
+
+# Response Format
+
+Responses from a route MUST be returned in the prescribed envelope format.
+Response objects MUST include all properties on a resource, even when value is
+"null".
+
+## Header
+
+Routes MUST respond with a "Location" header describing the location of the
+newly created resource when a resource is created.
+
+## Localization
+
+Routes adhering to REST Definition 4.0 MUST NOT provide localized values.
+
+## Envelope
+
+Routes MUST respond with the following JSON envelope. The envelope MUST contain at least
+one Data or Error object.
+
+| Property Name | Type   | Cardinality | Description                                    |
+|---------------|--------|-------------|------------------------------------------------|
+| Data          | Array  | 0 - 1       | A collection of Data objects, can be empty. MUST
+be an array, even if there are 1 or fewer objects being returned.                       |
+| Meta          | Object | 0 - 1       | Object containing metadata about the response. |
+| Error         | Object | 0 - 1       | Object containing information about an error.  |
+
+### Data Object
+
+Routes that respond with data must contain that data in the Data Object.  Data objects
+MUST contain an identifier, and any number of additional properties.
+
+| Property Name | Type   | Cardinality | Description                                    |
+|---------------|--------|-------------|------------------------------------------------|
+| Id            | String | 1 - 1       | An identifier for the resource.                |
+| *             | *      | *           | MAY have any number of additional properties.  |
+
 
 ### Meta Object
 
