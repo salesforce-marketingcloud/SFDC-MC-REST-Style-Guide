@@ -49,6 +49,7 @@ are very rigorous and are difficult to achieve without framework support.
 * [Headers](#headers)
 	* [Request Headers](#request-headers)
 	* [Response Headers](#response-headers)
+* [Authentication](#authentication)
 * [Style](#style)
 	* [Request and Response Bodies](#request-and-response-bodies)
 	* [Identifiers](#identifiers)
@@ -83,20 +84,18 @@ are very rigorous and are difficult to achieve without framework support.
 	* [Error Envelope](#error-envelope)
 		* [Error Detail Object](#error-detail-object)
 	* [Validation Details](#validation-details)
-* [Field Specification Format](#field-specification-format)
-* [Sorting](#sorting)
-* [Partial Responses](#partial-responses)
-* [Filtering](#filtering)
-	* [Properties](#properties)
-	* [Operations](#operations)
-	* [Comma Separated Values](#comma-separated-values)
-	* [Values](#values)
-* [Pagination](#pagination)
-	* [Offset](#offset)
-	* [Cursor](#cursor)
-	* [Traditional Paging](#traditional-paging)
-* [Searching](#searching)
-* [Authentication](#authentication)
+* [Interaction Patterns](#interaction-patterns)
+	* [Field Specification Format](#field-specification-format)
+	* [Sorting](#sorting)
+	* [Partial Responses](#partial-responses)
+	* [Filtering](#filtering)
+		* [Properties](#properties)
+		* [Operations](#operations)
+		* [Comma Separated Values](#comma-separated-values)
+		* [Values](#values)
+	* [Pagination](#pagination)
+		* [Offset](#offset)
+	* [Searching](#searching)
 
 # Versioning in the API
 
@@ -811,6 +810,12 @@ outside of the defined list.
 * Content-Type
 	* Responses MUST be "application/json; charset=utf-8"
 
+# Authentication
+
+Authentication MUST only be done with "Authorization" header. Routes bearer token usage MUST NOT accept Form-encoded body; routes MUST NOT accept URI Query parameter tokens.
+
+See also [OAuth 2.0 (RFC6749)](http://tools.ietf.org/html/rfc6749)  
+See also [OAuth 2.0 Bearer Token Usage (RFC6750)](http://tools.ietf.org/html/rfc6750#section-2)  
 
 # Style
 
@@ -1502,8 +1507,13 @@ valid request. e.g.
 }
 ```
 
-# Field Specification Format
-The format is [Google Partial Response Field
+# Interaction Patterns
+
+## Field Specification Format
+The Field Specification Format is used by a variety of Interaction Patterns for
+identifying specific properties within a JSON object.
+
+The format we've adopted is the [Google Partial Response Field
 Format](https://developers.google.com/custom-search/json-api/v1/performance#partial).
 
 See Also: [Google's Description of Partial Response Field](pattern/google_partial_responses.md)
@@ -1523,7 +1533,7 @@ See Also: [Google's Description of Partial Response Field](pattern/google_partia
 * a wildcard, "\*"  can be used for all properties within a sub-object, e.g., to select all objects in a pagemap:
     * `fields=items/pagemap/\*` 
 
-# Sorting
+## Sorting
 
 Routes MAY support sorting. Routes supporting sorting MUST use the query string
 parameter `sort`.  Properties to be sorted MUST be specified in the Field
@@ -1534,7 +1544,7 @@ By default, `sort` order MUST BE ascending.  Routes MUST support a descending
 flag on all valid properties with a leading minus "-" on the field
 specification format value.
 
-## Multiple Sort Values
+### Multiple Sort Values
 
 The `sort` QSP MAY accept multiple values. It MUST accept 1-and-only-1 property 
 per sort tuple specified. You cannot specify a single `sort` value that would
@@ -1542,7 +1552,7 @@ resolve to multiple properties - However, you may specify multiple sort values t
 resolve to a single property each. A `sort` with a value that resolves to more
 than one property MUST return a 400 error.
 
-### Multiple Sort Values Examples
+#### Multiple Sort Values Examples
 ```    
     ?sort=articles(id),articles(author)  # GOOD
     ?sort=articles(id, author)           # BAD
@@ -1550,7 +1560,7 @@ than one property MUST return a 400 error.
     ?sort=articles/*                     # BAD
 
 ```
-## Example
+### Example
 
 ```javascript
 /* Sort by cores ascending */
@@ -1851,14 +1861,14 @@ than one property MUST return a 400 error.
 }
 ```
 
-# Partial Responses
+## Partial Responses
 Routes SHOULD support partial responses. Properties to **include** MUST be
 specified by the query string parameter `fields`. The format MUST be in the
 "Field Specification format".
 
 See also [Salesforce Style](http://www.salesforce.com/us/developer/docs/api_rest/Content/dome_get_field_values.htm)
 
-**Example**
+### Example
 Request for a partial response: This HTTP GET request for the above resource
 that uses the fields parameter significantly reduces the amount of data
 returned.  
@@ -1896,7 +1906,7 @@ returned.
 /* Partial Response */
 ```
 
-# Filtering
+## Filtering
 
 Filtering MUST be restricted to exposed properties. Clients and routes SHOULD
 use filtering to limit the results in a structured and absolute way.
@@ -1913,13 +1923,13 @@ A filter with a field specification wider than one property MUST return a 400 er
 ?f[parent/*][eq]=1
 ```
 
-## Properties
+### Properties
 
 Filtered Properties MUST adhere ot the Field Specification Format.  
 
 See also [Partial Responses]("#Partial Responses")
 
-## Operations
+### Operations
 
 A Filter's Operation MUST be 1-and-only-1 of the following values. Multiple
 filters MAY be supported.  If Multiple filters are specified, the Filters MUST
@@ -1935,12 +1945,12 @@ all operations.
 | lt               | <  Less than              | MUST ONLY be a number or date          | 
 | lte              | <= Less than or equals    | MUST ONLY be a number or date          | 
 
-## Values
+### Values
 For the operations `eq` and `not` routes MAY support comma separated values.
 Operations `gt`, `gte`, `lt`, `lte` MUST support only a single value. Routes
 MUST treat all double quotes and commas as literals in these operations.
 
-## Comma Separated Values
+### Comma Separated Values
 
 If multiple values are specified in the "eq" or "not" operations , they MUST be
 in double quoted CSV format, as defined in the following ABNF grammar adapted
@@ -1965,7 +1975,7 @@ COMMA = %x2C
 DQUOTE = %x22
 ```
 
-## Examples
+### Examples
 ```
 /* Pattern */
 f[{property}][{operation}]={value}
@@ -2235,7 +2245,7 @@ WHERE color = '"blue"'
 ```
 
 
-# Pagination
+## Pagination
 
 Collection routes SHOULD support pagination.  Routes that do not support
 pagination MUST return all items, regardless of the total number of results, or 400
@@ -2263,7 +2273,7 @@ Results MUST be limited to no more than 1000 results.
 * `links` MAY include an object `last` which MUST include a link to the last 
   page of results. 
 
-## Offset
+### Offset
 
 Offset based pagination allows a request to specify a number of results to skip
 in a result set, as well as a total number of results to return, after the
@@ -2278,7 +2288,7 @@ Query string parameter `offset` MUST be the number of results to skip.
 
 Query string parameter `limit` MUST be the number of results to return.
 
-**Examples**
+#### Examples
 * ?limit=50&offset=50 would begin with the 51st object in a collection, and
   would return no more than 50 results.
 * ?limit=25&offset=0 would begin with the 1st object in a collection, would
@@ -2286,7 +2296,7 @@ Query string parameter `limit` MUST be the number of results to return.
 * ?limit=1000&offset=11 would begin with the 12th object in a collection, and
   would return 1000 results.
 
-** Bad Examples **
+##### Bad Examples 
 
 * ?limit=1001&offset=0 would return 400 Bad Request, because routes cannot
   return more than 1000 results. 
@@ -2550,7 +2560,7 @@ Query string parameter `limit` MUST be the number of results to return.
 }
 ```
 
-## Cursor
+### Cursor
 
 Cursor based pagination allows clients to browse large, dynamic datasets
 without missing results.
@@ -2560,14 +2570,14 @@ Routes following REST Definition 4.0 SHALL NOT support cursor paging.
 See also [Facebook cursor paging](http://api-portal.anypoint.mulesoft.com/facebook/api/facebook-graph-api/docs/reference/pagination)
 See also [Amazon cursor paging](http://docs.aws.amazon.com/cloudsearch/latest/developerguide/paginating-results.html#deep-paging)
 
-## Traditional Paging
+### Traditional
 
 Traditional pagination allows clients to browse data sets by specifying a page
 number and a page size.
 
 Routes following REST Definition 4.0 SHALL NOT support traditional paging.
 
-# Searching
+## Searching
 
 Searching is to find resources based on one or many properties of that resource.
 
@@ -2588,6 +2598,8 @@ Routes SHOULD search properties in a contains (e.g. Left and Right side
 wildcard, *foo*) fashion
 
 See also [Querying](pattern/querying.md)
+
+### Examples
 
 ```javascript
 /* search should be contains */
@@ -2704,9 +2716,4 @@ See also [Querying](pattern/querying.md)
 }
 ```
 
-# Authentication
 
-Authentication MUST only be done with "Authorization" header. Routes bearer token usage MUST NOT accept Form-encoded body; routes MUST NOT accept URI Query parameter tokens.
-
-See also [OAuth 2.0 (RFC6749)](http://tools.ietf.org/html/rfc6749)  
-See also [OAuth 2.0 Bearer Token Usage (RFC6750)](http://tools.ietf.org/html/rfc6750#section-2)  
