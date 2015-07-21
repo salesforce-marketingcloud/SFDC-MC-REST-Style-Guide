@@ -46,12 +46,12 @@ are very rigorous and are difficult to achieve without framework support.
 		* [OPTIONS](#options)
 		* [HTTP method/action
 		  substitution](#http-methodaction-substitution)
-	* [HTTP Compression](#http-compression)
-		* [Compression Request](#compression-request)
-		* [Compression Response](#compression-response)
 	* [Headers](#headers)
 		* [Request Headers](#request-headers)
 		* [Response Headers](#response-headers)
+	* [HTTP Compression](#http-compression)
+		* [Compression Request](#compression-request)
+		* [Compression Response](#compression-response)
 * [Authentication](#authentication)
 * [Style](#style)
 	* [Request and Response Bodies](#request-and-response-bodies)
@@ -745,41 +745,6 @@ POST {service}/{resources}/{id}/{sub-resources}/{id}/action/{name}
 
 ```
 
-## HTTP Compression
-
-Servers can make significant performance improvements by utilizing built-in
-compression in HTTP. The guide includes both compression as a means for
-clients, especially SDKs, to know that compression is always available. Request
-compression is difficult to retroactively add to an API so it is important to
-support within all routes in the first version at a framework level. Most
-frameworks and stacks support this as a configuration option.
-
- * [Apache](http://httpd.apache.org/docs/2.4/mod/mod_deflate.html#input)
- * [Tomcat](http://predic8.com/gzip-compression-filter.htm)
- * [Ngix](http://nginx.com/resources/admin-guide/compression-and-decompression/)
- * [Node.js](https://github.com/expressjs/compression)
- * [IIS broken self roll it](http://stackoverflow.com/questions/16671216/how-do-i-enable-gzip-compression-for-post-upload-requests-to-a-soap-webservice)
-
-### Compression Request
-Servers MUST support "gzip" for requests, optional section of HTTP1.1. Requests
-with a body and header "Content-Encoding: gzip" are uncompressed before
-processing in accordance to [Content-Encoding RFC7231 Section
-3.1.2.2](https://tools.ietf.org/html/rfc7231#section-3.1.2.2).
-
-See also [Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content
-RFC7231](https://tools.ietf.org/html/rfc7231)  See also [Http2 Use of
-Compression](http://http2.github.io/http2-spec/#rfc.section.10.6)  
-
-### Compression Response
-Servers MUST support "gzip" for responses, optional section of HTTP1.1.
-Requests with a header "Accept-Encoding: gzip" MUST be compressed in accordance
-with [Accept-Encoding RFC7231 Section
-5.3.4](https://tools.ietf.org/html/rfc7231#section-5.3.4)
-
-See also [Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content
-RFC7231](https://tools.ietf.org/html/rfc7231)  See also [Http2 Use of
-Compression](http://http2.github.io/http2-spec/#rfc.section.10.6)  
-
 ## Headers
 A specific set of headers are supported. A server MUST NOT respect any header
 outside of the defined list.
@@ -830,6 +795,41 @@ outside of the defined list.
 	* MUST be back of Request's Original-Request-Id if provided.
 * Content-Type
 	* Responses MUST be "application/json; charset=utf-8"
+
+## HTTP Compression
+
+Servers can make significant performance improvements by utilizing built-in
+compression in HTTP. The guide includes both compression as a means for
+clients, especially SDKs, to know that compression is always available. Request
+compression is difficult to retroactively add to an API so it is important to
+support within all routes in the first version at a framework level. Most
+frameworks and stacks support this as a configuration option.
+
+ * [Apache](http://httpd.apache.org/docs/2.4/mod/mod_deflate.html#input)
+ * [Tomcat](http://predic8.com/gzip-compression-filter.htm)
+ * [Ngix](http://nginx.com/resources/admin-guide/compression-and-decompression/)
+ * [Node.js](https://github.com/expressjs/compression)
+ * [IIS broken self roll it](http://stackoverflow.com/questions/16671216/how-do-i-enable-gzip-compression-for-post-upload-requests-to-a-soap-webservice)
+
+### Compression Request
+Servers MUST support "gzip" for requests, optional section of HTTP1.1. Requests
+with a body and header "Content-Encoding: gzip" are uncompressed before
+processing in accordance to [Content-Encoding RFC7231 Section
+3.1.2.2](https://tools.ietf.org/html/rfc7231#section-3.1.2.2).
+
+See also [Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content
+RFC7231](https://tools.ietf.org/html/rfc7231)  See also [Http2 Use of
+Compression](http://http2.github.io/http2-spec/#rfc.section.10.6)  
+
+### Compression Response
+Servers MUST support "gzip" for responses, optional section of HTTP1.1.
+Requests with a header "Accept-Encoding: gzip" MUST be compressed in accordance
+with [Accept-Encoding RFC7231 Section
+5.3.4](https://tools.ietf.org/html/rfc7231#section-5.3.4)
+
+See also [Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content
+RFC7231](https://tools.ietf.org/html/rfc7231)  See also [Http2 Use of
+Compression](http://http2.github.io/http2-spec/#rfc.section.10.6)  
 
 # Authentication
 
