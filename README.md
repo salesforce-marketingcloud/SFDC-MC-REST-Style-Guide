@@ -31,24 +31,27 @@ are very rigorous and are difficult to achieve without framework support.
 	* [Table of contents](#table-of-contents)
 * [Versioning in the API](#versioning-in-the-api)
 	* [Version numbering schema](#version-numbering-schema)
-	* [Allowed changes/updates to a Version](#allowed-changesupdates-to-a-version)
-* [HTTP status codes](#http-status-codes)
-	* [Implicit](#implicit)
-	* [Explicit](#explicit)
-* [HTTP Methods](#http-methods)
-	* [POST](#post)
-	* [GET](#get)
-	* [DELETE](#delete)
-	* [PUT](#put)
-	* [PATCH](#patch)
-	* [OPTIONS](#options)
-	* [HTTP method/action substitution](#http-methodaction-substitution)
-* [HTTP Compression](#http-compression)
-	* [Compression Request](#compression-request)
-	* [Compression Response](#compression-response)
-* [Headers](#headers)
-	* [Request Headers](#request-headers)
-	* [Response Headers](#response-headers)
+	* [Allowed changes/updates to a
+	  Version](#allowed-changesupdates-to-a-version)
+* [HTTP](#http)
+	* [HTTP status codes](#http-status-codes)
+		* [Implicit](#implicit)
+		* [Explicit](#explicit)
+	* [HTTP Methods](#http-methods)
+		* [POST](#post)
+		* [GET](#get)
+		* [DELETE](#delete)
+		* [PUT](#put)
+		* [PATCH](#patch)
+		* [OPTIONS](#options)
+		* [HTTP method/action
+		  substitution](#http-methodaction-substitution)
+	* [HTTP Compression](#http-compression)
+		* [Compression Request](#compression-request)
+		* [Compression Response](#compression-response)
+	* [Headers](#headers)
+		* [Request Headers](#request-headers)
+		* [Response Headers](#response-headers)
 * [Authentication](#authentication)
 * [Style](#style)
 	* [Request and Response Bodies](#request-and-response-bodies)
@@ -229,9 +232,11 @@ add new required query string parameters.
 
 ```
 
-# HTTP status codes
+# HTTP 
 
-## Implicit
+## HTTP status codes
+
+### Implicit
 
 Implicit codes are framework level, and generally unused
 by Service and Route developers.
@@ -274,7 +279,7 @@ by Service and Route developers.
 * 504 Gateway Timeout
 	* reverse proxy style deployments
 
-## Explicit
+### Explicit
 
 Explicit codes are related to business logic responses, and will generally be
 used by Service and Route developers.
@@ -286,10 +291,13 @@ used by Service and Route developers.
 * 202 Accepted
 	* REQUIRED to only be used with async requests
 * 204 No content
-	* Usage NOT RECOMMENDED. When used MUST indicate request was successful and state submitted was accepted with no modifications or defaults. Discouraged for consistency e.g.
+	* Usage NOT RECOMMENDED. When used MUST indicate request was successful
+	  and state submitted was accepted with no modifications or defaults.
+	  Discouraged for consistency e.g.
 		* Deletes MAY return helpful information like "id" with a 200
 		* PUT MAY return the replaced content with a 200
-		* POST/create MAY return the created content with implict defaults and generated "id" with a 200
+		* POST/create MAY return the created content with implict
+		  defaults and generated "id" with a 200
 * 304 Not modified
 	* REQUIRED to only be used for freshness negotiation
 * 400 Bad Request
@@ -297,30 +305,34 @@ used by Service and Route developers.
 * 403 Forbidden
 	* Authenticated but lack permission to resource/operation
 * 404 Not Found
-	* Routes SHOULD return 403 if resource exists in the user's tenant, but user lacks access
+	* Routes SHOULD return 403 if resource exists in the user's tenant, but
+	  user lacks access
 * 409 Conflict
-	* Indicates that the request could not be processed because of conflict in the request, such as an edit conflict in the case of multiple updates.
+	* Indicates that the request could not be processed because of conflict
+	  in the request, such as an edit conflict in the case of multiple
+	  updates.
 * 412 Precondition Failed
-	* REQUIRED to only be used for concurrency failure (i.e. If-Matches "etag")
+	* REQUIRED to only be used for concurrency failure (i.e. If-Matches
+	  "etag")
 
 Routes MUST NOT return redirect status codes (3XX Codes excluding 304).
 
-# HTTP Methods
+## HTTP Methods
 
 Resources accept several HTTP methods.
 
-## POST
+### POST
 
-### Default Create
+A resource MAY support POST Create.  Routes supporting POST Create MUST accept
+a single object having the same JSON schema as an item in the collection of the
+data section of a GET on that resource. The resource contained in the request
+MUST be created, OR the server MUST respond with an error.
 
-A resource MAY support POST Create.  Routes supporting POST Create MUST accept 
-a single object having the same JSON schema as an item in the collection
-of the data section of a GET on that resource. The resource contained in the
-request MUST be created, OR the server MUST respond with an error.
-
-The server MUST respond with a 201 status and the created resource. The route 
+The server MUST respond with a 201 status and the created resource. The route
 MUST respond with the `id` of the created resource.  The server MUST respond
 with a Location: header pointing to the newly created resource.
+
+#### Examples
 
 ```javascript
 /* Creating a Single Resource */
@@ -407,7 +419,7 @@ with a Location: header pointing to the newly created resource.
 /* Article 1 is created with tag 2 relationship */
 ```
 
-## GET
+### GET
 
 The identified resource MUST be retrieved and MUST be idempotent. i.e. MUST NOT
 produce any side-effects.  A resource supporting GET SHOULD return the full representation
@@ -418,7 +430,7 @@ GET requests MUST NOT support a request body.
 
 See also [Relationships](#relationships)
 
-
+#### Examples
 ```javascript
 // GET /v4/content/articles/1
 // 200 OK
@@ -474,7 +486,7 @@ See also [Relationships](#relationships)
 
 ```
 
-## DELETE
+### DELETE
 
 A resource MAY support DELETE. The identified resource MUST be deleted, unless
 it is a nested relationship to the resource.  Routes MAY support a request body
@@ -486,7 +498,7 @@ the relationship not the nested resources.
 
 In version 4.0 of the REST Definition, Collection routes MUST NOT support DELETE.
 
-### Examples
+#### Examples
 
 ```javascript
 /* Deleting a single resource */
@@ -553,16 +565,16 @@ In version 4.0 of the REST Definition, Collection routes MUST NOT support DELETE
 See also [HTTP verb substitution](#HTTP verb substitution)
 
 
-## PUT
+### PUT
 
-A resource MAY support PUT. A PUT SHOULD replace a resource and MUST NOT create a
-resource.  A server SHOULD respond with a 200 when updating an existing
+A resource MAY support PUT. A PUT SHOULD replace a resource and MUST NOT create
+a resource.  A server SHOULD respond with a 200 when updating an existing
 resource.
 
-Resources can have immutable or server-defined fields (e.g. id, createdDate, etc).
-A valid PUT payload SHOULD either omit the values or specify the current values.
-A server SHOULD respond with a 400 when trying to replace immutable fields with
-new values.
+Resources can have immutable or server-defined fields (e.g. id, createdDate,
+etc).  A valid PUT payload SHOULD either omit the values or specify the current
+values.  A server SHOULD respond with a 400 when trying to replace immutable
+fields with new values.
 
 Routes supporting PUT MUST accept a single object having the same JSON schema
 as an item in the collection of the data section of a GET on that resource. The
@@ -573,7 +585,10 @@ collection.
 
 Routes MUST NOT support creation through PUT.
 
-### Examples
+See also [Upserting](pattern/upserting.md)
+
+#### Examples
+
 ```javascript
 // GET /v4/data/articles/2
 // 200 OK
@@ -613,33 +628,30 @@ Routes MUST NOT support creation through PUT.
 
 ```
 
-See also [Upserting](pattern/upserting.md)
+### PATCH
 
-
-## PATCH
-
-A resource MAY support PATCH. A PATCH request will update a portion of an existing
-resource.
+A resource MAY support PATCH. A PATCH request will update a portion of an
+existing resource.
 
 Routes supporting PATCH MUST accept a single object having the same JSON schema
 as an item in the collection of the data section of a GET on that resource.
 The request URI MUST uniquely identify the resource. The request MAY contain
 an "If-Match" header. In version 4.0 of this document, the If-Match header MUST
-not affect behavior of the route.  The request format MAY exclude properties that need not
-be updated. This includes omitting "id".
-
+not affect behavior of the route.  The request format MAY exclude properties
+that need not be updated. This includes omitting "id".
 
 PATCH requests SHOULD respond with error 400 "Bad Request" if the request
 attempts to update immutable properties of the resource.
 
 API consumers MAY set values to null by specifying the property with a null
-value. API consumers MUST specify an empty string `""` if the value of a property
-should be an empty string. If a property is not provided a route MUST NOT act
-on that property.
+value. API consumers MUST specify an empty string `""` if the value of a
+property should be an empty string. If a property is not provided a route MUST
+NOT act on that property.
 
 See also [Upserting](pattern/upserting.md)
 
-### Examples
+#### Examples
+
 ```javascript
 // GET /v4/data/articles/2
 // 200 OK
@@ -698,14 +710,14 @@ See also [Upserting](pattern/upserting.md)
 ```
 
 
-## OPTIONS
+### OPTIONS
 In response to OPTIONS method servers
 * MUST respond with valid methods
 * MUST NOT expose any other data
 * Is reserved for cross-origin resource sharing (CORS)
 
 
-## HTTP method/action substitution
+### HTTP method/action substitution
 A server MUST support the HTTP method "POST" to allow HTTP methods a client may
 not support.
 
@@ -716,7 +728,7 @@ convenience edge:
 * PATCH
 * DELETE
 
-### Examples
+#### Examples
 ```
 POST {service}/{resources}/action/{name}
 POST {service}/{resources}/{id}/action/{name}
@@ -733,7 +745,7 @@ POST {service}/{resources}/{id}/{sub-resources}/{id}/action/{name}
 
 ```
 
-# HTTP Compression
+## HTTP Compression
 
 Servers can make significant performance improvements by utilizing built-in
 compression in HTTP. The guide includes both compression as a means for
@@ -748,30 +760,38 @@ frameworks and stacks support this as a configuration option.
  * [Node.js](https://github.com/expressjs/compression)
  * [IIS broken self roll it](http://stackoverflow.com/questions/16671216/how-do-i-enable-gzip-compression-for-post-upload-requests-to-a-soap-webservice)
 
-## Compression Request
-Servers MUST support "gzip" for requests, optional section of HTTP1.1. Requests with a body and header
-"Content-Encoding: gzip" are uncompressed before processing in accordance to [Content-Encoding RFC7231 Section 3.1.2.2](https://tools.ietf.org/html/rfc7231#section-3.1.2.2).
+### Compression Request
+Servers MUST support "gzip" for requests, optional section of HTTP1.1. Requests
+with a body and header "Content-Encoding: gzip" are uncompressed before
+processing in accordance to [Content-Encoding RFC7231 Section
+3.1.2.2](https://tools.ietf.org/html/rfc7231#section-3.1.2.2).
 
-See also [Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content RFC7231](https://tools.ietf.org/html/rfc7231)  
-See also [Http2 Use of Compression](http://http2.github.io/http2-spec/#rfc.section.10.6)  
+See also [Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content
+RFC7231](https://tools.ietf.org/html/rfc7231)  See also [Http2 Use of
+Compression](http://http2.github.io/http2-spec/#rfc.section.10.6)  
 
-## Compression Response
-Servers MUST support "gzip" for responses, optional section of HTTP1.1. Requests with a header "Accept-Encoding: gzip" MUST be compressed in accordance to
-[Accept-Encoding RFC7231 Section 5.3.4](https://tools.ietf.org/html/rfc7231#section-5.3.4)
+### Compression Response
+Servers MUST support "gzip" for responses, optional section of HTTP1.1.
+Requests with a header "Accept-Encoding: gzip" MUST be compressed in accordance
+with [Accept-Encoding RFC7231 Section
+5.3.4](https://tools.ietf.org/html/rfc7231#section-5.3.4)
 
-See also [Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content RFC7231](https://tools.ietf.org/html/rfc7231)  
-See also [Http2 Use of Compression](http://http2.github.io/http2-spec/#rfc.section.10.6)  
+See also [Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content
+RFC7231](https://tools.ietf.org/html/rfc7231)  See also [Http2 Use of
+Compression](http://http2.github.io/http2-spec/#rfc.section.10.6)  
 
-# Headers
+## Headers
 A specific set of headers are supported. A server MUST NOT respect any header
 outside of the defined list.
 
-## Request Headers
+### Request Headers
 * Authorization
 * Accept-Encoding
-	* Client MAY provide for response body compression. Supported value(s) are "gzip"
+	* Client MAY provide for response body compression. Supported value(s)
+	  are "gzip"
 * Content-Encoding
-	* Client MAY provide for request body compression. Supported value(s) are "gzip"
+	* Client MAY provide for request body compression. Supported value(s)
+	  are "gzip"
 * Origin, Access-Control-Request-Method, Access-Control-Request-Headers
 	* Support for CORS
 * Original-Request-Id
@@ -780,19 +800,21 @@ outside of the defined list.
 * If-Match
 	* Client MAY provide etag values on PUT/PATCH for concurrency problems
 * If-None-Match
-	* Client MAY provide etag values on GET for cache behavior of HTTP code 304
+	* Client MAY provide etag values on GET for cache behavior of HTTP code
+	  304
 * Content-Type
 	* Client SHOULD provide "application/json; charset=utf-8"
 * Accept
 	* Client MAY provide an "accept" header. Routes MUST ignore the header.
 
 ## Response Headers
-* Access-Control-Allow-Origin, Access-Control-Allow-Methods, Access-Control-Allow-Headers, Access-Control-Max-Age, Access-Control-Expose-Headers, Access-Control-Allow-Credentials
+* Access-Control-Allow-Origin, Access-Control-Allow-Methods,
+  Access-Control-Allow-Headers, Access-Control-Max-Age,
+  Access-Control-Expose-Headers, Access-Control-Allow-Credentials
 	* Support for CORS
 * Location
 	* Async MUST respond header to query the async task request
 	* Resource creation MUST respond with location of created resource
-
 * RateLimit-Limit
 	* Rate Limit Ceiling for the given resource. Value MUST start from
 	  one(1).
@@ -806,16 +828,18 @@ outside of the defined list.
 	  Characters MUST be within US-ASCII.
 * Original-Request-Id
 	* MUST be back of Request's Original-Request-Id if provided.
-
 * Content-Type
 	* Responses MUST be "application/json; charset=utf-8"
 
 # Authentication
 
-Authentication MUST only be done with "Authorization" header. Routes bearer token usage MUST NOT accept Form-encoded body; routes MUST NOT accept URI Query parameter tokens.
+Authentication MUST only be done with "Authorization" header. Routes bearer
+token usage MUST NOT accept Form-encoded body; routes MUST NOT accept URI Query
+parameter tokens.
 
 See also [OAuth 2.0 (RFC6749)](http://tools.ietf.org/html/rfc6749)  
-See also [OAuth 2.0 Bearer Token Usage (RFC6750)](http://tools.ietf.org/html/rfc6750#section-2)  
+See also [OAuth 2.0 Bearer Token Usage
+(RFC6750)](http://tools.ietf.org/html/rfc6750#section-2)  
 
 # Style
 
