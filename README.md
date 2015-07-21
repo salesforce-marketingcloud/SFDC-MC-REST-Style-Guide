@@ -28,7 +28,7 @@ are very rigorous and are difficult to achieve without framework support.
 
 * Salesforce Fuel 4.0 API REST Definition
 	* [Introduction](#introduction)
-	* [Table of contents]
+	* [Table of contents](#table-of-contents)
 * [Versioning in the API](#versioning-in-the-api)
 	* [Version numbering schema](#version-numbering-schema)
 	* [Allowed changes/updates to a Version](#allowed-changesupdates-to-a-version)
@@ -57,24 +57,25 @@ are very rigorous and are difficult to achieve without framework support.
 	* [Query string](#query-string)
 	* [Collections](#collections)
 	* [Remote field expansion](#remote-field-expansion)
-	* [Marketing Cloud Specific Properties](#marketing-cloud-specific-properties)
+	* [Properties](#properties)
+		* [Property Naming](#property-naming)
+		* [Data Property Types](#data-property-types)
+			* [Numbers](#numbers)
+			* [Arrays](#arrays)
+			* [Boolean](#boolean)
+		* [Enumerations](#enumerations)
+		* [Dates and Times](#dates-and-times)
+		* [Marketing Cloud Specific Properties](#marketing-cloud-specific-properties)
+	* [Relationships](#relationships)
+		* [Relationship Object](#relationship-object)
+		* [Representing Relationships](#representing-relationships)
+		* [Relationships in Requests](#relationships-in-requests)
 * [Request Format](#request-format)
 * [Response Format](#response-format)
 	* [Header](#header)
 	* [Localization](#localization)
 	* [Envelope](#envelope)
 		* [Data Object](#data-object)
-			* [Data Property Naming](#data-property-naming)
-			* [Data Property Types](#data-property-types)
-				* [Dates](#dates)
-				* [Numbers](#numbers)
-				* [Arrays](#arrays)
-				* [Enumerations](#enumerations)
-				* [Boolean](#boolean)
-				* [Relationships](#relationships)
-					* [Relationship Object](#relationship-object)
-					* [Representing Relationships](#representing-relationships)
-					* [Relationships in Requests](#relationships-in-requests)
 		* [Meta Object](#meta-object)
 			* [Meta Object Structure](#meta-object-structure)
 			* [Link Object](#link-object)
@@ -908,7 +909,7 @@ Routes MUST NOT support a query string to expand relationship objects.
 Basic types must correspond to [JSON RFC 7159](https://tools.ietf.org/html/rfc7159)
 
 
-### Numbers
+#### Numbers
 
 RECOMMENDED to be unquoted. Examples of exceptions are when exact precision
 must be maintained in access of double precision numbers [IEEE
@@ -919,7 +920,7 @@ must be maintained in access of double precision numbers [IEEE
 	* NOT `"1000000.00"`
 	* NOT `"1,000,000.00"`
 
-### Arrays
+#### Arrays
 
 * MUST contain homogeneous values
     * Scalar values:
@@ -965,6 +966,25 @@ must be maintained in access of double precision numbers [IEEE
 	    "releaseDate" : "1950-12-02T00:00:00Z"
 	}
     ]
+```
+
+
+
+#### Boolean
+
+Boolean types must be represented by `true` or `false` in accordance to JSON
+
+```javascript
+// a published article
+{
+	"data" : [{
+		"id" : "1",
+		"name" : "An Article",
+		"published" : true
+	}],
+	"meta" : {
+	}
+}
 ```
 
 ### Enumerations
@@ -1037,24 +1057,6 @@ that new objects can not be set to, i.e. retired values.
 ```
 
 See also [API Description Document](API_Description_format.md)
-
-### Boolean
-
-Boolean types must be represented by `true` or `false` in accordance to JSON
-
-```javascript
-// a published article
-{
-	"data" : [{
-		"id" : "1",
-		"name" : "An Article",
-		"published" : true
-	}],
-	"meta" : {
-	}
-}
-```
-
 
 ### Dates and Times 
 
