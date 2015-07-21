@@ -893,6 +893,22 @@ Collections are Routes that return multiple objects.
 
 Routes MUST NOT support a query string to expand relationship objects.  
 
+## Dates and Times 
+
+* MUST include date, time and timezone.
+* Dates MUST be ISO 8601 style of:
+    * `2015-05-04T15:39:03Z`
+    * `2015-05-04T00:00:00T-0700`
+* Dates in responses MUST be returned in UTC, or Zulu time
+* Dates in requests MAY be accepted in non-UTC time, but MUST have an accompanying timezone offset
+    * `2015-05-04T00:00:00+0700`
+    * `2015-05-04T00:00:00-0300`
+* Dates MUST NOT accept or respond with any other ISO 8601 date style
+* Routes MAY accept no timezone for **recurring** events
+    * See pattern [Recurring events](pattern/recurringevent.md)
+
+See Also: [ISO 8601 Wikipedia](https://en.wikipedia.org/wiki/ISO_8601)
+
 ## Marketing Cloud Specific Properties
 
 When including information about a Resource's Enterprise, Business Unit/Member,
@@ -960,10 +976,6 @@ referencing the parent "enterprise".
 
 # Request Format 
 
-* Dates MUST be ISO 8601 style of 2015-05-04T15:39:03Z
-	* MUST NOT include any other ISO 8601 date style
-	* requests MUST be in either 'Z' or plus/minus format
-
 * Servers MUST reject requests if the body has unexpected or undocumented
 properties OR objects.
 
@@ -1016,17 +1028,6 @@ MUST contain an identifier, and any number of additional properties.
 
 Basic types must correspond to [JSON RFC 7159](https://tools.ietf.org/html/rfc7159)
 
-##### Dates
-
-* MUST include date, time and timezone.
-* Responses MUST always be returned in UTC
-* MUST be ISO 8601 style of 2015-05-04T15:39:03Z
-    * Routes MUST NOT accept any other ISO 8601 date style
-    * Requests MUST be in either 'Z' or plus/minus format
-        * `2015-05-21T00:00:00Z`
-        * `2015-05-21T08:00:00-08:00`
-    * Server MAY accept no timezone for **recurring** events
-        * See pattern [Recurring events](pattern/recurringevent.md)
 
 ##### Numbers
 
