@@ -891,9 +891,172 @@ Collections are Routes that return multiple objects.
 
 ## Remote field expansion
 
-Routes MUST NOT support a query string to expand relationship objects.  
+Routes MUST NOT support a query string to expand relationship objects.
 
-## Dates and Times 
+## Properties
+
+### Property Naming
+
+* Property Names SHOULD be camelCase
+* Properties containing a URL MUST be suffixed with "Url"
+    * `imageUrl : "http://i0.kym-cdn.com/photos/images/original/000/038/262/hahaguy.jpg"`
+* Properties containing a Date MUST be suffixed with "Date"
+    * `createdDate : "2015-05-21T00:00:00Z"`
+
+### Data Property Types
+
+Basic types must correspond to [JSON RFC 7159](https://tools.ietf.org/html/rfc7159)
+
+
+### Numbers
+
+RECOMMENDED to be unquoted. Examples of exceptions are when exact precision
+must be maintained in access of double precision numbers [IEEE
+754](http://grouper.ieee.org/groups/754/).
+
+* Decimal One Million SHOULD be represented as:
+	* `1000000.00`
+	* NOT `"1000000.00"`
+	* NOT `"1,000,000.00"`
+
+### Arrays
+
+* MUST contain homogeneous values
+    * Scalar values:
+        * `[1,2,3,4]`
+        * `["a", "b", "c", "d"]`
+        * NOT `[1, 'a', 2, 'b']`
+    * Objects MUST be arrays of the same type, e.g.
+
+```javascript
+/* array of Authors */
+    [ 
+        { 
+	    "id" : 1, 
+	    "name" : "George R.R. Martin" 
+	}, 
+	{ 
+	    "id" : 2, 
+	    "name" : "Isaac Asimov"
+	}
+    ]
+```
+    * Object arrays MUST not contain mixed objects, e.g.
+
+```javascript
+/* BAD : array of Authors mixed with Books */
+    [ 
+        { 
+	    "id" : 1, 
+	    "name" : "George R.R. Martin" 
+	}, 
+	{  
+	    "id" : 1,
+	    "title" : "Winds of Winter",
+	    "releaseDate" : "2016-05-17T00:00:00Z"
+	},
+	{ 
+	    "id" : 2, 
+	    "name" : "Isaac Asimov"
+	},
+	{
+	    "id" : 2,
+	    "title" : "I, Robot.",
+	    "releaseDate" : "1950-12-02T00:00:00Z"
+	}
+    ]
+```
+
+### Enumerations
+
+Enumerations are a fixed list of strings that represent the complete options
+for a property. Values contained by the list are documented and enforced
+through the required API description document. Routes MAY have enumerations
+that new objects can not be set to, i.e. retired values.
+
+* REQUIRED for all values to be listed in API description document
+* Value MUST be a string that is short and provides meaning in English
+	* `"EXAMPLE_1"` or `"Example2"`
+	* NOT `1` or `2`
+
+```javascript
+/* DON'T DO THIS - BAD EXAMPLES */
+
+// GET /v4/content/posts/1
+// 200 OK
+{
+	"data" : [{
+		"id" : "1",
+		"name" : "Blog post",
+		"type" : "1"
+		/* What is a '1'? */
+	}],
+	"meta" : {
+	}
+}
+
+// GET /v4/content/articles/1
+// 200 OK
+{
+	"data" : [{
+		"id" : "2",
+		"name" : "An Article",
+		"type" : "2"
+		/* What is a '2'? */
+	}],
+	"meta" : {
+	}
+}
+
+/* DO THIS, AND DESCRIBE THESE ENUMS IN YOUR SWAGGER DOCS - GOOD EXAMPLES */
+
+// GET /v4/content/posts/1
+// 200 OK
+{
+	"data" : [{
+		"id" : "1",
+		"name" : "Blog post",
+		"type" : "Blog"
+		/* Oh, it's a blog */
+	}],
+	"meta" : {
+	}
+}
+
+// GET /v4/content/articles/1
+// 200 OK
+{
+	"data" : [{
+		"id" : "2",
+		"name" : "An Article",
+		"type" : "Article"
+	}],
+	"meta" : {
+	}
+}
+```
+
+See also [API Description Document](API_Description_format.md)
+
+### Boolean
+
+Boolean types must be represented by `true` or `false` in accordance to JSON
+
+```javascript
+// a published article
+{
+	"data" : [{
+		"id" : "1",
+		"name" : "An Article",
+		"published" : true
+	}],
+	"meta" : {
+	}
+}
+```
+
+
+### Dates and Times 
 
 * MUST include date, time and timezone.
 * Dates MUST be ISO 8601 style of:
@@ -909,7 +1072,7 @@ Routes MUST NOT support a query string to expand relationship objects.
 
 See Also: [ISO 8601 Wikipedia](https://en.wikipedia.org/wiki/ISO_8601)
 
-## Marketing Cloud Specific Properties
+### Marketing Cloud Specific Properties
 
 When including information about a Resource's Enterprise, Business Unit/Member,
 Routes MUST include a relationship object.  These relationships must be objects
@@ -1016,167 +1179,8 @@ MUST contain an identifier, and any number of additional properties.
 | Id            | String | 1 - 1       | An identifier for the resource.                |
 | *             | *      | *           | MAY have any number of additional properties.  |
 
-#### Data Property Naming
 
-* Property Names SHOULD be camelCase
-* Properties containing a URL MUST be suffixed with "Url"
-    * `imageUrl : "http://i0.kym-cdn.com/photos/images/original/000/038/262/hahaguy.jpg"`
-* Properties containing a Date MUST be suffixed with "Date"
-    * `createdDate : "2015-05-21T00:00:00Z"`
-
-#### Data Property Types
-
-Basic types must correspond to [JSON RFC 7159](https://tools.ietf.org/html/rfc7159)
-
-
-##### Numbers
-
-RECOMMENDED to be unquoted. Examples of exceptions are when exact precision
-must be maintained in access of double precision numbers [IEEE
-754](http://grouper.ieee.org/groups/754/).
-
-* Decimal One Million SHOULD be represented as:
-	* `1000000.00`
-	* NOT `"1000000.00"`
-	* NOT `"1,000,000.00"`
-
-##### Arrays
-
-* MUST contain homogeneous values
-    * Scalar values:
-        * `[1,2,3,4]`
-        * `["a", "b", "c", "d"]`
-        * NOT `[1, 'a', 2, 'b']`
-    * Objects MUST be arrays of the same type, e.g.
-
-```javascript
-/* array of Authors */
-    [ 
-        { 
-	    "id" : 1, 
-	    "name" : "George R.R. Martin" 
-	}, 
-	{ 
-	    "id" : 2, 
-	    "name" : "Isaac Asimov"
-	}
-    ]
-```
-    * Object arrays MUST not contain mixed objects, e.g.
-
-```javascript
-/* BAD : array of Authors mixed with Books */
-    [ 
-        { 
-	    "id" : 1, 
-	    "name" : "George R.R. Martin" 
-	}, 
-	{  
-	    "id" : 1,
-	    "title" : "Winds of Winter",
-	    "releaseDate" : "2016-05-17T00:00:00Z"
-	},
-	{ 
-	    "id" : 2, 
-	    "name" : "Isaac Asimov"
-	},
-	{
-	    "id" : 2,
-	    "title" : "I, Robot.",
-	    "releaseDate" : "1950-12-02T00:00:00Z"
-	}
-    ]
-```
-
-##### Enumerations
-
-Enumerations are a fixed list of strings that represent the complete options
-for a property. Values contained by the list are documented and enforced
-through the required API description document. Routes MAY have enumerations
-that new objects can not be set to, i.e. retired values.
-
-* REQUIRED for all values to be listed in API description document
-* Value MUST be a string that is short and provides meaning in English
-	* `"EXAMPLE_1"` or `"Example2"`
-	* NOT `1` or `2`
-
-```javascript
-/* DON'T DO THIS - BAD EXAMPLES */
-
-// GET /v4/content/posts/1
-// 200 OK
-{
-	"data" : [{
-		"id" : "1",
-		"name" : "Blog post",
-		"type" : "1"
-		/* What is a '1'? */
-	}],
-	"meta" : {
-	}
-}
-
-// GET /v4/content/articles/1
-// 200 OK
-{
-	"data" : [{
-		"id" : "2",
-		"name" : "An Article",
-		"type" : "2"
-		/* What is a '2'? */
-	}],
-	"meta" : {
-	}
-}
-
-/* DO THIS, AND DESCRIBE THESE ENUMS IN YOUR SWAGGER DOCS - GOOD EXAMPLES */
-
-// GET /v4/content/posts/1
-// 200 OK
-{
-	"data" : [{
-		"id" : "1",
-		"name" : "Blog post",
-		"type" : "Blog"
-		/* Oh, it's a blog */
-	}],
-	"meta" : {
-	}
-}
-
-// GET /v4/content/articles/1
-// 200 OK
-{
-	"data" : [{
-		"id" : "2",
-		"name" : "An Article",
-		"type" : "Article"
-	}],
-	"meta" : {
-	}
-}
-```
-
-See also [API Description Document](API_Description_format.md)
-
-##### Boolean
-
-Boolean types must be represented by `true` or `false` in accordance to JSON
-
-```javascript
-// a published article
-{
-	"data" : [{
-		"id" : "1",
-		"name" : "An Article",
-		"published" : true
-	}],
-	"meta" : {
-	}
-}
-```
-
-##### Relationships
+#### Relationships
 
 A relationship is a reference to an external object.  In this REST Definition,
 relationships are always represented as objects.
@@ -1188,7 +1192,7 @@ with approval from the Platform team, to determine the appropiate minimum
 viable resource to return.
 
 
-###### Nested Relationships
+##### Nested Relationships
 
 A nested relationship is a sub-resource on a root-level resource.  For Example:
     
@@ -1255,7 +1259,7 @@ id 2, but instead removes the relationship between them.
 ```
 
 
-###### Relationship Object
+##### Relationship Object
 
 * SHOULD NOT contain properties other than Id.
 
@@ -1263,7 +1267,7 @@ id 2, but instead removes the relationship between them.
 |---------------|--------|-------------|------------------------------------------------|
 | Id            | String | 1 - 1       | An identifier for the related resource.        |
 
-###### Representing Relationships
+##### Representing Relationships
 
 * To represent a 1-1 relationship, a single relationship object MUST be used.
 
@@ -1302,7 +1306,7 @@ id 2, but instead removes the relationship between them.
 }
 ```
 
-###### Relationships in Requests
+##### Relationships in Requests
 
 * Requests containing relationship objects MUST only modify relationship
   between the two resources, and not the related objects themselves.
