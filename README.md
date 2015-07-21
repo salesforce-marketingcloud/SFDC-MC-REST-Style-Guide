@@ -408,10 +408,6 @@ with a Location: header pointing to the newly created resource.
 /* Article 1 is created with tag 2 relationship */
 ```
 
-### Method/action substitution
-
-Routes MUST instead follow rules for the requested method/action in lieu of POST create rules.
-
 ## GET
 
 The identified resource MUST be retrieved and MUST be idempotent. i.e. MUST NOT
@@ -715,7 +711,7 @@ A server MUST support the HTTP method "POST" to allow HTTP methods a client may
 not support.
 
 Routes MUST ONLY accept the following case-sensitive values for the `action`
-query string parameter:
+convenience edge:
 
 * PUT
 * PATCH
