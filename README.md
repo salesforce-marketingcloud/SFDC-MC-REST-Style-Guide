@@ -28,7 +28,7 @@ are very rigorous and are difficult to achieve without framework support.
 
 * Salesforce Fuel 4.0 API REST Definition
 	* [Introduction](#introduction)
-	* [Table of contents](#table-of-contents)
+	* [Table of contents]
 * [Versioning in the API](#versioning-in-the-api)
 	* [Version numbering schema](#version-numbering-schema)
 	* [Allowed changes/updates to a Version](#allowed-changesupdates-to-a-version)
@@ -52,6 +52,7 @@ are very rigorous and are difficult to achieve without framework support.
 	* [Request Headers](#request-headers)
 	* [Response Headers](#response-headers)
 * [Style](#style)
+	* [Request and Response Bodies](#request-and-response-bodies)
 	* [Path](#path)
 	* [Query string](#query-string)
 	* [Collections](#collections)
