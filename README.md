@@ -21,14 +21,16 @@ interface into the Marketing Cloud - not to be the most RESTful REST that ever
 RESTed.
 
 API authors and framework developers should take careful note of
-[API Description Format](#api-description-format) as the requirements for schema information
-are very rigorous and are difficult to achieve without framework support.
+[API Description Format](#api-description-format) as the requirements for
+schema information are very rigorous and are difficult to achieve without
+framework support.
 
 ## Table of contents
 
 * Salesforce Fuel 4.0 API REST Definition
 	* [Introduction](#introduction)
 	* [Table of contents](#table-of-contents)
+* [The Basics](#the-basics)
 * [Versioning in the API](#versioning-in-the-api)
 	* [Version numbering schema](#version-numbering-schema)
 	* [Allowed changes/updates to a
@@ -99,6 +101,19 @@ are very rigorous and are difficult to achieve without framework support.
 	* [Pagination](#pagination)
 		* [Offset](#offset)
 	* [Searching](#searching)
+
+# The Basics
+
+The Fuel REST API Definition is an HTTP API that generally utilizes JSON.
+We rely on these Standards and Specifications heavily. A general understanding
+of these technologies is required for Fuel REST API development.
+
+See Also:
+
+[JSON.org](http://json.org)
+[JSON RFC 7159](https://tools.ietf.org/html/rfc7159)
+[HTTP RFC 2616](http://www.w3.org/Protocols/rfc2616/rfc2616.html)
+
 
 # Versioning in the API
 
