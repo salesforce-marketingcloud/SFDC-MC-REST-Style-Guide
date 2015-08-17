@@ -1,4 +1,4 @@
-# Salesforce Fuel-API REST style guide
+# Salesforce Fuel REST API Style Guide
 
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD",
 "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be
