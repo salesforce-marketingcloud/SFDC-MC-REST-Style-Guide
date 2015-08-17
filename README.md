@@ -6,7 +6,7 @@ interpreted as described in [RFC 2119](http://www.ietf.org/rfc/rfc2119.txt).
 
 ## Introduction
 
-The Fuel-API REST Style-guide defines the standards which all REST APIs across the
+The Salesforce Fuel REST API Style Guide defines the standards which all REST APIs across the
 Salesforce Marketing Cloud MUST adhere to. 
 
 This document provides opinionated answers to developer questions surrounding
