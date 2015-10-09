@@ -245,6 +245,25 @@ add new required query string parameters.
 // GET /v4/content/authors/1?fakeQSP=1
 // Cannot rename QSPs.  Cannot change Type of QSPs.
 
+// Example of removing an HTTP Method on a resource
+// original
+// GET /v4/content/authors/1
+{
+    "data" : [{
+    	"id" : "1",
+	"fname" : "George",
+	"lname" : "Martin",
+	"age"   : 76
+    }],
+    "meta" : {}
+}
+
+// Breaking Change
+// GET /v4/content/authors/1
+// 404 Not Found
+
+
+
 ```
 
 # HTTP 
