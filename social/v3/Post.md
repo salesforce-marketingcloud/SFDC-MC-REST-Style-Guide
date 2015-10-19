@@ -160,40 +160,28 @@ The post service contains methods for interacting with collections of post objec
   ],
   "postDynamics": [
     {
-      "fieldId": "5",
       "label": "View Count",
       "value": "0"
     },
     {
-      "fieldId": "1",
       "label": "Comment Count",
       "value": "0"
     },
     {
-      "fieldId": "2",
       "label": "Unique Commenters",
       "value": "0"
     },
     {
-      "fieldId": "3",
       "label": "Engagement",
       "value": "0"
     },
     {
-      "fieldId": "4",
       "label": "Likes and Votes",
       "value": "0"
     },
     {
-      "fieldId": "7",
       "label": "Inbound Links",
       "value": "0"
-    },
-    {
-      "fieldId": "21",
-      "label": "Sentiment",
-      "value": "0",
-      "overridden": "false"
     }
   ],
   "metadata": null,
@@ -353,40 +341,28 @@ For more information on the type of workflow objects in the resulting collection
             "workflow": [],
             "postDynamics": [
                 {
-                    "fieldId": "5",
                     "label": "View Count",
                     "value": "0"
                 },
                 {
-                    "fieldId": "1",
                     "label": "Comment Count",
                     "value": "0"
                 },
                 {
-                    "fieldId": "2",
                     "label": "Unique Commenters",
                     "value": "0"
                 },
                 {
-                    "fieldId": "3",
                     "label": "Engagement",
                     "value": "0"
                 },
                 {
-                    "fieldId": "4",
                     "label": "Likes and Votes",
                     "value": "0"
                 },
                 {
-                    "fieldId": "7",
                     "label": "Inbound Links",
                     "value": "0"
-                },
-                {
-                    "fieldId": "21",
-                    "label": "Sentiment",
-                    "value": "0",
-                    "overridden": "false"
                 }
             ],
             "metadata": null,
@@ -445,40 +421,28 @@ For more information on the type of workflow objects in the resulting collection
             "workflow": [],
             "postDynamics": [
                 {
-                    "fieldId": "5",
                     "label": "View Count",
                     "value": "0"
                 },
                 {
-                    "fieldId": "1",
                     "label": "Comment Count",
                     "value": "0"
                 },
                 {
-                    "fieldId": "2",
                     "label": "Unique Commenters",
                     "value": "0"
                 },
                 {
-                    "fieldId": "3",
                     "label": "Engagement",
                     "value": "0"
                 },
                 {
-                    "fieldId": "4",
                     "label": "Likes and Votes",
                     "value": "0"
                 },
                 {
-                    "fieldId": "7",
                     "label": "Inbound Links",
                     "value": "0"
-                },
-                {
-                    "fieldId": "21",
-                    "label": "Sentiment",
-                    "value": "10",
-                    "overridden": "false"
                 }
             ],
             "metadata": null,
