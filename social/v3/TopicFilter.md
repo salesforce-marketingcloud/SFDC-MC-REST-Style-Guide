@@ -24,20 +24,11 @@ Nate that this endpoint is not intended to fetch information on keyword groups a
         "title": "scott.enman@radian6.com (clientId = 1)"
       },
       "visibility": "private",
-      "access": "read",
       "status": 1,
       "emv": 0,
       "languages": [],
       "mediaTypes": [],
       "regions": [],
-      "groups": [
-        {
-          "id": "86435",
-          "link": "https://stg2-dmz3.dev.ca1.sfmc.co/socialcloud/v2/workspaceGroups/86435",
-          "updated": "2015-07-21T17:59:29Z",
-          "title": "Clints Test Workspace2"
-        }
-      ],
       "keywordGroups": [],
       "billingCode": "",
       "includeSourceFilters": [],
