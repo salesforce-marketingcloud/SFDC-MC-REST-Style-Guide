@@ -287,7 +287,7 @@ We'll now alter this request to get only twitter posts for the same time period;
 
 ##### ...and now the next page
 This time we want the second page of these results. We've taken the last result of the previous call and extracted the ID from that post. We'll now use this value to tell the request that we only want to see posts 'older' (with a smaller ID) than the last one we saw in the first request. The ID of the last post in our request above was: 777777
-<pre>https://mcsapi.radian6.com/v3/posts?topics=1234&mediaTypes=8&limit=50&maxOffset=777777</pre>
+<pre>https://mcsapi.radian6.com/v3/posts?topics=1234&mediaTypes=8&limit=50&beforeId=777777</pre>
 
 ### Get Post Workflow
 
