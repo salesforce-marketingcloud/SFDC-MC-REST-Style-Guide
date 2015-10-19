@@ -10,7 +10,7 @@ For Author Tags Service see: [Tags Service](Tags.md)
 
 |Name    |Type    |Description|
 |--------|--------|-----------|
-|id      |URL     |The internal Radian6 author id|
+|id      |String     |The internal Radian6 author id|
 
 **Response**
 ```json
