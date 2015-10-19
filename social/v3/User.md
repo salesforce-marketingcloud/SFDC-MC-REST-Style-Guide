@@ -30,8 +30,6 @@ Standard limit and offset parameters enable paging over the set of users, where 
       "email": "testuser@radian6.com",
       "timeZone": "America/Goose_Bay",
       "enabled": true,
-      "avatarURL": "http://a0.twimg.com/profile_images/2373088574/zdkanvw2160o0sm6prgd_normal.jpeg",
-      "userRoleId": 6,
       "orgRoleId": 1,
       "languageId": 1,
       "createdDate": "2014-05-09T03:00:00Z",
@@ -66,8 +64,6 @@ Gets a user based on the input user id* providing the caller is in the same clie
       "email": "mcadmintest@salesforce.com",
       "timeZone": "America/Halifax",
       "enabled": true,
-      "avatarURL": null,
-      "userRoleId": 1,
       "orgRoleId": 2,
       "languageId": 1,
       "createdDate": "2014-07-09T18:42:22Z",
@@ -124,8 +120,6 @@ Sample JSON for a PUT that includes required and optional fields:
   "timeZone": "Europe/London",
   "enabled": true,
   "avatarURL": "http://a0.twimg.com/profile_images/1284202467/laptop-vector-model-122171296611479Nq0_normal.png",
-  "userRoleId": 6,
-  "orgRoleId": 1,
   "languageId": 1,
   "internalUserAvatarUrl": "http://socialstudio.s3.amazonaws.com/avatars/ad816b59936d93dc3ec36a43e15cbb8c"
 }
