@@ -23,13 +23,13 @@ For Author Tags Service see: [Tags Service](Tags.md)
             "externalLegacyId": null,
             "authorFullName": "API 1 APIQE อาหารสั",
             "avatar": "http://pbs.twimg.com/profile_images/1815149549/b-410745-animated_dog_normal.jpg",
-            "authorTags": [
+            "tags": [
                 {
                     "id": "13434",
                     "value": "Sample tag"
                 }
             ],
-            "authorComments": [
+            "comments": [
                 {
                     "id": "454545",
                     "value": "Sample note"
