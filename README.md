@@ -1,4 +1,4 @@
-# Salesforce Fuel REST API Style Guide
+# Salesforce Marketing Cloud REST API Style Guide
 
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD",
 "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be
@@ -6,7 +6,7 @@ interpreted as described in [RFC 2119](http://www.ietf.org/rfc/rfc2119.txt).
 
 ## Introduction
 
-The Salesforce Fuel REST API Style Guide defines the standards which all REST APIs across the
+The Marketing REST API Style Guide defines the standards which all REST APIs across the
 Salesforce Marketing Cloud MUST adhere to. 
 
 This document provides opinionated answers to developer questions surrounding
@@ -27,7 +27,7 @@ framework support.
 
 ## Table of contents
 
-* Salesforce Fuel-API REST style guide
+* Salesforce Marketing - API REST style guide
 * 	* [Introduction](#introduction)
 	* [Table of contents](#table-of-contents)
 * [The Basics](#the-basics)
@@ -104,9 +104,9 @@ framework support.
 
 # The Basics
 
-The Fuel REST API is an HTTP API that generally utilizes JSON.
+The Marketing REST API is an HTTP API that generally utilizes JSON.
 We rely on these Standards and Specifications heavily. A general understanding
-of these technologies is required for Fuel REST API development.
+of these technologies is required for Marketing REST API development.
 
 See Also:
 
