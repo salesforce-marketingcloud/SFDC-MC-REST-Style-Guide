@@ -1364,7 +1364,8 @@ one Data or Error object.
 
 | Property Name | Type   | Cardinality | Description                                    |
 |---------------|--------|-------------|------------------------------------------------|
-| Data          | Array  | 0 - 1       | A collection of Data objects, can be empty. MUST be an array, even if there are 1 or fewer objects being returned. |
+| Data          | Array  | 0 - 1       | A collection of Data objects, can be empty. MUST
+be an array, even if there are 1 or fewer objects being returned.                       |
 | Meta          | Object | 0 - 1       | Object containing metadata about the response. |
 | Error         | Object | 0 - 1       | Object containing information about an error.  |
 
