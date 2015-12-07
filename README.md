@@ -6,23 +6,22 @@ interpreted as described in [RFC 2119](http://www.ietf.org/rfc/rfc2119.txt).
 
 ## Introduction
 
-The Marketing REST API Style Guide defines the standards which all REST APIs across the
-Salesforce Marketing Cloud MUST adhere to. 
+The Marketing Cloud REST API Style Guide defines the standards that all REST
+APIs across the Salesforce Marketing Cloud MUST adhere to. 
 
 This document provides opinionated answers to developer questions surrounding
 development of RESTful APIs. It aims to align Marketing Cloud development
-organizations who want to expose RESTful APIs, both public and internal, under
+organizations that want to expose RESTful APIs, both public and internal, under
 a common style.
 
-Consider this document a pragmatic, not dogmatic guide for RESTful APIs. It
+This document represents a pragmatic, not dogmatic, guide for RESTful APIs. It
 will make assertions that conflict with an academic definition of REST. It's
-goal is to provide developers with a predictable, simple and comprehensive
-interface into the Marketing Cloud - not to be the most RESTful REST that ever
-RESTed.
+goal is to provide developers with a predictable, simple, and comprehensive
+interface into the Marketing Cloud. 
 
-API authors and framework developers should take careful note of
-[API Description Format](#api-description-format) as the requirements for
-schema information are very rigorous and are difficult to achieve without
+API authors and framework developers should take careful note of the 
+[API Description Format](#api-description-format). The requirements for
+schema information are rigorous and difficult to achieve without adequate
 framework support.
 
 ## Table of contents
