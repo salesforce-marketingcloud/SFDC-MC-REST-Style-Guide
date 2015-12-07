@@ -111,7 +111,9 @@ See Also:
 
 [JSON.org](http://json.org)
 [JSON RFC 7159](https://tools.ietf.org/html/rfc7159)
-[HTTP RFC 2616](http://www.w3.org/Protocols/rfc2616/rfc2616.html)
+[HTTP RFC 2616](http://www.w3.org/Protocols/rfc2616/rfc2616.html) with the
+caveat that [RFC 2616 is
+Dead](https://www.mnot.net/blog/2014/06/07/rfc2616_is_dead)
 
 
 # Versioning in the API
