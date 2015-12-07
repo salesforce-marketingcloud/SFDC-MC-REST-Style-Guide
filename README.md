@@ -885,9 +885,7 @@ be a string, with a maximum length of 128 bytes. `id` MUST be treated
 as opaque by clients of the API.
 
 ## Plural Nouns
-Resources and Sub-Resources MUST be referenced as plural nouns.  Resources that
-will always be singular MUST be plural nouns.  Plural nouns MUST end in either
-the `-s` or `-es` suffix.
+Resources and Sub-Resources MUST be referenced as plural nouns.  
 
 ### Examples
 ```javascript 
