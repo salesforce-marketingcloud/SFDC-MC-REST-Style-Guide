@@ -474,6 +474,7 @@ See also [Relationships](#relationships)
 		"id" : "1",
 		"name" : "An Article",
 		"tags" : [
+			{ "id" : "1" },
 			{ "id" : "2" }
 		]
 	}],
@@ -501,12 +502,12 @@ See also [Relationships](#relationships)
 {
 	"data" : [
 	{
-		"id" : "2",
-		"tag" : "business"
+		"id" : "1",
+		"tag" : "technology"
 	},
 	{
-		"id" : "3",
-		"tag" : "technology"
+		"id" : "2",
+		"tag" : "business"
 	}
 	],
 	"meta" : {
